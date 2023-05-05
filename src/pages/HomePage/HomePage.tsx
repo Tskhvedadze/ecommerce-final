@@ -1,4 +1,5 @@
 import { Carousel, Card } from '../../components'
+import { CarouselCategory } from '../../components/Carousel/CarouselCategory'
 
 import { SGridLayout } from './GridLayout/GridLayout'
 
@@ -68,6 +69,7 @@ const HomePage = () => {
                     link={'see terms and conditions'}
                 />
             </SGridLayout>
+            <CarouselCategory />
         </Div>
     )
 }
