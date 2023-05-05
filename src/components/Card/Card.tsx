@@ -1,18 +1,20 @@
-import React from 'react'
-import { SCardDiv } from './Card.styled'
+import { SCardDiv, STitleDiv, SImgDiv, SLinkDiv } from './Card.styled'
 
 type CardProps = {
     title: string
-    img: string
+    source: string
+    altName: string
     link: string
 }
 
-export const Card = ({ title, img, link }: CardProps) => {
+export const Card = ({ title, source, altName, link }: CardProps) => {
     return (
         <SCardDiv>
-            <div>{title}</div>
-            <div></div>
-            <div></div>
+            <STitleDiv>{title}</STitleDiv>
+            <SImgDiv>
+                <img src={source} alt={altName} />
+            </SImgDiv>
+            <SLinkDiv>{link}</SLinkDiv>
         </SCardDiv>
     )
 }
