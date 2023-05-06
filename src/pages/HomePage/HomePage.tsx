@@ -1,18 +1,17 @@
-import { Carousel, Card } from '../../components'
-import { CarouselCategory } from '../../components/Carousel/CarouselCategory'
+import { Carousel, Card, CarouselCategory } from 'components'
 
 import { SGridLayout } from './GridLayout/GridLayout'
 
 import { Div, Container } from './HomePage.styled'
 
-const homeGrid_1 = require('../../assets/images/home_grid_1.jpg')
-const homeGrid_2 = require('../../assets/images/home_grid_2.jpg')
-const homeGrid_3 = require('../../assets/images/home_grid_3.jpg')
-const homeGrid_4 = require('../../assets/images/home_grid_4.jpg')
-const homeGrid_5 = require('../../assets/images/home_grid_5.jpg')
-const homeGrid_6 = require('../../assets/images/home_grid_6.jpg')
-const homeGrid_7 = require('../../assets/images/home_grid_7.jpg')
-const homeGrid_8 = require('../../assets/images/home_grid_8.jpg')
+import homeGrid_1 from 'assets/images/home_grid_1.jpg'
+import homeGrid_2 from 'assets/images/home_grid_2.jpg'
+import homeGrid_3 from 'assets/images/home_grid_3.jpg'
+import homeGrid_4 from 'assets/images/home_grid_4.jpg'
+import homeGrid_5 from 'assets/images/home_grid_5.jpg'
+import homeGrid_6 from 'assets/images/home_grid_6.jpg'
+import homeGrid_7 from 'assets/images/home_grid_7.jpg'
+import homeGrid_8 from 'assets/images/home_grid_8.jpg'
 
 const HomePage = () => {
     return (

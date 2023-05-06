@@ -6,11 +6,11 @@ import { SDiv, SGradient } from './Carousel.styled'
 import 'swiper/css'
 import 'swiper/css/navigation'
 
-const carousel_1 = require('../../assets/images/carousel_1.jpg')
-const carousel_2 = require('../../assets/images/carousel_2.jpg')
-const carousel_3_vid = require('../../assets/images/carousel_vid.mp4')
-const carousel_4 = require('../../assets/images/carousel_4.jpg')
-const carousel_5 = require('../../assets/images/carousel_5.jpg')
+import carousel_1 from 'assets/images/carousel_1.jpg'
+import carousel_2 from 'assets/images/carousel_2.jpg'
+import carousel_3_vid from 'assets/images/carousel_vid.mp4'
+import carousel_4 from 'assets/images/carousel_4.jpg'
+import carousel_5 from 'assets/images/carousel_5.jpg'
 
 export const Carousel = () => {
     return (
