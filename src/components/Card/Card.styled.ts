@@ -30,11 +30,11 @@ export const SContentDiv = styled.div`
 `
 
 export const STitle = styled.h5`
-    ${tw`text-xl font-semibold tracking-tight text-gray-900 dark:text-white`}
+    ${tw`text-xl font-semibold tracking-tight text-gray-dark dark:text-white`}
 `
 
 export const SRatingSpan = styled.span`
-    ${tw`bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3`}
+    ${tw`bg-yellow-light text-yellow-dark text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-dark dark:text-yellow-light ml-3`}
 `
 
 export const SPriceSpan = styled.span`
@@ -42,10 +42,10 @@ export const SPriceSpan = styled.span`
 `
 
 export const SAddToCardBtn = styled.button`
-    ${tw`text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}
+    ${tw`text-white bg-orange hover:bg-orange-light focus:ring-4 focus:outline-none focus:ring-orange-light font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-orange-dark dark:hover:bg-orange dark:focus:ring-orange-light`}
 `
 
-// Flex div for Rating and Price
+//* Flex div for Rating and Price
 export const SFlexDivRating = styled.div`
     ${tw`flex items-center mt-2.5 mb-5`}
 `
