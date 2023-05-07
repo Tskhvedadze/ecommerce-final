@@ -1,73 +1,70 @@
+import { useEffect, useState } from 'react'
+import axios from 'axios'
+
 import { Carousel, Card, CarouselCategory, CarouselProduct } from 'components'
 
 import { SGridLayout } from './GridLayout/GridLayout'
-
 import { Div, Container } from './HomePage.styled'
 
-import homeGrid_1 from 'assets/images/home_grid_1.jpg'
-import homeGrid_2 from 'assets/images/home_grid_2.jpg'
-import homeGrid_3 from 'assets/images/home_grid_3.jpg'
-import homeGrid_4 from 'assets/images/home_grid_4.jpg'
-import homeGrid_5 from 'assets/images/home_grid_5.jpg'
-import homeGrid_6 from 'assets/images/home_grid_6.jpg'
-import homeGrid_7 from 'assets/images/home_grid_7.jpg'
-import homeGrid_8 from 'assets/images/home_grid_8.jpg'
+import { CardProps } from 'components/Card/Card'
+
+type ProductsProps = {
+    id: number
+}
+
+type ProductsCardProps = ProductsProps & CardProps
 
 const HomePage = () => {
+    const [limit, setLimit] = useState<number>(12)
+
+    const [data, setData] = useState<ProductsCardProps[] | null>()
+
+    const skip = limit - 12
+
+    useEffect(() => {
+        const url = `https://dummyjson.com/products?limit=${limit}&skip=${skip}&select=title,price,rating,brand,category,images`
+
+        axios.get(url).then((res) => {
+            setData(res.data?.products)
+        })
+    }, [limit, skip])
+
     return (
         <Div>
             <Container>testing</Container>
             <Carousel />
             <SGridLayout>
-                <Card
-                    title={'we have a surprise'}
-                    source={homeGrid_1}
-                    altName={'banner'}
-                    link={'see terms and conditions'}
-                />
-                <Card
-                    title={'we have a surprise'}
-                    source={homeGrid_2}
-                    altName={'banner'}
-                    link={'see terms and conditions'}
-                />
-                <Card
-                    title={'we have a surprise'}
-                    source={homeGrid_3}
-                    altName={'banner'}
-                    link={'see terms and conditions'}
-                />
-                <Card
-                    title={'we have a surprise'}
-                    source={homeGrid_4}
-                    altName={'banner'}
-                    link={'see terms and conditions'}
-                />
-                <Card
-                    title={'we have a surprise'}
-                    source={homeGrid_5}
-                    altName={'banner'}
-                    link={'see terms and conditions'}
-                />
-                <Card
-                    title={'we have a surprise'}
-                    source={homeGrid_6}
-                    altName={'banner'}
-                    link={'see terms and conditions'}
-                />
-                <Card
-                    title={'we have a surprise'}
-                    source={homeGrid_7}
-                    altName={'banner'}
-                    link={'see terms and conditions'}
-                />
-                <Card
-                    title={'we have a surprise'}
-                    source={homeGrid_8}
-                    altName={'banner'}
-                    link={'see terms and conditions'}
-                />
+                {data
+                    ? data.map((product) => {
+                          return (
+                              <Card
+                                  key={product.id}
+                                  images={product.images[0]}
+                                  rating={product.rating}
+                                  brand={product.brand}
+                                  title={product.title}
+                                  price={product.price}
+                                  category={product.category}
+                              />
+                          )
+                      })
+                    : null}
             </SGridLayout>
+            <div className='flex justify-center'>
+                <button
+                    onClick={() => setLimit((prev) => prev - 12)}
+                    className='inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
+                >
+                    Previous
+                </button>
+
+                <button
+                    onClick={() => setLimit((prev) => prev + 12)}
+                    className='inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
+                >
+                    Next
+                </button>
+            </div>
             <CarouselProduct />
             <CarouselCategory />
         </Div>
