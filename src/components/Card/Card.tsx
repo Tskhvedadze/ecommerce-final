@@ -1,20 +1,57 @@
-import { SCardDiv, STitleDiv, SImgDiv, SLinkDiv } from './Card.styled'
+import Rating from 'react-star-rate'
 
-type CardProps = {
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import {
+    SAddToCardBtn,
+    SCardDiv,
+    SCardDivBox,
+    SContentDiv,
+    SFlexDivPrice,
+    SFlexDivRating,
+    SImageDiv,
+    SPriceSpan,
+    SRatingSpan,
+    STitle,
+} from './Card.styled'
+
+export type CardProps = {
     title: string
-    source: string
-    altName: string
-    link: string
+    price: number
+    rating: number
+    brand: string
+    category: string
+    images: string
 }
 
-export const Card = ({ title, source, altName, link }: CardProps) => {
+export const Card = ({
+    title,
+    price,
+    rating,
+    brand,
+    category,
+    images,
+}: CardProps) => {
     return (
         <SCardDiv>
-            <STitleDiv>{title}</STitleDiv>
-            <SImgDiv>
-                <img src={source} alt={altName} />
-            </SImgDiv>
-            <SLinkDiv>{link}</SLinkDiv>
+            <SCardDivBox>
+                <SImageDiv imageUrl={images} />
+
+                <SContentDiv>
+                    <a href='#'>
+                        <STitle>{brand}</STitle>
+                    </a>
+
+                    <SFlexDivRating>
+                        <Rating value={rating} disabled />
+                        <SRatingSpan>{rating}</SRatingSpan>
+                    </SFlexDivRating>
+
+                    <SFlexDivPrice>
+                        <SPriceSpan>${price}</SPriceSpan>
+                        <SAddToCardBtn>Add to cart</SAddToCardBtn>
+                    </SFlexDivPrice>
+                </SContentDiv>
+            </SCardDivBox>
         </SCardDiv>
     )
 }
