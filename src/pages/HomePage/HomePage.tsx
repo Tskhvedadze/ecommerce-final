@@ -1,4 +1,4 @@
-import { Carousel, Card, CarouselCategory } from 'components'
+import { Carousel, Card, CarouselCategory, CarouselProduct } from 'components'
 
 import { SGridLayout } from './GridLayout/GridLayout'
 
@@ -20,54 +20,55 @@ const HomePage = () => {
             <Carousel />
             <SGridLayout>
                 <Card
-                    title={'we have a surptise'}
+                    title={'we have a surprise'}
                     source={homeGrid_1}
                     altName={'banner'}
                     link={'see terms and conditions'}
                 />
                 <Card
-                    title={'we have a surptise'}
+                    title={'we have a surprise'}
                     source={homeGrid_2}
                     altName={'banner'}
                     link={'see terms and conditions'}
                 />
                 <Card
-                    title={'we have a surptise'}
+                    title={'we have a surprise'}
                     source={homeGrid_3}
                     altName={'banner'}
                     link={'see terms and conditions'}
                 />
                 <Card
-                    title={'we have a surptise'}
+                    title={'we have a surprise'}
                     source={homeGrid_4}
                     altName={'banner'}
                     link={'see terms and conditions'}
                 />
                 <Card
-                    title={'we have a surptise'}
+                    title={'we have a surprise'}
                     source={homeGrid_5}
                     altName={'banner'}
                     link={'see terms and conditions'}
                 />
                 <Card
-                    title={'we have a surptise'}
+                    title={'we have a surprise'}
                     source={homeGrid_6}
                     altName={'banner'}
                     link={'see terms and conditions'}
                 />
                 <Card
-                    title={'we have a surptise'}
+                    title={'we have a surprise'}
                     source={homeGrid_7}
                     altName={'banner'}
                     link={'see terms and conditions'}
                 />
                 <Card
-                    title={'we have a surptise'}
+                    title={'we have a surprise'}
                     source={homeGrid_8}
                     altName={'banner'}
                     link={'see terms and conditions'}
                 />
             </SGridLayout>
+            <CarouselProduct />
             <CarouselCategory />
         </Div>
     )
