@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import tw from 'twin.macro'
 
 export const Div = styled.div`
-    ${tw`bg-amazonclone-background`}
+    ${tw`bg-amazonclone-background `}
 `
 
 export const Container = styled.div`

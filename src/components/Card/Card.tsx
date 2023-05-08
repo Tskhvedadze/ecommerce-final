@@ -1,6 +1,8 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import Rating from 'react-star-rate'
 
-/* eslint-disable jsx-a11y/anchor-is-valid */
+import { CardPhotoSwiper } from './CardPhotoSwiper/CardPhotoSwiper'
+
 import {
     SAddToCardBtn,
     SCardDiv,
@@ -8,7 +10,6 @@ import {
     SContentDiv,
     SFlexDivPrice,
     SFlexDivRating,
-    SImageDiv,
     SPriceSpan,
     SRatingSpan,
     STitle,
@@ -20,7 +21,7 @@ export type CardProps = {
     rating: number
     brand: string
     category: string
-    images: string
+    images: string[]
 }
 
 export const Card = ({
@@ -34,8 +35,7 @@ export const Card = ({
     return (
         <SCardDiv>
             <SCardDivBox>
-                <SImageDiv imageUrl={images} />
-
+                <CardPhotoSwiper images={images} />
                 <SContentDiv>
                     <a href='#'>
                         <STitle>{brand}</STitle>

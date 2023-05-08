@@ -1,14 +1,10 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Autoplay } from 'swiper'
 
-import { SDiv, SGradient } from './Carousel.styled'
-
-import 'swiper/css'
-import 'swiper/css/navigation'
+import { SDiv } from './Carousel.styled'
 
 import carousel_1 from 'assets/images/carousel_1.jpg'
 import carousel_2 from 'assets/images/carousel_2.jpg'
-import carousel_3_vid from 'assets/images/carousel_vid.mp4'
 import carousel_4 from 'assets/images/carousel_4.jpg'
 import carousel_5 from 'assets/images/carousel_5.jpg'
 
@@ -26,24 +22,35 @@ export const Carousel = () => {
                 navigation={true}
             >
                 <SwiperSlide>
-                    <img src={carousel_1} alt='carousel_1' />
+                    <img
+                        src={carousel_1}
+                        alt='carousel_1'
+                        className='h-[400px] w-[100%]'
+                    />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={carousel_2} alt='carousel_2' />
+                    <img
+                        src={carousel_2}
+                        alt='carousel_2'
+                        className='h-[400px] w-[100%]'
+                    />
                 </SwiperSlide>
-                <SwiperSlide className='bg-black'>
-                    <video controls muted>
-                        <source src={carousel_3_vid} type='video/mp4' />
-                    </video>
+
+                <SwiperSlide>
+                    <img
+                        src={carousel_4}
+                        alt='carousel_4'
+                        className='h-[400px] w-[100%]'
+                    />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={carousel_4} alt='carousel_4' />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img src={carousel_5} alt='carousel_5' />
+                    <img
+                        src={carousel_5}
+                        alt='carousel_5'
+                        className='h-[400px] w-[100%]'
+                    />
                 </SwiperSlide>
             </Swiper>
-            <SGradient />
         </SDiv>
     )
 }

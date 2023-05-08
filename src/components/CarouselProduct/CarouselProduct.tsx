@@ -3,9 +3,6 @@ import { Navigation } from 'swiper'
 
 import { SDivContainer, SDivHeader } from './CarouselProduct.styled'
 
-import 'swiper/css'
-import 'swiper/css/navigation'
-
 import CP_0 from 'assets/images/product_0_small.jpg'
 import CP_1 from 'assets/images/product_1_small.jpg'
 import CP_2 from 'assets/images/product_2_small.jpg'

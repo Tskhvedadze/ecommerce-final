@@ -1,11 +1,5 @@
-import { HTMLAttributes } from 'react'
-
 import styled from 'styled-components'
 import tw from 'twin.macro'
-
-type SImageDivProps = HTMLAttributes<HTMLDivElement> & {
-    imageUrl: string
-}
 
 export const SCardDiv = styled.div`
     ${tw` bg-transparent z-30 m-3 `}
@@ -13,16 +7,6 @@ export const SCardDiv = styled.div`
 
 export const SCardDivBox = styled.div`
     ${tw`w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700`}
-`
-
-export const SImageDiv = styled.div<SImageDivProps>`
-    background-image: url(${({ imageUrl }) => imageUrl});
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 270px;
-
-    ${tw`m-3 rounded`}
 `
 
 export const SContentDiv = styled.div`
