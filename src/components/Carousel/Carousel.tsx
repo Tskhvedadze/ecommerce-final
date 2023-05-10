@@ -14,10 +14,10 @@ export const Carousel = () => {
             <Swiper
                 loop={true}
                 spaceBetween={0}
-                className='h-[50%]'
+                className='h-[325px]'
                 modules={[Navigation, Autoplay]}
                 autoplay={{
-                    delay: 4500,
+                    delay: 4000,
                 }}
                 navigation={true}
             >
@@ -32,7 +32,7 @@ export const Carousel = () => {
                     <img
                         src={carousel_2}
                         alt='carousel_2'
-                        className='h-[400px] w-[100%]'
+                        className='h-[100%] w-[100%]'
                     />
                 </SwiperSlide>
 
@@ -40,14 +40,14 @@ export const Carousel = () => {
                     <img
                         src={carousel_4}
                         alt='carousel_4'
-                        className='h-[400px] w-[100%]'
+                        className='h-[100%] w-[100%]'
                     />
                 </SwiperSlide>
                 <SwiperSlide>
                     <img
                         src={carousel_5}
                         alt='carousel_5'
-                        className='h-[400px] w-[100%]'
+                        className='h-[100%] w-[100%]'
                     />
                 </SwiperSlide>
             </Swiper>

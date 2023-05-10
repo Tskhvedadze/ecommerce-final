@@ -1,6 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import Rating from 'react-star-rate'
 
+import { ProductsProps } from 'types/productsAPI.types'
+
 import { CardPhotoSwiper } from './CardPhotoSwiper/CardPhotoSwiper'
 
 import {
@@ -15,23 +17,12 @@ import {
     STitle,
 } from './Card.styled'
 
-export type CardProps = {
-    title: string
-    price: number
-    rating: number
-    brand: string
-    category: string
-    images: string[]
-}
+export type CardProps = {} & Omit<
+    ProductsProps<string | number>,
+    'id' | 'thumbnail' | 'description' | 'title' | 'category'
+>
 
-export const Card = ({
-    title,
-    price,
-    rating,
-    brand,
-    category,
-    images,
-}: CardProps) => {
+export const Card = ({ price, rating, brand, images }: CardProps) => {
     return (
         <SCardDiv>
             <SCardDivBox>

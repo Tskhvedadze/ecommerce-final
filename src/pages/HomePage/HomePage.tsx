@@ -1,51 +1,45 @@
-import { useEffect, useState } from 'react'
-import axios from 'axios'
-
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from 'react'
 import { Carousel, Card, CarouselCategory, CarouselProduct } from 'components'
 
+import { useAxiosFetch } from 'hooks/useFetch/useAxiosFetch'
+import { ProductsProps } from 'types/productsAPI.types'
+
 import { SGridLayout } from 'publicLayout/GridLayout/GridLayout.styled'
-
-import { Div, Container } from './HomePage.styled'
-
-import { CardProps } from 'components/Card/Card'
-
-type ProductsProps = {
-    id: number
-}
-
-type ProductsCardProps = ProductsProps & CardProps
+// import { Div, Container } from './HomePage.styled'
 
 const HomePage = () => {
-    const [data, setData] = useState<ProductsCardProps[] | null>()
+    const { fetchData, data, loading } = useAxiosFetch('')
 
     useEffect(() => {
-        const url = `https://dummyjson.com/products?limit=12&skip=0&select=title,price,rating,brand,category,images`
-
-        axios.get(url).then((res) => {
-            setData(res.data?.products)
-        })
+        fetchData()
     }, [])
 
     return (
         <>
             <Carousel />
-
             <SGridLayout>
-                {data?.map((product) => {
-                    return (
-                        <Card
-                            key={product.id}
-                            images={product.images}
-                            rating={product.rating}
-                            brand={product.brand}
-                            title={product.title}
-                            price={product.price}
-                            category={product.category}
-                        />
-                    )
-                })}
+                {!loading &&
+                    data?.products.map(
+                        ({
+                            id,
+                            rating,
+                            images,
+                            brand,
+                            price,
+                        }: ProductsProps<string | number>) => {
+                            return (
+                                <Card
+                                    key={id}
+                                    images={images}
+                                    rating={rating}
+                                    brand={brand}
+                                    price={price}
+                                />
+                            )
+                        },
+                    )}
             </SGridLayout>
-
             <CarouselProduct />
             <CarouselCategory />
         </>
