@@ -1,15 +1,29 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react'
-import { Carousel, Card, CarouselCategory, CarouselProduct } from 'components'
+import {
+    Carousel,
+    Card,
+    CarouselCategory,
+    CarouselProduct,
+    Loading,
+} from 'components'
 
 import { useAxiosFetch } from 'hooks/useFetch/useAxiosFetch'
 import { ProductsProps } from 'types/productsAPI.types'
 
 import { SGridLayout } from 'publicLayout/GridLayout/GridLayout.styled'
-// import { Div, Container } from './HomePage.styled'
+import { SProductsContainer, SHomeTitle, SProductsBTN } from './HomePage.styled'
+
+const params = {
+    limit: 8,
+    skip: 0,
+    // select: 'title,price,rating,brand,category,images',
+}
 
 const HomePage = () => {
-    const { fetchData, data, loading } = useAxiosFetch('')
+    const { fetchData, data, loading } = useAxiosFetch('', {
+        ...params,
+    })
 
     useEffect(() => {
         fetchData()
@@ -18,8 +32,14 @@ const HomePage = () => {
     return (
         <>
             <Carousel />
+            <SProductsContainer>
+                <SHomeTitle>Products</SHomeTitle>
+                <SProductsBTN>All </SProductsBTN>
+            </SProductsContainer>
             <SGridLayout>
-                {!loading &&
+                {loading ? (
+                    <Loading />
+                ) : (
                     data?.products.map(
                         ({
                             id,
@@ -38,8 +58,10 @@ const HomePage = () => {
                                 />
                             )
                         },
-                    )}
+                    )
+                )}
             </SGridLayout>
+
             <CarouselProduct />
             <CarouselCategory />
         </>

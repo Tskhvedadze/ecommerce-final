@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import tw from 'twin.macro'
 
 export const SCardDiv = styled.div`
-    ${tw` bg-transparent z-30 m-3 `}
+    ${tw` bg-transparent z-30 m-3 flex justify-center `}
 `
 
 export const SCardDivBox = styled.div`
@@ -10,11 +10,12 @@ export const SCardDivBox = styled.div`
 `
 
 export const SContentDiv = styled.div`
-    ${tw`px-5 pb-5`}
+    ${tw`px-2 pb-2`}
 `
 
 export const STitle = styled.h5`
     ${tw`text-xl font-semibold tracking-tight text-gray-dark dark:text-white`}
+    text-align:center
 `
 
 export const SRatingSpan = styled.span`
@@ -22,7 +23,7 @@ export const SRatingSpan = styled.span`
 `
 
 export const SPriceSpan = styled.span`
-    ${tw`text-3xl font-bold text-gray-900 dark:text-white`}
+    ${tw`text-2xl font-bold text-gray-600 `}
 `
 
 export const SAddToCardBtn = styled.button`
@@ -31,7 +32,7 @@ export const SAddToCardBtn = styled.button`
 
 //* Flex div for Rating and Price
 export const SFlexDivRating = styled.div`
-    ${tw`flex items-center mt-2.5 mb-5`}
+    ${tw`flex items-center  `}
 `
 
 export const SFlexDivPrice = styled.div`
