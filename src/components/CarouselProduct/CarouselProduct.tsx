@@ -3,9 +3,6 @@ import { Navigation } from 'swiper'
 
 import { SDivContainer, SDivHeader } from './CarouselProduct.styled'
 
-import 'swiper/css'
-import 'swiper/css/navigation'
-
 import CP_0 from 'assets/images/product_0_small.jpg'
 import CP_1 from 'assets/images/product_1_small.jpg'
 import CP_2 from 'assets/images/product_2_small.jpg'
@@ -18,14 +15,20 @@ import CP_8 from 'assets/images/product_8_small.jpg'
 
 const imagesArray = [CP_0, CP_1, CP_2, CP_3, CP_4, CP_5, CP_6, CP_7, CP_8]
 
-type CarouselProductProps = {}
+type CarouselProductProps = {
+    slidesPerView: number
+    headerTitle: string
+}
 
-export const CarouselProduct = (props: CarouselProductProps) => {
+export const CarouselProduct = ({
+    slidesPerView,
+    headerTitle,
+}: CarouselProductProps) => {
     return (
         <SDivContainer>
-            <SDivHeader>Best Sellers</SDivHeader>
+            <SDivHeader>{headerTitle}</SDivHeader>
             <Swiper
-                slidesPerView={7}
+                slidesPerView={slidesPerView}
                 spaceBetween={10}
                 navigation={true}
                 modules={[Navigation]}

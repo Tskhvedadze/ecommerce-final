@@ -1,9 +1,6 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper'
 
-import 'swiper/css'
-import 'swiper/css/navigation'
-
 import img_0 from 'assets/images/category_0.jpg'
 import img_1 from 'assets/images/category_1.jpg'
 import img_2 from 'assets/images/category_2.jpg'
