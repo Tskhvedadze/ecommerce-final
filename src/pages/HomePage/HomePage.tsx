@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Carousel, Card, CarouselCategory, CarouselProduct } from 'components'
-import { Loading } from './components'
+import { Loading, HomePagination } from './components'
 
 import { useAxiosFetch } from 'hooks/useFetch/useAxiosFetch'
 import { ProductsProps } from 'types/productsAPI.types'
@@ -13,14 +13,20 @@ import {
     SGridLayout,
 } from './HomePage.styled'
 
+const quotesPerPage = 10
+const totalQuotes = 100
+
 const HomePage = () => {
-    const { fetchData, data, loading, error } = useAxiosFetch({
-        endPoint: `?limit=10&skip=0&select=title,price,rating,images`,
+    const [currentPage, setCurrentPage] = useState<number>(1)
+    const skip = (currentPage - 1) * quotesPerPage
+
+    const { fetchData, data, loading } = useAxiosFetch({
+        endPoint: `?limit=${quotesPerPage}&skip=${skip}&select=title,price,rating,images`,
     })
 
     useEffect(() => {
         fetchData()
-    }, [])
+    }, [skip])
 
     return (
         <>
@@ -54,6 +60,12 @@ const HomePage = () => {
                     )}
                 </SGridLayout>
             )}
+            <HomePagination
+                quotesPerPage={quotesPerPage}
+                totalQuotes={totalQuotes}
+                setCurrentPage={setCurrentPage}
+                currentPage={currentPage}
+            />
             <CarouselProduct slidesPerView={6} headerTitle={'Top Products'} />
             <CarouselCategory />
         </>

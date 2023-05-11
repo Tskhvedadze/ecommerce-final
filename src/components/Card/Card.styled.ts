@@ -10,7 +10,7 @@ export const SContentDiv = styled.div`
 `
 
 export const STitle = styled.h5`
-    ${tw`text-xl font-semibold tracking-tight text-gray-dark dark:text-white`}
+    ${tw`text-[1.25rem] font-semibold tracking-tight text-gray-dark dark:text-white`}
 `
 
 export const SRatingSpan = styled.span`
@@ -18,7 +18,7 @@ export const SRatingSpan = styled.span`
 `
 
 export const SPriceSpan = styled.span`
-    ${tw`text-xl font-bold text-gray-600 `}
+    ${tw`text-[1.25rem] font-bold text-gray-600 `}
 `
 
 export const SAddToCardBtn = styled.button`
