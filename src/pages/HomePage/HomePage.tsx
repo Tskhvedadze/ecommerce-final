@@ -1,28 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react'
-import {
-    Carousel,
-    Card,
-    CarouselCategory,
-    CarouselProduct,
-    Loading,
-} from 'components'
+import { Carousel, Card, CarouselCategory, CarouselProduct } from 'components'
+import { Loading } from './components'
 
 import { useAxiosFetch } from 'hooks/useFetch/useAxiosFetch'
 import { ProductsProps } from 'types/productsAPI.types'
 
-import { SGridLayout } from 'publicLayout/GridLayout/GridLayout.styled'
-import { SProductsContainer, SHomeTitle, SProductsBTN } from './HomePage.styled'
-
-const params = {
-    limit: 8,
-    skip: 0,
-    // select: 'title,price,rating,brand,category,images',
-}
+import {
+    SProductsContainer,
+    SHomeTitle,
+    SProductsBTN,
+    SGridLayout,
+} from './HomePage.styled'
 
 const HomePage = () => {
-    const { fetchData, data, loading } = useAxiosFetch('', {
-        ...params,
+    const { fetchData, data, loading, error } = useAxiosFetch({
+        endPoint: `?limit=10&skip=0&select=title,price,rating,images`,
     })
 
     useEffect(() => {
@@ -36,33 +29,32 @@ const HomePage = () => {
                 <SHomeTitle>Products</SHomeTitle>
                 <SProductsBTN>All </SProductsBTN>
             </SProductsContainer>
-            <SGridLayout>
-                {loading ? (
-                    <Loading />
-                ) : (
-                    data?.products.map(
+            {loading ? (
+                <Loading />
+            ) : (
+                <SGridLayout>
+                    {data?.products?.map(
                         ({
                             id,
                             rating,
                             images,
-                            brand,
                             price,
-                        }: ProductsProps<string | number>) => {
+                            title,
+                        }: ProductsProps) => {
                             return (
                                 <Card
                                     key={id}
+                                    title={title}
                                     images={images}
                                     rating={rating}
-                                    brand={brand}
                                     price={price}
                                 />
                             )
                         },
-                    )
-                )}
-            </SGridLayout>
-
-            <CarouselProduct />
+                    )}
+                </SGridLayout>
+            )}
+            <CarouselProduct slidesPerView={6} headerTitle={'Top Products'} />
             <CarouselCategory />
         </>
     )

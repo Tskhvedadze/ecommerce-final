@@ -1,36 +1,22 @@
 import { useState } from 'react'
 import API from 'utils/api/products.api'
 
-import { FetchDataProps, ProductsProps } from 'types/productsAPI.types'
+import { FetchDataProps } from 'types/productsAPI.types'
 
-export const useAxiosFetch = <T extends ProductsProps<string | number>>(
-    endPoint: string,
-    params?: {
-        limit: number
-        skip: number
-    },
-) => {
-    const [data, setData] = useState<FetchDataProps<T> | undefined>()
+type UseAxiosFetchProps = {
+    endPoint: string
+}
+
+export const useAxiosFetch = ({ endPoint }: UseAxiosFetchProps) => {
+    const [data, setData] = useState<FetchDataProps | null>(null)
     const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<string>('')
 
-    const fetchData = async () => {
+    const fetchData = async (): Promise<void> => {
         setLoading(true)
-
         try {
-            const response = await API.get<{ products: T[] }>(endPoint, {
-                params: {
-                    limit: params?.limit,
-                    skip: params?.skip,
-                },
-            })
-
-            setData({
-                products: response.data.products,
-                total: response.headers['content-length'],
-                limit: params?.limit,
-                skip: response.config.params.skip,
-            })
+            const response = await API.get(endPoint)
+            setData(response?.data)
         } catch (error: any) {
             setError(error.message)
         }
