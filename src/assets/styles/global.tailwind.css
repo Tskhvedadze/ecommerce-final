@@ -4,8 +4,3 @@
 
 @import 'swiper/css';
 @import 'swiper/css/navigation';
-
-a {
-    /* color: orange !important; */
-    text-decoration: none !important;
-}

@@ -1,45 +1,32 @@
-import { Pagination } from 'react-bootstrap'
+import { usePagination } from 'pages/HomePage/context'
 
-import 'bootstrap/dist/css/bootstrap.min.css'
+import { SPaginationContainer } from './HomePagination.styled'
 
-type HomePaginationProps = {
-    quotesPerPage: number
-    totalQuotes: number
-    currentPage: number
-    setCurrentPage: (page: number) => void
-}
+export const HomePagination = () => {
+    const { totalItems, itemsPerPage, setCurrentPage } = usePagination()
 
-export const HomePagination = ({
-    quotesPerPage,
-    totalQuotes,
-    currentPage,
-    setCurrentPage,
-}: HomePaginationProps): JSX.Element => {
-    let pageNumbers = []
-
-    for (let page = 1; page <= Math.ceil(totalQuotes / quotesPerPage); page++) {
-        pageNumbers.push(
-            <Pagination.Item
-                key={page}
-                active={page === currentPage}
-                onClick={() => setCurrentPage(page)}
-            >
-                {page}
-            </Pagination.Item>,
-        )
+    const pageCount = Math.ceil(totalItems / itemsPerPage)
+    const handlePageClick = (selectedItem: { selected: number }) => {
+        setCurrentPage(selectedItem.selected + 1)
     }
 
-    console.log()
-
     return (
-        <Pagination
-            style={{
-                display: 'flex',
-                justifyContent: 'center',
-                marginTop: '10px',
-            }}
-        >
-            {pageNumbers}
-        </Pagination>
+        <>
+            <SPaginationContainer
+                breakLabel='...'
+                nextLabel='next >'
+                previousLabel='< prev'
+                pageRangeDisplayed={1}
+                onPageChange={handlePageClick}
+                pageCount={pageCount}
+                renderOnZeroPageCount={null}
+                containerClassName='pagination'
+                pageLinkClassName='page-num'
+                previousLinkClassName='page-num'
+                nextLinkClassName='page-num'
+                activeClassName='active'
+                activeLinkClassName='active'
+            />
+        </>
     )
 }

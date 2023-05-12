@@ -31,11 +31,11 @@ export const StyledSwiper = styled(Swiper)`
     }
 
     .swiper-button-prev::after {
-        transform: translate(-50%, -50%) rotate(135deg);
+        transform: translate(-30%, -50%) rotate(135deg);
     }
 
     .swiper-button-next::after {
-        transform: translate(-50%, -50%) rotate(-45deg);
+        transform: translate(-72%, -50%) rotate(-45deg);
     }
 
     .swiper-button-prev:hover,

@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import { usePagination } from './context'
 import { Carousel, Card, CarouselCategory, CarouselProduct } from 'components'
 import { Loading, HomePagination } from './components'
 
@@ -13,15 +14,10 @@ import {
     SGridLayout,
 } from './HomePage.styled'
 
-const quotesPerPage = 10
-const totalQuotes = 100
-
 const HomePage = () => {
-    const [currentPage, setCurrentPage] = useState<number>(1)
-    const skip = (currentPage - 1) * quotesPerPage
-
+    const { itemsPerPage, skip } = usePagination()
     const { fetchData, data, loading } = useAxiosFetch({
-        endPoint: `?limit=${quotesPerPage}&skip=${skip}&select=title,price,rating,images`,
+        endPoint: `?limit=${itemsPerPage}&skip=${skip}&select=title,price,rating,images`,
     })
 
     useEffect(() => {
@@ -60,12 +56,7 @@ const HomePage = () => {
                     )}
                 </SGridLayout>
             )}
-            <HomePagination
-                quotesPerPage={quotesPerPage}
-                totalQuotes={totalQuotes}
-                setCurrentPage={setCurrentPage}
-                currentPage={currentPage}
-            />
+            <HomePagination />
             <CarouselProduct slidesPerView={6} headerTitle={'Top Products'} />
             <CarouselCategory />
         </>
