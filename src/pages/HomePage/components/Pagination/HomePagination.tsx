@@ -1,10 +1,16 @@
-import { usePagination } from 'pages/HomePage/context'
-
 import { SPaginationContainer } from './HomePagination.styled'
 
-export const HomePagination = () => {
-    const { totalItems, itemsPerPage, setCurrentPage } = usePagination()
+type PaginationContextProps = {
+    setCurrentPage: (page: number) => void
+    itemsPerPage: number
+    totalItems: number
+}
 
+export const HomePagination = ({
+    setCurrentPage,
+    itemsPerPage,
+    totalItems,
+}: PaginationContextProps) => {
     const pageCount = Math.ceil(totalItems / itemsPerPage)
     const handlePageClick = (selectedItem: { selected: number }) => {
         setCurrentPage(selectedItem.selected + 1)
@@ -14,8 +20,8 @@ export const HomePagination = () => {
         <>
             <SPaginationContainer
                 breakLabel='...'
-                nextLabel='next >'
-                previousLabel='< prev'
+                nextLabel='next'
+                previousLabel='prev'
                 pageRangeDisplayed={1}
                 onPageChange={handlePageClick}
                 pageCount={pageCount}

@@ -13,10 +13,6 @@ export const STitle = styled.h5`
     ${tw`text-[1rem] font-semibold tracking-tight text-gray-dark hover:text-red-light active:text-red [display: inline-block]`}
 `
 
-export const SRatingSpan = styled.span`
-    ${tw`bg-yellow-light text-yellow-dark text-xs font-semibold  px-2.5 py-0.5 rounded dark:bg-yellow-dark dark:text-yellow-light `}
-`
-
 export const SPriceSpan = styled.span`
     ${tw`text-[1.2rem] font-bold text-gray-600 `}
 `
@@ -31,6 +27,9 @@ export const SFlexDivRating = styled.div`
     .go4197845992 {
         font-size: 1.5rem;
     }
+`
+export const SRatingSpan = styled.span`
+    ${tw`bg-yellow-light text-yellow-dark text-xs font-semibold  px-2.5 py-0.5 rounded dark:bg-yellow-dark dark:text-yellow-light `}
 `
 
 export const SFlexDivPrice = styled.div`

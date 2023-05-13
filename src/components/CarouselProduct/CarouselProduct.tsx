@@ -1,19 +1,20 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper'
 
-import { SDivContainer, SDivHeader } from './CarouselProduct.styled'
+import Rating from 'react-star-rate'
 
-import CP_0 from 'assets/images/product_0_small.jpg'
-import CP_1 from 'assets/images/product_1_small.jpg'
-import CP_2 from 'assets/images/product_2_small.jpg'
-import CP_3 from 'assets/images/product_3_small.jpg'
-import CP_4 from 'assets/images/product_4_small.jpg'
-import CP_5 from 'assets/images/product_5_small.jpg'
-import CP_6 from 'assets/images/product_6_small.jpg'
-import CP_7 from 'assets/images/product_7_small.jpg'
-import CP_8 from 'assets/images/product_8_small.jpg'
+import { useAxiosFetch } from 'hooks/useFetch/useAxiosFetch'
 
-const imagesArray = [CP_0, CP_1, CP_2, CP_3, CP_4, CP_5, CP_6, CP_7, CP_8]
+import { ProductsProps } from 'types/productsAPI.types'
+
+import {
+    SDivContainer,
+    SDivHeader,
+    SRatingContainer,
+    SLoadingDiv,
+} from './CarouselProduct.styled'
 
 type CarouselProductProps = {
     slidesPerView: number
@@ -24,20 +25,45 @@ export const CarouselProduct = ({
     slidesPerView,
     headerTitle,
 }: CarouselProductProps) => {
+    const { data, loading, fetchData } = useAxiosFetch({
+        endPoint: `?limit=100&select=thumbnail,brand,rating`,
+    })
+
+    useEffect(() => {
+        fetchData()
+    }, [])
+
     return (
         <SDivContainer>
             <SDivHeader>{headerTitle}</SDivHeader>
             <Swiper
                 slidesPerView={slidesPerView}
-                spaceBetween={10}
+                spaceBetween={5}
                 navigation={true}
                 modules={[Navigation]}
             >
-                {imagesArray.map((source, i) => (
-                    <SwiperSlide key={i}>
-                        <img src={source} alt={source} />
-                    </SwiperSlide>
-                ))}
+                {loading ? (
+                    <SLoadingDiv>Loading...</SLoadingDiv>
+                ) : (
+                    data?.products.map(
+                        ({ id, brand, thumbnail, rating }: ProductsProps) =>
+                            rating > 4.6 && (
+                                <>
+                                    <SwiperSlide key={id}>
+                                        <img
+                                            className='h-[150px] w-[200px] border rounded-lg'
+                                            src={thumbnail}
+                                            alt={brand}
+                                        />
+                                        <SRatingContainer>
+                                            <Rating value={rating} disabled />
+                                            <span>{rating}</span>
+                                        </SRatingContainer>
+                                    </SwiperSlide>
+                                </>
+                            ),
+                    )
+                )}
             </Swiper>
         </SDivContainer>
     )
