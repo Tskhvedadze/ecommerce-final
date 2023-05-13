@@ -1,17 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
-import { Carousel, Card, CarouselProduct } from 'components'
+import { Carousel, Card, CarouselProduct, Button } from 'components'
 import { Loading, HomePagination } from './components'
 
-import { useAxiosFetch } from 'hooks/useFetch/useAxiosFetch'
+import { useAxiosFetch } from 'hooks'
 import { ProductsProps } from 'types/productsAPI.types'
 
-import {
-    SProductsContainer,
-    SHomeTitle,
-    SProductsBTN,
-    SGridLayout,
-} from './HomePage.styled'
+import { SProductsContainer, SHomeTitle, SGridLayout } from './HomePage.styled'
 
 const HomePage = () => {
     const [currentPage, setCurrentPage] = useState<number>(1)
@@ -32,7 +27,7 @@ const HomePage = () => {
             <Carousel />
             <SProductsContainer>
                 <SHomeTitle>Products</SHomeTitle>
-                <SProductsBTN>All </SProductsBTN>
+                <Button mode='primary'>All</Button>
             </SProductsContainer>
             {loading ? (
                 <Loading />
@@ -64,7 +59,7 @@ const HomePage = () => {
                 setCurrentPage={setCurrentPage}
                 itemsPerPage={itemsPerPage}
             />
-            <CarouselProduct slidesPerView={5} headerTitle={'Top Products'} />
+            <CarouselProduct headerTitle={'Top Products'} />
         </>
     )
 }

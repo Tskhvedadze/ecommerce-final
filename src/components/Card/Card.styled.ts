@@ -17,10 +17,6 @@ export const SPriceSpan = styled.span`
     ${tw`text-[1.2rem] font-bold text-gray-600 `}
 `
 
-export const SAddToCardBtn = styled.button`
-    ${tw`text-white bg-orange hover:bg-orange-light focus:ring-2 focus:outline-none focus:ring-orange-light font-medium rounded text-sm px-1.5 py-1 text-center dark:bg-orange-dark dark:hover:bg-orange dark:focus:ring-orange-light`}
-`
-
 // Flex div for Rating and Price
 export const SFlexDivRating = styled.div`
     ${tw`flex items-center justify-between `}

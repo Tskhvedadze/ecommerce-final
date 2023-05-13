@@ -5,7 +5,9 @@ import { Navigation } from 'swiper'
 
 import Rating from 'react-star-rate'
 
-import { useAxiosFetch } from 'hooks/useFetch/useAxiosFetch'
+// Custom Hooks
+import { useAxiosFetch } from 'hooks'
+import { useResponsive } from './hook'
 
 import { ProductsProps } from 'types/productsAPI.types'
 
@@ -17,14 +19,11 @@ import {
 } from './CarouselProduct.styled'
 
 type CarouselProductProps = {
-    slidesPerView: number
     headerTitle: string
 }
 
-export const CarouselProduct = ({
-    slidesPerView,
-    headerTitle,
-}: CarouselProductProps) => {
+export const CarouselProduct = ({ headerTitle }: CarouselProductProps) => {
+    const { slidesPerView } = useResponsive()
     const { data, loading, fetchData } = useAxiosFetch({
         endPoint: `?limit=100&select=thumbnail,brand,rating`,
     })
@@ -48,19 +47,17 @@ export const CarouselProduct = ({
                     data?.products.map(
                         ({ id, brand, thumbnail, rating }: ProductsProps) =>
                             rating > 4.6 && (
-                                <>
-                                    <SwiperSlide key={id}>
-                                        <img
-                                            className='h-[150px] w-[200px] border rounded-lg'
-                                            src={thumbnail}
-                                            alt={brand}
-                                        />
-                                        <SRatingContainer>
-                                            <Rating value={rating} disabled />
-                                            <span>{rating}</span>
-                                        </SRatingContainer>
-                                    </SwiperSlide>
-                                </>
+                                <SwiperSlide key={id}>
+                                    <img
+                                        className='h-[150px] w-[200px] border rounded-lg'
+                                        src={thumbnail}
+                                        alt={brand}
+                                    />
+                                    <SRatingContainer>
+                                        <Rating value={rating} disabled />
+                                        <span>{rating}</span>
+                                    </SRatingContainer>
+                                </SwiperSlide>
                             ),
                     )
                 )}

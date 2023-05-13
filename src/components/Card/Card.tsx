@@ -1,11 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import Rating from 'react-star-rate'
 
+import { Button } from '..'
+
 import { ProductsProps } from 'types/productsAPI.types'
 import { CardPhotoSwiper } from './CardPhotoSwiper/CardPhotoSwiper'
 
 import {
-    SAddToCardBtn,
     SCardDivBox,
     SContentDiv,
     SFlexDivPrice,
@@ -36,7 +37,7 @@ export const Card = ({ price, rating, images, title }: CardProps) => {
             </SContentDiv>
             <SFlexDivPrice>
                 <SPriceSpan>${price}</SPriceSpan>
-                <SAddToCardBtn>Add to cart</SAddToCardBtn>
+                <Button mode='secondary'>Add to cart</Button>
             </SFlexDivPrice>
         </SCardDivBox>
     )
