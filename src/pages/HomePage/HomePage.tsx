@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react'
-import { Carousel, Card, CarouselCategory, CarouselProduct } from 'components'
-import { Loading } from './components'
+import { useEffect, useState } from 'react'
+import { Carousel, Card, CarouselProduct } from 'components'
+import { Loading, HomePagination } from './components'
 
 import { useAxiosFetch } from 'hooks/useFetch/useAxiosFetch'
 import { ProductsProps } from 'types/productsAPI.types'
@@ -14,13 +14,18 @@ import {
 } from './HomePage.styled'
 
 const HomePage = () => {
-    const { fetchData, data, loading, error } = useAxiosFetch({
-        endPoint: `?limit=10&skip=0&select=title,price,rating,images`,
+    const [currentPage, setCurrentPage] = useState<number>(1)
+    const itemsPerPage = 10
+    const totalItems = 100
+    const skip = (currentPage - 1) * itemsPerPage
+
+    const { fetchData, data, loading } = useAxiosFetch({
+        endPoint: `?limit=${itemsPerPage}&skip=${skip}&select=title,price,rating,images,thumn`,
     })
 
     useEffect(() => {
         fetchData()
-    }, [])
+    }, [skip])
 
     return (
         <>
@@ -54,8 +59,12 @@ const HomePage = () => {
                     )}
                 </SGridLayout>
             )}
-            <CarouselProduct slidesPerView={6} headerTitle={'Top Products'} />
-            <CarouselCategory />
+            <HomePagination
+                totalItems={totalItems}
+                setCurrentPage={setCurrentPage}
+                itemsPerPage={itemsPerPage}
+            />
+            <CarouselProduct slidesPerView={5} headerTitle={'Top Products'} />
         </>
     )
 }

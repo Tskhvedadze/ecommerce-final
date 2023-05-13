@@ -1,7 +1,7 @@
-import { Swiper, SwiperSlide } from 'swiper/react'
+import { SwiperSlide } from 'swiper/react'
 import { Navigation, Autoplay } from 'swiper'
 
-import { SDiv } from './Carousel.styled'
+import { SDiv, SCarouselSwiper } from './Carousel.styled'
 
 import carousel_1 from 'assets/images/carousel_1.jpg'
 import carousel_2 from 'assets/images/carousel_2.jpg'
@@ -11,7 +11,7 @@ import carousel_5 from 'assets/images/carousel_5.jpg'
 export const Carousel = () => {
     return (
         <SDiv>
-            <Swiper
+            <SCarouselSwiper
                 loop={true}
                 spaceBetween={0}
                 className='h-[325px]'
@@ -50,7 +50,7 @@ export const Carousel = () => {
                         className='h-[100%] w-[100%]'
                     />
                 </SwiperSlide>
-            </Swiper>
+            </SCarouselSwiper>
         </SDiv>
     )
 }

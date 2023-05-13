@@ -25,7 +25,7 @@ export const Card = ({ price, rating, images, title }: CardProps) => {
         <SCardDivBox>
             <CardPhotoSwiper images={images} />
             <SContentDiv>
-                <a href='#'>
+                <a href='#' className='text decoration-inherit'>
                     <STitle>{title}</STitle>
                 </a>
 

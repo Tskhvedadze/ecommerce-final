@@ -1,1 +1,0 @@
-export { CarouselCategory } from './CarouselCategory'
