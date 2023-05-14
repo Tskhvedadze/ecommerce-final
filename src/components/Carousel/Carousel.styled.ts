@@ -4,12 +4,16 @@ import styled from 'styled-components'
 import tw from 'twin.macro'
 
 export const SDiv = styled.div`
-    ${tw`mt-3 mb-3`}
+    ${tw`mb-3  `}
+`
+
+export const SImg = styled.img`
+    filter: brightness(110%) contrast(110%);
+    image-rendering: -webkit-optimize-contrast;
 `
 
 export const SCarouselSwiper = styled(Swiper)`
-    position: relative;
-
+    ${tw`h-[50%]`}
     .swiper-button-prev,
     .swiper-button-next {
         ${tw`absolute  cursor-pointer z-10 border-2 border-gray-500 [border-radius: 20%] w-[45px] h-[45px]   transform -translate-y-1/2 top-[60%]`}

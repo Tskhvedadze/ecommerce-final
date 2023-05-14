@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import tw from 'twin.macro'
 
 export const SPaginationContainer = styled(ReactPaginate)`
-    ${tw`list-none flex justify-center items-center mb-8 mt-8 text-lg gap-0.5 `}
+    ${tw`list-none flex justify-center items-center mb-8 mt-8 text-lg gap-5 `}
     line-height:0;
 
     .page-num {

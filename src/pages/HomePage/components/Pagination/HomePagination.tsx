@@ -20,8 +20,8 @@ export const HomePagination = ({
         <>
             <SPaginationContainer
                 breakLabel='...'
-                nextLabel='>'
-                previousLabel='<'
+                nextLabel='Next >>'
+                previousLabel='<< Prev'
                 pageRangeDisplayed={1}
                 onPageChange={handlePageClick}
                 pageCount={pageCount}

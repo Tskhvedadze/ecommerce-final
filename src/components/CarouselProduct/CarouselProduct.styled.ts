@@ -12,11 +12,11 @@ export const SRatingContainer = styled.div`
     ${tw`flex  items-center mt-3 `}
 
     span {
-        ${tw`bg-yellow-light text-yellow-dark text-xs font-semibold  px-2.5 py-0.5 rounded dark:bg-yellow-dark dark:text-yellow-light ml-8`}
+        ${tw`bg-yellow-light text-yellow-dark text-xs font-semibold  px-2.5 py-0.5 rounded dark:bg-yellow-dark dark:text-yellow-light ml-6`}
     }
 
     .go4197845992 {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 `
 
