@@ -1,4 +1,4 @@
-import { SPaginationContainer } from './HomePagination.styled'
+import { SHomePaginationContainer } from './HomePagination.styled'
 
 type PaginationContextProps = {
     setCurrentPage: (page: number) => void
@@ -18,7 +18,7 @@ export const HomePagination = ({
 
     return (
         <>
-            <SPaginationContainer
+            <SHomePaginationContainer
                 breakLabel='...'
                 nextLabel='Next >>'
                 previousLabel='<< Prev'
@@ -30,7 +30,6 @@ export const HomePagination = ({
                 pageLinkClassName='page-num'
                 previousLinkClassName='page-num'
                 nextLinkClassName='page-num'
-                activeClassName='active'
                 activeLinkClassName='active'
             />
         </>
