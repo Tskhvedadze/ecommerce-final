@@ -1,12 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
-import { Carousel, Card, CarouselProduct, Button } from 'components'
-import { Loading, HomePagination } from './components'
-
 import { useAxiosFetch } from 'hooks'
+
 import { ProductsProps } from 'types/productsAPI.types'
 
-import { SProductsContainer, SHomeTitle, SGridLayout } from './HomePage.styled'
+import {
+    Carousel,
+    Card,
+    CarouselProduct,
+    Button,
+    SMainContainer,
+    SGridContainer,
+} from 'components'
+
+import { HomePagination } from './components'
+
+import { SHomePageHeaderContainer, SHomePageTitle } from './HomePage.styled'
 
 const HomePage = () => {
     const [currentPage, setCurrentPage] = useState<number>(1)
@@ -23,44 +32,39 @@ const HomePage = () => {
     }, [skip])
 
     return (
-        <>
+        <SMainContainer>
             <Carousel />
-            <SProductsContainer>
-                <SHomeTitle>Products</SHomeTitle>
+            <SHomePageHeaderContainer>
+                <SHomePageTitle>Products</SHomePageTitle>
                 <Button mode='primary'>All</Button>
-            </SProductsContainer>
-            {loading ? (
+            </SHomePageHeaderContainer>
+            {/* {loading ? (
                 <Loading />
-            ) : (
-                <SGridLayout>
-                    {data?.products?.map(
-                        ({
-                            id,
-                            rating,
-                            images,
-                            price,
-                            title,
-                        }: ProductsProps) => {
-                            return (
-                                <Card
-                                    key={id}
-                                    title={title}
-                                    images={images}
-                                    rating={rating}
-                                    price={price}
-                                />
-                            )
-                        },
-                    )}
-                </SGridLayout>
-            )}
+            ) : ( */}
+            <SGridContainer>
+                {data?.products?.map(
+                    ({ id, rating, images, price, title }: ProductsProps) => {
+                        return (
+                            <Card
+                                key={id}
+                                title={title}
+                                images={images}
+                                rating={rating}
+                                price={price}
+                            />
+                        )
+                    },
+                )}
+            </SGridContainer>
+            {/* )} */}
             <HomePagination
                 totalItems={totalItems}
                 setCurrentPage={setCurrentPage}
                 itemsPerPage={itemsPerPage}
             />
+
             <CarouselProduct headerTitle={'Top Products'} />
-        </>
+        </SMainContainer>
     )
 }
 
