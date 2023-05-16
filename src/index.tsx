@@ -3,13 +3,17 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import App from 'App'
 
+import { Providers } from 'providers/Providers'
+
 import 'assets/styles/global.tailwind.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
     <React.StrictMode>
         <BrowserRouter>
-            <App />
+            <Providers>
+                <App />
+            </Providers>
         </BrowserRouter>
     </React.StrictMode>,
 )

@@ -1,5 +1,7 @@
-import { ChangeEvent, useState } from 'react'
+import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+
+import { ContactFormContext } from 'context'
 
 import {
     SEmailInput,
@@ -11,34 +13,10 @@ import {
     SFormButton,
 } from './ContactForm.styled'
 
-type FormValues = {
-    email: string
-    subject: string
-    message: string
-}
-
 export const ContactForm = () => {
     const navigate = useNavigate()
-    const [formValues, setFormValues] = useState<FormValues>({
-        email: '',
-        subject: '',
-        message: '',
-    })
-
-    const handleInputChange = (
-        event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    ) => {
-        const { name, value } = event.target
-        setFormValues((prevValues) => ({
-            ...prevValues,
-            [name]: value,
-        }))
-    }
-
-    const handleSubmit = (event: ChangeEvent<HTMLFormElement>) => {
-        event.preventDefault()
-        console.log(formValues)
-    }
+    const { handleSubmit, formValues, handleInputChange } =
+        useContext(ContactFormContext)
 
     return (
         <SForm onSubmit={handleSubmit}>
