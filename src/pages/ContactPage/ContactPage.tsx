@@ -1,4 +1,8 @@
+import { useContext } from 'react'
+import { ContactFormContext } from 'context'
+
 import { ContactForm } from './components/ContactForm/ContactForm'
+import { ModalComponent } from 'components'
 
 import {
     SSection,
@@ -7,11 +11,20 @@ import {
     SParagraph,
 } from './Contact.styled'
 
-type ContactProps = {}
+export default function ContactPage() {
+    const { formValues, open, handleCancelModal } =
+        useContext(ContactFormContext)
 
-export default function ContactPage(props: ContactProps) {
     return (
         <>
+            <ModalComponent
+                title='FeedBack sent successfuly'
+                message={formValues.message}
+                subject={formValues.subject}
+                email={formValues.email}
+                open={open}
+                handleCancelModal={handleCancelModal}
+            />
             <SSection>
                 <SContentContainer>
                     <STitle>Contact Us</STitle>
