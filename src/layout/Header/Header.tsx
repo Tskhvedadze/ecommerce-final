@@ -1,13 +1,13 @@
 import { PrivateNavBar } from './PrivateNavBar/PrivateNavBar'
 import { PublicNavBar } from './PublicNavBar/PublicNavBar'
 
-import { SNavBarLayout } from './HeaderStyled/Header.styled'
+import { NavBarLayout } from './Header.styled'
 
 export const Header = () => {
     return (
-        <SNavBarLayout>
+        <NavBarLayout>
             <PublicNavBar />
             {/* <PrivateNavBar /> */}
-        </SNavBarLayout>
+        </NavBarLayout>
     )
 }

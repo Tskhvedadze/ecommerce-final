@@ -1,4 +1,4 @@
-import { SHomePaginationContainer } from './HomePagination.styled'
+import { StyledPaginationContainer } from './Pagination.styled'
 
 type PaginationContextProps = {
     setCurrentPage: (page: number) => void
@@ -6,7 +6,7 @@ type PaginationContextProps = {
     totalItems: number
 }
 
-export const HomePagination = ({
+export const Pagination = ({
     setCurrentPage,
     itemsPerPage,
     totalItems,
@@ -18,10 +18,10 @@ export const HomePagination = ({
 
     return (
         <>
-            <SHomePaginationContainer
+            <StyledPaginationContainer
                 breakLabel='...'
-                nextLabel='Next >>'
-                previousLabel='<< Prev'
+                nextLabel='Next >'
+                previousLabel='< Prev'
                 pageRangeDisplayed={1}
                 onPageChange={handlePageClick}
                 pageCount={pageCount}

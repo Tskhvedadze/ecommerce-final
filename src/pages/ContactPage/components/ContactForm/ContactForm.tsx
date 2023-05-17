@@ -4,13 +4,14 @@ import { useNavigate } from 'react-router-dom'
 import { ContactFormContext } from 'context'
 
 import {
-    SEmailInput,
-    SSubjectInput,
-    STextArea,
-    SLabel,
-    SForm,
-    SButtonContainer,
-    SFormButton,
+    EmailInput,
+    SubjectInput,
+    TextArea,
+    Label,
+    Form,
+    MessageFieldContainer,
+    ButtonContainer,
+    FormButton,
 } from './ContactForm.styled'
 
 export const ContactForm = () => {
@@ -19,10 +20,10 @@ export const ContactForm = () => {
         useContext(ContactFormContext)
 
     return (
-        <SForm onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
             <div>
-                <SLabel htmlFor='email'>Your email</SLabel>
-                <SEmailInput
+                <Label htmlFor='email'>Your email</Label>
+                <EmailInput
                     type='email'
                     id='email'
                     name='email'
@@ -33,8 +34,8 @@ export const ContactForm = () => {
                 />
             </div>
             <div>
-                <SLabel htmlFor='subject'>Subject</SLabel>
-                <SSubjectInput
+                <Label htmlFor='subject'>Subject</Label>
+                <SubjectInput
                     type='text'
                     id='subject'
                     name='subject'
@@ -44,22 +45,22 @@ export const ContactForm = () => {
                     onChange={handleInputChange}
                 />
             </div>
-            <div className='sm:col-span-2'>
-                <SLabel htmlFor='message'>Your message</SLabel>
-                <STextArea
+            <MessageFieldContainer>
+                <Label htmlFor='message'>Your message</Label>
+                <TextArea
                     id='message'
                     name='message'
                     placeholder='Leave a comment...'
                     value={formValues.message}
                     onChange={handleInputChange}
-                ></STextArea>
-            </div>
-            <SButtonContainer>
-                <SFormButton type='submit'>Send message</SFormButton>
-                <SFormButton type='button' onClick={() => navigate('/')}>
+                ></TextArea>
+            </MessageFieldContainer>
+            <ButtonContainer>
+                <FormButton type='submit'>Send message</FormButton>
+                <FormButton type='button' onClick={() => navigate('/')}>
                     Home Page
-                </SFormButton>
-            </SButtonContainer>
-        </SForm>
+                </FormButton>
+            </ButtonContainer>
+        </Form>
     )
 }

@@ -1,1 +1,1 @@
-export { HomePagination } from './HomePagination'
+export { Pagination } from './Pagination'

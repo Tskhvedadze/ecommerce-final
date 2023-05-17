@@ -1,30 +1,32 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router'
 import { useAxiosFetch } from 'hooks'
 
 import { ProductsProps } from 'types/productsAPI.types'
 
+import { Pagination } from './components/Pagination'
+import { Carousel } from './components/Carousel'
+
 import {
-    Carousel,
     Card,
-    CarouselProduct,
+    SuggestionCarousel,
     Button,
-    SMainContainer,
-    SGridContainer,
+    MainContainer,
+    GridContainer,
 } from 'components'
 
-import { HomePagination } from './components'
-
-import { SHomePageHeaderContainer, SHomePageTitle } from './HomePage.styled'
+import { ProductPageTitle, ProductPageHeaderContainer } from './HomePage.styled'
 
 const HomePage = () => {
+    const navigate = useNavigate()
     const [currentPage, setCurrentPage] = useState<number>(1)
     const itemsPerPage = 10
     const totalItems = 100
     const skip = (currentPage - 1) * itemsPerPage
 
-    const { fetchData, data, loading } = useAxiosFetch({
-        endPoint: `?limit=${itemsPerPage}&skip=${skip}&select=title,price,rating,images,thumn`,
+    const { fetchData, data } = useAxiosFetch({
+        endPoint: `?limit=${itemsPerPage}&skip=${skip}&select=title,price,images`,
     })
 
     useEffect(() => {
@@ -32,39 +34,45 @@ const HomePage = () => {
     }, [skip])
 
     return (
-        <SMainContainer>
+        <MainContainer>
             <Carousel />
-            <SHomePageHeaderContainer>
-                <SHomePageTitle>Products</SHomePageTitle>
-                <Button mode='primary'>All</Button>
-            </SHomePageHeaderContainer>
-            {/* {loading ? (
-                <Loading />
-            ) : ( */}
-            <SGridContainer>
+            <ProductPageHeaderContainer>
+                <ProductPageTitle>Products</ProductPageTitle>
+                <Button
+                    mode='primary'
+                    onClick={() => navigate('/all-products')}
+                >
+                    All
+                </Button>
+            </ProductPageHeaderContainer>
+
+            <GridContainer>
                 {data?.products?.map(
-                    ({ id, rating, images, price, title }: ProductsProps) => {
+                    ({ id, images, price, title }: ProductsProps) => {
                         return (
                             <Card
                                 key={id}
                                 title={title}
                                 images={images}
-                                rating={rating}
                                 price={price}
                             />
                         )
                     },
                 )}
-            </SGridContainer>
-            {/* )} */}
-            <HomePagination
+            </GridContainer>
+
+            <Pagination
                 totalItems={totalItems}
                 setCurrentPage={setCurrentPage}
                 itemsPerPage={itemsPerPage}
             />
 
-            <CarouselProduct headerTitle={'Top Products'} />
-        </SMainContainer>
+            <SuggestionCarousel
+                slidesPerView={7}
+                spaceBetween={5}
+                headerTitle={'Top Products'}
+            />
+        </MainContainer>
     )
 }
 

@@ -5,10 +5,10 @@ import { ContactForm } from './components/ContactForm/ContactForm'
 import { ModalComponent } from 'components'
 
 import {
-    SSection,
-    SContentContainer,
-    STitle,
-    SParagraph,
+    ContactSection,
+    ContentContainer,
+    Title,
+    Paragraph,
 } from './Contact.styled'
 
 export default function ContactPage() {
@@ -18,24 +18,24 @@ export default function ContactPage() {
     return (
         <>
             <ModalComponent
-                title='FeedBack sent successfuly'
+                title='Feedback Sent Successfully'
                 message={formValues.message}
                 subject={formValues.subject}
                 email={formValues.email}
                 open={open}
                 handleCancelModal={handleCancelModal}
             />
-            <SSection>
-                <SContentContainer>
-                    <STitle>Contact Us</STitle>
-                    <SParagraph>
+            <ContactSection>
+                <ContentContainer>
+                    <Title>Contact Us</Title>
+                    <Paragraph>
                         Got a technical issue? Want to send feedback about a
                         beta feature? Need details about our Business plan? Let
                         us know.
-                    </SParagraph>
+                    </Paragraph>
                     <ContactForm />
-                </SContentContainer>
-            </SSection>
+                </ContentContainer>
+            </ContactSection>
         </>
     )
 }

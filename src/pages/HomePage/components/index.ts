@@ -1,1 +1,0 @@
-export { HomePagination } from './Pagination'

@@ -44,8 +44,8 @@ export const StyledSwiper = styled(Swiper)`
     }
 `
 
-export const SImageDiv = styled.div<SImageDivProps>`
+export const SlideImage = styled.div<SImageDivProps>`
     background-image: url(${({ imageUrl }) => imageUrl});
 
-    ${tw`m-2 rounded  h-[200px] bg-cover bg-no-repeat bg-center`}
+    ${tw`m-1 rounded  h-[200px] bg-cover bg-no-repeat bg-center`}
 `

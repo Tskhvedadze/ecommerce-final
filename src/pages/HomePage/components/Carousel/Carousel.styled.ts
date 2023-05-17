@@ -3,16 +3,16 @@ import { Swiper } from 'swiper/react'
 import styled from 'styled-components'
 import tw from 'twin.macro'
 
-export const SDiv = styled.div`
+export const CarouselContainer = styled.div`
     ${tw`mb-3  `}
 `
 
-export const SImg = styled.img`
+export const CarouselImage = styled.img`
     filter: brightness(110%) contrast(110%);
     image-rendering: -webkit-optimize-contrast;
 `
 
-export const SCarouselSwiper = styled(Swiper)`
+export const CarouselSwiper = styled(Swiper)`
     ${tw`h-[50%]`}
     .swiper-button-prev,
     .swiper-button-next {

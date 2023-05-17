@@ -3,15 +3,15 @@ import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import styled from 'styled-components'
 import tw from 'twin.macro'
 
-export const SSearchContainer = styled.div`
+export const SearchContainer = styled.div`
     ${tw`flex grow relative items-center`}
 `
 
-export const SMainContainer = styled.div`
+export const MainContainer = styled.div`
     ${tw`w-[100%]`}
 `
 
-export const SInputContainer = styled.div`
+export const InputContainer = styled.div`
     ${tw`flex items-center h-10 bg-amazonclone-yellow rounded`}
 
     input {
@@ -23,6 +23,6 @@ export const SInputContainer = styled.div`
     }
 `
 
-export const SGlassIcon = styled(MagnifyingGlassIcon)`
+export const SearchIcon = styled(MagnifyingGlassIcon)`
     ${tw`h-[27px] m-auto stroke-slate-900`}
 `
