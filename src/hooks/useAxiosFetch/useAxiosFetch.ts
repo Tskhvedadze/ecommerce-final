@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import API from 'utils/api/products.api'
+import API from 'utils/api/api'
 
 import { FetchDataProps } from 'types/productsAPI.types'
 
