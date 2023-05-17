@@ -1,2 +1,2 @@
-export { SMainContainer } from './MainContainer/MainContainer.styled'
-export { SGridContainer } from './GridContainer/GridContainer.styled'
+export { MainContainer } from './MainContainer/MainContainer.styled'
+export { GridContainer } from './GridContainer/GridContainer.styled'

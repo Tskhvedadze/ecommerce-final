@@ -1,44 +1,35 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import Rating from 'react-star-rate'
-
 import { Button } from '..'
 
 import { ProductsProps } from 'types/productsAPI.types'
 import { CardPhotoSwiper } from './CardPhotoSwiper/CardPhotoSwiper'
 
 import {
-    SCardDivBox,
-    SContentDiv,
-    SFlexDivPrice,
-    SFlexDivRating,
-    SPriceSpan,
-    SRatingSpan,
-    STitle,
+    SCardContainer,
+    SCardContent,
+    SCardTitle,
+    SCardPriceContainer,
+    SCardPrice,
 } from './Card.styled'
 
 export type CardProps = {} & Omit<
     ProductsProps,
-    'id' | 'thumbnail' | 'description' | 'category' | 'brand'
+    'id' | 'thumbnail' | 'description' | 'category' | 'brand' | 'rating'
 >
 
-export const Card = ({ price, rating, images, title }: CardProps) => {
+export const Card = ({ price, images, title }: CardProps) => {
     return (
-        <SCardDivBox>
+        <SCardContainer>
             <CardPhotoSwiper images={images} />
-            <SContentDiv>
-                <a href='#' className='text decoration-inherit'>
-                    <STitle>{title}</STitle>
+            <SCardContent>
+                <a href='#' className='card-link'>
+                    <SCardTitle>{title}</SCardTitle>
                 </a>
-
-                <SFlexDivRating>
-                    <Rating value={rating} disabled />
-                    <SRatingSpan>{rating}</SRatingSpan>
-                </SFlexDivRating>
-            </SContentDiv>
-            <SFlexDivPrice>
-                <SPriceSpan>${price}</SPriceSpan>
-                <Button mode='secondary'>Add to cart</Button>
-            </SFlexDivPrice>
-        </SCardDivBox>
+            </SCardContent>
+            <SCardPriceContainer>
+                <SCardPrice>${price}</SCardPrice>
+                <Button mode='secondary'>Add to Cart</Button>
+            </SCardPriceContainer>
+        </SCardContainer>
     )
 }

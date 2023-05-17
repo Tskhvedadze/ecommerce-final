@@ -1,15 +1,12 @@
-import { ReactNode, MouseEvent, RefObject, MutableRefObject, Ref } from 'react'
+import { ButtonHTMLAttributes } from 'react'
 
 import { SPrimaryBTN, SSecondaryBTN } from './Button.styled'
 
 type ButtonProps = {
     mode?: string
-    children: ReactNode
-    onClick?: (event: MouseEvent<HTMLButtonElement>) => void
-    className?: string
-    disabled?: boolean
-    ref?: any
 }
+
+type FullButtonProps = ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>
 
 export const Button = ({
     mode,
@@ -17,15 +14,13 @@ export const Button = ({
     onClick,
     className,
     disabled,
-    ref,
-}: ButtonProps): JSX.Element => {
+}: FullButtonProps): JSX.Element => {
     if (mode === 'primary') {
         return (
             <SPrimaryBTN
                 onClick={onClick}
                 className={className}
                 disabled={disabled}
-                ref={ref}
             >
                 {children}
             </SPrimaryBTN>
@@ -37,7 +32,6 @@ export const Button = ({
                 onClick={onClick}
                 className={className}
                 disabled={disabled}
-                ref={ref}
             >
                 {children}
             </SSecondaryBTN>

@@ -1,46 +1,46 @@
-import { Language } from '../components/Language/Language'
-import { SearchField } from '../components/SearchField/SearchField'
-import { Cart } from '../components/Cart/Cart'
+import { LanguageSelector } from '../components/LanguageSelector/LanguageSelector'
+import { SearchBar } from '../components/SearchBar/SearchBar'
+import { ShoppingCart } from '../components/ShoppingCart/ShoppingCart'
 
 import {
-    SDivLayout,
-    SFlexLayout,
-    SContentLayout,
-    SImage,
-    SLink,
-    logo,
-} from '../HeaderStyled/Header.styled'
+    FlexLayout,
+    DivLayout,
+    ContentLayout,
+    LogoImage,
+    StyledLink,
+    logoImage,
+} from '../Header.styled'
 
 type PublicNavBarProps = {}
 
 export const PublicNavBar = (props: PublicNavBarProps) => {
     return (
-        <SFlexLayout>
-            <SContentLayout>
-                <SImage src={logo} alt='eshop' />
-            </SContentLayout>
+        <FlexLayout>
+            <ContentLayout>
+                <LogoImage src={logoImage} alt='eshop' />
+            </ContentLayout>
 
-            <SContentLayout>
-                <SDivLayout>
-                    <SLink to='/'>Home</SLink>
-                </SDivLayout>
-                <SDivLayout>
-                    <SLink to='contact-us'>Contact Us</SLink>
-                </SDivLayout>
-            </SContentLayout>
-            <SearchField />
-            <SContentLayout>
-                <SDivLayout>
-                    <Language />
-                </SDivLayout>
-                <SDivLayout>
-                    <SLink to='login'>Log In</SLink>
-                </SDivLayout>
-                <SDivLayout>
-                    <SLink to='register'>Register</SLink>
-                </SDivLayout>
-                <Cart />
-            </SContentLayout>
-        </SFlexLayout>
+            <ContentLayout>
+                <DivLayout>
+                    <StyledLink to='/'>Home</StyledLink>
+                </DivLayout>
+                <DivLayout>
+                    <StyledLink to='contact-us'>Contact Us</StyledLink>
+                </DivLayout>
+            </ContentLayout>
+            <SearchBar />
+            <ContentLayout>
+                <DivLayout>
+                    <LanguageSelector />
+                </DivLayout>
+                <DivLayout>
+                    <StyledLink to='login'>Log In</StyledLink>
+                </DivLayout>
+                <DivLayout>
+                    <StyledLink to='register'>Register</StyledLink>
+                </DivLayout>
+                <ShoppingCart />
+            </ContentLayout>
+        </FlexLayout>
     )
 }
