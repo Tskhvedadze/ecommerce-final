@@ -1,18 +1,16 @@
-export type ProductsProps = {
+export type TProducts = {
     id: number
     title: string
-    description: string
-    thumbnail: string
-    price: number
-    rating: number
     brand: string
     category: string
+    amount: number
+    description: string
+    rating: number
+    price: number
     images: string[]
 }
 
-export type FetchDataProps = {
-    limit: number
-    products: ProductsProps[]
-    skip: number
-    total: number
+export type TFetchedData = {
+    products: TProducts[]
+    total_found: number
 }

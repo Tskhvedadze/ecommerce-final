@@ -1,63 +1,71 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
+import { NavLink } from 'react-router-dom'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper'
 
-import { useAxiosFetch } from 'hooks'
-
-import { ProductsProps } from 'types/productsAPI.types'
-
+import { TProducts } from 'types/productsAPI.types'
+import { Spin } from 'antd'
 import { Container, Header, LoadingDiv } from './SuggestionCarousel.styled'
+import { getAllProducts } from 'utils'
+import { useQuery } from 'react-query'
 
 type CarouselProductProps = {
     headerTitle: string
     slidesPerView: number
     spaceBetween: number
-    category?: string
+    itemsPerPage: number
+    page_number: number
+    keyword?: string
 }
 
-export const SuggestionCarousel = ({
-    headerTitle,
-    slidesPerView,
-    spaceBetween,
-    category,
-}: CarouselProductProps) => {
-    const fetchParams = category
-        ? { endPoint: `/category/${category}` }
-        : { endPoint: `?limit=40&select=thumbnail,brand,title` }
+export const SuggestionCarousel = React.memo(
+    ({
+        headerTitle,
+        slidesPerView,
+        spaceBetween,
+        itemsPerPage,
+        page_number,
+        keyword,
+    }: CarouselProductProps) => {
+        const queryKey = ['products', keyword, page_number]
+        const { isLoading, data, refetch } = useQuery(queryKey, () =>
+            getAllProducts(itemsPerPage, page_number, keyword),
+        )
 
-    const { data, loading, fetchData } = useAxiosFetch(fetchParams)
+        useEffect(() => {
+            refetch()
+        }, [keyword, refetch])
 
-    useEffect(() => {
-        fetchData()
-    }, [category])
-
-    return (
-        <Container>
-            <Header>{headerTitle}</Header>
-            <Swiper
-                slidesPerView={slidesPerView}
-                spaceBetween={spaceBetween}
-                navigation={true}
-                modules={[Navigation]}
-            >
-                {loading ? (
-                    <LoadingDiv>Loading...</LoadingDiv>
-                ) : (
-                    data?.products.map(
-                        ({ id, brand, thumbnail, title }: ProductsProps) => (
-                            <SwiperSlide key={id}>
-                                <img
-                                    className='h-[150px] w-[200px] border rounded-lg'
-                                    src={thumbnail}
-                                    alt={brand}
-                                />
-                                <p>{title}</p>
-                            </SwiperSlide>
-                        ),
-                    )
-                )}
-            </Swiper>
-        </Container>
-    )
-}
+        return (
+            <Container>
+                <Header>{headerTitle}</Header>
+                <Swiper
+                    slidesPerView={slidesPerView}
+                    spaceBetween={spaceBetween}
+                    navigation={true}
+                    modules={[Navigation]}
+                >
+                    {isLoading ? (
+                        <LoadingDiv>
+                            <Spin size='large' />
+                        </LoadingDiv>
+                    ) : (
+                        data?.products.map(
+                            ({ id, brand, images }: TProducts) => (
+                                <SwiperSlide key={id}>
+                                    <NavLink to={`/product/${id}`}>
+                                        <img
+                                            className='h-[150px] w-[200px] border rounded-lg'
+                                            src={images[0]}
+                                            alt={brand}
+                                        />
+                                    </NavLink>
+                                </SwiperSlide>
+                            ),
+                        )
+                    )}
+                </Swiper>
+            </Container>
+        )
+    },
+)

@@ -1,6 +1,7 @@
-export { Card } from './Card/Card'
+export { ProductCard } from './Card/ProductCard'
 export { SuggestionCarousel } from './SuggestionCarousel/SuggestionCarousel'
 export { Button } from './Button/Button'
 export { ModalComponent } from './ModalComponent/ModalComponent'
 export { LoadingSpiner } from './LoadingSpiner/LoadingSpiner'
+export { Pagination } from './Pagination/Pagination'
 export { MainContainer, GridContainer } from './Containers'
