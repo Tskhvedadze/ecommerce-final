@@ -1,6 +1,12 @@
-import { LanguageSelector } from '../components/LanguageSelector/LanguageSelector'
-import { SearchBar } from '../components/SearchBar/SearchBar'
-import { ShoppingCart } from '../components/ShoppingCart/ShoppingCart'
+import { useContext } from 'react'
+import { ShoppingCartContext } from 'context'
+
+import {
+    LanguageSelector,
+    SearchBar,
+    ShoppingCart,
+    ShoppingCartDropdown,
+} from 'components'
 
 import {
     FlexLayout,
@@ -14,6 +20,8 @@ import {
 type PublicNavBarProps = {}
 
 export const PublicNavBar = (props: PublicNavBarProps) => {
+    const { isCartOpen } = useContext(ShoppingCartContext)
+
     return (
         <FlexLayout>
             <ContentLayout>
@@ -40,6 +48,7 @@ export const PublicNavBar = (props: PublicNavBarProps) => {
                     <StyledLink to='register'>Register</StyledLink>
                 </DivLayout>
                 <ShoppingCart />
+                {isCartOpen && <ShoppingCartDropdown />}
             </ContentLayout>
         </FlexLayout>
     )
