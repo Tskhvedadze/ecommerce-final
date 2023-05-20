@@ -5,7 +5,8 @@ import { ShoppingCartContainer, ShoppingIcon } from './ShoppingCart.styled'
 type ShoppingCartProps = {}
 
 export const ShoppingCart: React.FC<ShoppingCartProps> = () => {
-    const { isCartOpen, setIsCartOpen } = useContext(ShoppingCartContext)
+    const { isCartOpen, setIsCartOpen, cartCount } =
+        useContext(ShoppingCartContext)
 
     const toggleDropdown = useCallback(() => {
         setIsCartOpen(!isCartOpen)
@@ -15,7 +16,7 @@ export const ShoppingCart: React.FC<ShoppingCartProps> = () => {
         <ShoppingCartContainer>
             <ShoppingIcon onClick={toggleDropdown} />
             <div>
-                <span>3</span>
+                <span>{cartCount}</span>
             </div>
         </ShoppingCartContainer>
     )

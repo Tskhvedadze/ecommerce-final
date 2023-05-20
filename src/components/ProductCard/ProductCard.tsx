@@ -1,3 +1,8 @@
+import { useContext } from 'react'
+import { ShoppingCartContext } from 'context'
+
+import { TShoppingCart } from 'types/shoppingCart.types'
+
 import { Button } from '..'
 import { ProductCardSlider } from './ProductCardSlider/ProductCardSlider'
 
@@ -9,14 +14,19 @@ import {
     ProductCardPrice,
 } from './ProductCard.styled'
 
-type ProductCardProps = {
-    id: number
-    price: number
-    images: string[]
-    brand: string
-}
+type ProductCardProps = {} & TShoppingCart
 
-export const ProductCard = ({ id, price, images, brand }: ProductCardProps) => {
+export const ProductCard = ({
+    id,
+    price,
+    images,
+    brand,
+    quantity,
+}: ProductCardProps) => {
+    const { addItemToCart } = useContext(ShoppingCartContext)
+    const addProductToCart = () =>
+        addItemToCart({ id, price, brand, images, quantity })
+
     return (
         <ProductCardContainer>
             <ProductCardSlider img={images} />
@@ -30,7 +40,11 @@ export const ProductCard = ({ id, price, images, brand }: ProductCardProps) => {
                     <span>$</span>
                     {Number(price).toFixed(2)}
                 </ProductCardPrice>
-                <Button mode='secondary' className='uppercase'>
+                <Button
+                    mode='secondary'
+                    className='uppercase'
+                    onClick={addProductToCart}
+                >
                     Add to Cart
                 </Button>
             </ProductCardPriceContainer>

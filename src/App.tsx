@@ -5,7 +5,6 @@ import { LoadingSpiner } from 'components'
 
 const MainLayout = lazy(() => import('layout/MainLayout'))
 const HomePage = lazy(() => import('pages/HomePage/HomePage'))
-
 const SingleProductPage = lazy(
     () => import('pages/SingleProductPage/SingleProductPage'),
 )
