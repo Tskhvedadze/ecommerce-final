@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import tw from 'twin.macro'
 
 export const ShoppingCartContainer = styled.div`
-    ${tw`flex pr-3 pl-3`}
+    ${tw`flex pr-3 pl-3 `}
 
     div {
         ${tw`mt-7  text-xs xl:text-sm font-bold`}
@@ -15,5 +15,5 @@ export const ShoppingCartContainer = styled.div`
     }
 `
 export const ShoppingIcon = styled(ShoppingCartIcon)`
-    ${tw`h-[48px] cursor-pointer hover:text-orange-light`}
+    ${tw`h-[48px] cursor-pointer hover:text-orange-light `}
 `

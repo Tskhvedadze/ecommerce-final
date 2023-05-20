@@ -8,7 +8,7 @@ import amazon from 'assets/images/amazon.png'
 export const logoImage = amazon
 
 export const NavBarLayout = styled.header`
-    ${tw`min-w-[1000px] `}
+    ${tw`min-w-[1000px] relative`}
 `
 
 export const FlexLayout = styled.div`
