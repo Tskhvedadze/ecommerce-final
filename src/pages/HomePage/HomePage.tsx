@@ -1,78 +1,87 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router'
-import { useAxiosFetch } from 'hooks'
+import { useState, useCallback, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useQuery } from 'react-query'
 
-import { ProductsProps } from 'types/productsAPI.types'
+import { TProducts } from 'types/productsAPI.types'
+import { getAllProducts } from 'utils'
 
-import { Pagination } from './components/Pagination'
 import { Carousel } from './components/Carousel'
 
-import {
-    Card,
-    SuggestionCarousel,
-    Button,
-    MainContainer,
-    GridContainer,
-} from 'components'
+import { Button, ProductCard, SuggestionCarousel, Pagination } from 'components'
 
-import { ProductPageTitle, ProductPageHeaderContainer } from './HomePage.styled'
+import {
+    ProductPageTitle,
+    ProductPageHeaderContainer,
+    StyledSpin,
+    ProductCardGridContainer,
+} from './HomePage.styled'
 
 const HomePage = () => {
     const navigate = useNavigate()
     const [currentPage, setCurrentPage] = useState<number>(1)
+
     const itemsPerPage = 10
-    const totalItems = 100
     const skip = (currentPage - 1) * itemsPerPage
 
-    const { fetchData, data } = useAxiosFetch({
-        endPoint: `?limit=${itemsPerPage}&skip=${skip}&select=title,price,images`,
-    })
+    const { isLoading, data, refetch } = useQuery(
+        ['products', currentPage],
+        () => getAllProducts(itemsPerPage, skip),
+        {
+            keepPreviousData: true,
+        },
+    )
 
     useEffect(() => {
-        fetchData()
-    }, [skip])
+        refetch()
+    }, [refetch])
+
+    const productCard = useCallback(
+        ({ id, images, price, brand }: TProducts) => (
+            <ProductCard
+                key={id}
+                id={id}
+                brand={brand}
+                images={images}
+                price={price}
+            />
+        ),
+        [],
+    )
 
     return (
-        <MainContainer>
+        <div className='min-w-[1000px]'>
             <Carousel />
             <ProductPageHeaderContainer>
                 <ProductPageTitle>Products</ProductPageTitle>
-                <Button
-                    mode='primary'
-                    onClick={() => navigate('/all-products')}
-                >
+                <Button mode='primary' onClick={() => navigate('/products')}>
                     All
                 </Button>
             </ProductPageHeaderContainer>
 
-            <GridContainer>
-                {data?.products?.map(
-                    ({ id, images, price, title }: ProductsProps) => {
-                        return (
-                            <Card
-                                key={id}
-                                title={title}
-                                images={images}
-                                price={price}
-                            />
-                        )
-                    },
-                )}
-            </GridContainer>
+            {isLoading ? (
+                <StyledSpin size='large' />
+            ) : (
+                <ProductCardGridContainer>
+                    {data?.products.map((product: TProducts) =>
+                        productCard(product),
+                    )}
+                </ProductCardGridContainer>
+            )}
 
             <Pagination
-                totalItems={totalItems}
+                totalItems={data?.total_found}
                 setCurrentPage={setCurrentPage}
                 itemsPerPage={itemsPerPage}
             />
 
             <SuggestionCarousel
+                itemsPerPage={50}
+                page_number={1500}
                 slidesPerView={7}
-                spaceBetween={5}
+                spaceBetween={4}
                 headerTitle={'Top Products'}
             />
-        </MainContainer>
+        </div>
     )
 }
 

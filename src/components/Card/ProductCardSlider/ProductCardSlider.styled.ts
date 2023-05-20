@@ -1,12 +1,7 @@
-import { HTMLAttributes } from 'react'
-import { Swiper } from 'swiper/react'
+import { Swiper, SwiperSlide } from 'swiper/react'
 
 import styled from 'styled-components'
 import tw from 'twin.macro'
-
-type SImageDivProps = HTMLAttributes<HTMLDivElement> & {
-    imageUrl: string
-}
 
 export const StyledSwiper = styled(Swiper)`
     position: relative;
@@ -44,8 +39,6 @@ export const StyledSwiper = styled(Swiper)`
     }
 `
 
-export const SlideImage = styled.div<SImageDivProps>`
-    background-image: url(${({ imageUrl }) => imageUrl});
-
-    ${tw`m-1 rounded  h-[200px] bg-cover bg-no-repeat bg-center`}
+export const StyledSlider = styled(SwiperSlide)`
+    ${tw`flex justify-center `}
 `
