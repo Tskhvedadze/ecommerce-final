@@ -1,7 +1,7 @@
 import { apiClient } from 'utils'
 
 export const getAllProducts = async (
-    itemsPerPage: number,
+    itemsPerPage?: number,
     page_number?: number,
     keyword?: string,
 ) => {

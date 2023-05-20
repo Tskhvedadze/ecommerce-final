@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import tw from 'twin.macro'
 
 export const FooterContainer = styled.footer`
-    ${tw`bg-gray-900 `}
+    ${tw`bg-gray-900 min-w-[1000px] mt-12`}
 `
 
 export const FooterContent = styled.div`
@@ -26,7 +26,7 @@ export const StyledLink = styled(NavLink)`
     ${tw`text-white hover:underline`}
 `
 export const StyledLine = styled.hr`
-    ${tw`my-3 border-gray-200  `}
+    ${tw`my-3 border-gray-200`}
 `
 
 export const StyledFlexContainer = styled.div`

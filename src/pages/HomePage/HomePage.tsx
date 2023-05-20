@@ -1,26 +1,19 @@
 import { useState, useCallback, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query'
-import { Spin } from 'antd'
 
 import { TProducts } from 'types/productsAPI.types'
 import { getAllProducts } from 'utils'
 
 import { Carousel } from './components/Carousel'
 
-import {
-    Button,
-    ProductCard,
-    SuggestionCarousel,
-    Pagination,
-    MainContainer,
-    GridContainer,
-} from 'components'
+import { Button, ProductCard, SuggestionCarousel, Pagination } from 'components'
 
 import {
     ProductPageTitle,
     ProductPageHeaderContainer,
-    LoadingDiv,
+    StyledSpin,
+    ProductCardGridContainer,
 } from './HomePage.styled'
 
 const HomePage = () => {
@@ -56,7 +49,7 @@ const HomePage = () => {
     )
 
     return (
-        <MainContainer>
+        <div className='min-w-[1000px]'>
             <Carousel />
             <ProductPageHeaderContainer>
                 <ProductPageTitle>Products</ProductPageTitle>
@@ -66,15 +59,13 @@ const HomePage = () => {
             </ProductPageHeaderContainer>
 
             {isLoading ? (
-                <LoadingDiv>
-                    <Spin size='large' />
-                </LoadingDiv>
+                <StyledSpin size='large' />
             ) : (
-                <GridContainer>
+                <ProductCardGridContainer>
                     {data?.products.map((product: TProducts) =>
                         productCard(product),
                     )}
-                </GridContainer>
+                </ProductCardGridContainer>
             )}
 
             <Pagination
@@ -87,10 +78,10 @@ const HomePage = () => {
                 itemsPerPage={50}
                 page_number={1500}
                 slidesPerView={7}
-                spaceBetween={5}
+                spaceBetween={4}
                 headerTitle={'Top Products'}
             />
-        </MainContainer>
+        </div>
     )
 }
 

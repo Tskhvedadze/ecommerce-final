@@ -1,117 +1,124 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useQuery } from 'react-query'
+
 import { TProducts } from 'types/productsAPI.types'
 
-import { getAllProducts } from 'utils'
+import { Pagination, Select } from 'antd'
 
-import { ProductCard, LoadingSpiner, Pagination } from 'components'
+import {
+    getAllProducts,
+    getFilteredProducts,
+    getDataSlice,
+    filteredOptions,
+} from 'utils'
+
+import { ProductCard } from 'components'
+
+import {
+    OuterContainer,
+    InnerContainer,
+    FilterContainer,
+    ResultsContainer,
+    StyledSpin,
+    ProductCardContainer,
+    NoItemFound,
+} from './Products.styled'
 
 function ProductsPage() {
     const [currentPage, setCurrentPage] = useState<number>(1)
-    const [brand, setBrand] = useState<string>('LG')
+    const [brandName, setBrandName] = useState<string>('Samsung')
 
-    const itemsPerPage = 8
+    const itemsPerPage = 12
     const skip = (currentPage - 1) * itemsPerPage
 
-    const { isLoading, data, refetch } = useQuery(
-        ['products', currentPage],
-        () => getAllProducts(itemsPerPage, skip, brand),
+    const { data: allProducts } = useQuery(
+        ['products'],
+        () => getAllProducts(10000, 0, ''),
         {
-            keepPreviousData: true,
+            initialData: [],
         },
     )
 
-    useEffect(() => {
-        refetch()
-    }, [brand, currentPage, refetch])
+    const filteredProducts = useMemo(
+        () => getFilteredProducts(allProducts, brandName),
+        [allProducts, brandName],
+    )
 
-    useEffect(() => {
-        if (data?.total_found <= skip) {
-            // Adjust the current page when the total items are reduced
-            setCurrentPage(Math.ceil(Number(data.total_found) / itemsPerPage))
-        }
-    }, [data?.total_found, itemsPerPage, skip])
+    const data = useMemo(
+        () => getDataSlice(filteredProducts, skip, itemsPerPage),
+        [filteredProducts, skip, itemsPerPage],
+    )
+
+    const totalFound = filteredProducts?.length
+
+    const handlePageClick = useCallback((page: number) => {
+        setCurrentPage(page)
+    }, [])
+
+    const handleBrandChange = useCallback((value: string) => {
+        setBrandName(value)
+        setCurrentPage(1)
+    }, [])
+
+    const getSelectOptions = useMemo(
+        () => filteredOptions(brandName),
+        [brandName],
+    )
 
     return (
-        <div className='flex justify-between items-center'>
-            <div className='flex justify-center items-center flex-col w-[20%]'>
-                <h1 className='text-2xl uppercase underline '>
-                    FIlter By Brand Names
-                </h1>
-                <div className='flex flex-col items-start'>
-                    <button
-                        onClick={() => {
-                            setBrand('TCL')
-                            setCurrentPage(1)
-                        }}
-                    >
-                        TCL
-                    </button>
-                    <button
-                        onClick={() => {
-                            setBrand('samsung')
-                            setCurrentPage(1)
-                        }}
-                    >
-                        Samsung
-                    </button>
-                    <button
-                        onClick={() => {
-                            setBrand('apple')
-                            setCurrentPage(1)
-                        }}
-                    >
-                        Apple
-                    </button>
-                    <button
-                        onClick={() => {
-                            setBrand('lenovo')
-                            setCurrentPage(1)
-                        }}
-                    >
-                        Lenovo
-                    </button>
-                    <button
-                        onClick={() => {
-                            setBrand('nokia')
-                            setCurrentPage(1)
-                        }}
-                    >
-                        nokia
-                    </button>
-                    <button
-                        onClick={() => {
-                            setBrand('iphone')
-                            setCurrentPage(1)
-                        }}
-                    >
-                        iphone
-                    </button>
-                </div>
-            </div>
-            <div>
-                <div className='grid grid-cols-4 gap-2 max-w-[1000px] py-10 pl-10  my-4 ml-5 border'>
-                    {data?.products.map(
-                        ({ id, images, price, brand }: TProducts) => {
-                            return (
-                                <ProductCard
-                                    id={id}
-                                    key={id}
-                                    brand={brand}
-                                    images={images}
-                                    price={price}
-                                />
-                            )
-                        },
+        <OuterContainer>
+            <InnerContainer>
+                <FilterContainer>
+                    <h1>Filter By Brand Names</h1>
+                    <Select
+                        defaultValue='Samsung'
+                        value={brandName}
+                        showSearch
+                        size='large'
+                        onChange={handleBrandChange}
+                        style={{ width: '17rem' }}
+                        options={getSelectOptions.map((item) => ({
+                            value: item,
+                            label: item,
+                        }))}
+                    />
+                </FilterContainer>
+                <ResultsContainer>
+                    {data?.length === 0 ? (
+                        <NoItemFound>
+                            No '{brandName}' found. Please go to the previous
+                            page or select another brand.
+                        </NoItemFound>
+                    ) : !filteredProducts ? (
+                        <StyledSpin size='large' />
+                    ) : (
+                        <ProductCardContainer>
+                            {data?.map(
+                                ({ id, images, price, brand }: TProducts) => (
+                                    <ProductCard
+                                        id={id}
+                                        key={id}
+                                        brand={brand}
+                                        images={images}
+                                        price={price}
+                                    />
+                                ),
+                            )}
+                        </ProductCardContainer>
                     )}
-                </div>
-                <Pagination
-                    totalItems={data?.total_found}
-                    setCurrentPage={setCurrentPage}
-                    itemsPerPage={itemsPerPage}
-                />
-            </div>
-        </div>
+
+                    <Pagination
+                        className='mb-4 md:mb-0 border rounded-lg p-2'
+                        showSizeChanger={false}
+                        showQuickJumper
+                        current={currentPage}
+                        defaultCurrent={1}
+                        total={totalFound}
+                        onChange={handlePageClick}
+                    />
+                </ResultsContainer>
+            </InnerContainer>
+        </OuterContainer>
     )
 }
 

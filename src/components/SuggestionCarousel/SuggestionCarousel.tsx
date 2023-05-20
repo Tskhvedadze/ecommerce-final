@@ -4,8 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper'
 
 import { TProducts } from 'types/productsAPI.types'
-import { Spin } from 'antd'
-import { Container, Header, LoadingDiv } from './SuggestionCarousel.styled'
+import { Container, Header, StyledSpin } from './SuggestionCarousel.styled'
 import { getAllProducts } from 'utils'
 import { useQuery } from 'react-query'
 
@@ -46,16 +45,14 @@ export const SuggestionCarousel = React.memo(
                     modules={[Navigation]}
                 >
                     {isLoading ? (
-                        <LoadingDiv>
-                            <Spin size='large' />
-                        </LoadingDiv>
+                        <StyledSpin size='large' />
                     ) : (
                         data?.products.map(
                             ({ id, brand, images }: TProducts) => (
                                 <SwiperSlide key={id}>
                                     <NavLink to={`/product/${id}`}>
                                         <img
-                                            className='h-[150px] w-[200px] border rounded-lg'
+                                            className='h-[150px] w-[200px] border rounded-lg mt-3'
                                             src={images[0]}
                                             alt={brand}
                                         />
