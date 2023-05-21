@@ -14,26 +14,28 @@ const EditProductPage = lazy(
 const ProductsPage = lazy(() => import('pages/ProductsPage/ProductsPage'))
 const ContactPage = lazy(() => import('pages/ContactPage/ContactPage'))
 
-function App() {
+const App = () => {
     return (
-        <Suspense fallback={<LoadingSpiner />}>
-            <Routes>
-                <Route element={<MainLayout />}>
-                    <Route path='/' element={<HomePage />} />
-                    <Route
-                        path='/product/:itemID'
-                        element={<SingleProductPage />}
-                    />
-                    <Route
-                        path='/product/:id/edit'
-                        element={<EditProductPage />}
-                    />
+        <>
+            <Suspense fallback={<LoadingSpiner />}>
+                <Routes>
+                    <Route element={<MainLayout />}>
+                        <Route path='/' element={<HomePage />} />
+                        <Route path='/products' element={<ProductsPage />} />
+                        <Route
+                            path='/products/:title/:itemID'
+                            element={<SingleProductPage />}
+                        />
 
-                    <Route path='/products' element={<ProductsPage />} />
-                </Route>
-                <Route path='contact-us' element={<ContactPage />} />
-            </Routes>
-        </Suspense>
+                        <Route
+                            path='/product/:id/edit'
+                            element={<EditProductPage />}
+                        />
+                    </Route>
+                    <Route path='/contact-us' element={<ContactPage />} />
+                </Routes>
+            </Suspense>
+        </>
     )
 }
 

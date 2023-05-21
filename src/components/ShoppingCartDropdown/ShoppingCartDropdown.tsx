@@ -28,7 +28,11 @@ export const ShoppingCartDropdown = (props: ShoppingCartDropdownProps) => {
                     )
                 )}
             </CartItems>
-            <Button mode='secondary' className='mt-[13px] w-[85%] '>
+            <Button
+                mode='secondary'
+                className='mt-[13px] w-[85%]'
+                disabled={!cartItems?.length}
+            >
                 Go To Checkout
             </Button>
         </CartDropdownContainer>

@@ -20,11 +20,11 @@ const HomePage = () => {
     const navigate = useNavigate()
     const [currentPage, setCurrentPage] = useState<number>(1)
 
-    const itemsPerPage = 10
+    const itemsPerPage = 15
     const skip = (currentPage - 1) * itemsPerPage
 
     const { isLoading, data, refetch } = useQuery(
-        ['products', currentPage],
+        ['homePageProducts', currentPage],
         () => getAllProducts(itemsPerPage, skip),
         {
             keepPreviousData: true,
@@ -36,13 +36,14 @@ const HomePage = () => {
     }, [refetch])
 
     const productCard = useCallback(
-        ({ id, images, price, brand }: TProducts) => (
+        ({ id, images, price, brand, title }: TProducts) => (
             <ProductCard
                 key={id}
                 id={id}
                 brand={brand}
                 images={images}
                 price={price}
+                title={title}
             />
         ),
         [],

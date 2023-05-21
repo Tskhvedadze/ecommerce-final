@@ -1,28 +1,17 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useQuery } from 'react-query'
-
-import { TProducts } from 'types/productsAPI.types'
-
 import { Pagination, Select } from 'antd'
-
-import {
-    getAllProducts,
-    getFilteredProducts,
-    getDataSlice,
-    filteredOptions,
-} from 'utils'
-
-import { ProductCard } from 'components'
-
+import { getAllProducts, filteredOptions } from 'utils'
+import { ProductCard, BreadcrumbComponent } from 'components'
 import {
     OuterContainer,
     InnerContainer,
     FilterContainer,
     ResultsContainer,
-    StyledSpin,
     ProductCardContainer,
     NoItemFound,
 } from './Products.styled'
+import { TProducts } from 'types/productsAPI.types'
 
 function ProductsPage() {
     const [currentPage, setCurrentPage] = useState<number>(1)
@@ -31,25 +20,14 @@ function ProductsPage() {
     const itemsPerPage = 12
     const skip = (currentPage - 1) * itemsPerPage
 
-    const { data: allProducts } = useQuery(
-        ['products'],
-        () => getAllProducts(10000, 0, ''),
-        {
-            initialData: [],
-        },
+    const { data, refetch } = useQuery(
+        ['allProducts', currentPage, brandName],
+        () => getAllProducts(itemsPerPage, skip, brandName),
     )
 
-    const filteredProducts = useMemo(
-        () => getFilteredProducts(allProducts, brandName),
-        [allProducts, brandName],
-    )
-
-    const data = useMemo(
-        () => getDataSlice(filteredProducts, skip, itemsPerPage),
-        [filteredProducts, skip, itemsPerPage],
-    )
-
-    const totalFound = filteredProducts?.length
+    useEffect(() => {
+        refetch()
+    }, [currentPage, brandName, refetch])
 
     const handlePageClick = useCallback((page: number) => {
         setCurrentPage(page)
@@ -82,25 +60,31 @@ function ProductsPage() {
                             label: item,
                         }))}
                     />
+                    <BreadcrumbComponent />
                 </FilterContainer>
                 <ResultsContainer>
-                    {data?.length === 0 ? (
+                    {data?.products.length === 0 ? (
                         <NoItemFound>
                             No '{brandName}' found. Please go to the previous
                             page or select another brand.
                         </NoItemFound>
-                    ) : !filteredProducts ? (
-                        <StyledSpin size='large' />
                     ) : (
                         <ProductCardContainer>
-                            {data?.map(
-                                ({ id, images, price, brand }: TProducts) => (
+                            {data?.products.map(
+                                ({
+                                    id,
+                                    images,
+                                    price,
+                                    brand,
+                                    title,
+                                }: TProducts) => (
                                     <ProductCard
-                                        id={id}
                                         key={id}
+                                        id={id}
                                         brand={brand}
                                         images={images}
                                         price={price}
+                                        title={title}
                                     />
                                 ),
                             )}
@@ -113,7 +97,7 @@ function ProductsPage() {
                         showQuickJumper
                         current={currentPage}
                         defaultCurrent={1}
-                        total={totalFound}
+                        total={data.total_found}
                         onChange={handlePageClick}
                     />
                 </ResultsContainer>

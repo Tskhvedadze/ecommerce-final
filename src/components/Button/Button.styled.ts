@@ -7,6 +7,7 @@ export const SPrimaryBTN = styled.button`
 
 export const SSecondaryBTN = styled.button`
     ${tw`
-    text-white bg-orange hover:bg-orange-light focus:ring-2 focus:outline-none focus:ring-orange-light font-medium rounded text-sm px-1.5 py-1 text-center dark:bg-orange-dark dark:hover:bg-orange dark:focus:ring-orange-light
+    text-white  bg-orange hover:bg-orange-light focus:ring-2 focus:outline-none focus:ring-orange-light font-medium rounded text-sm px-1.5 py-1 text-center dark:bg-orange-dark dark:hover:bg-orange dark:focus:ring-orange-light
+    disabled:bg-orange-light disabled:cursor-not-allowed
     `}
 `

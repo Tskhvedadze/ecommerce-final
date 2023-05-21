@@ -73,8 +73,8 @@ export const Footer = () => {
                     <span>© 2023 All Rights Reserved.</span>
                     <div>
                         <Link to={'#'}>
-                            <span>Facebook page</span>
                             <Facebook />
+                            <span>Facebook page</span>
                         </Link>
                         <Link to={'#'}>
                             <Instagram />

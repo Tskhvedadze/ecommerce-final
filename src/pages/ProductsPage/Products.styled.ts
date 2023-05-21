@@ -12,7 +12,7 @@ export const InnerContainer = styled.div`
 `
 
 export const FilterContainer = styled.div`
-    ${tw`flex justify-center items-center flex-row  md:w-[100%] my-4 border py-2`}
+    ${tw`flex justify-evenly items-center flex-row  w-[100%] my-4 border py-2`}
 
     h1 {
         ${tw`text-xl uppercase  mr-4 text-gray-600`}
