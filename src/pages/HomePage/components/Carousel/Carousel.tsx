@@ -1,11 +1,7 @@
 import { SwiperSlide } from 'swiper/react'
 import { Navigation, Autoplay } from 'swiper'
 
-import {
-    CarouselContainer,
-    CarouselSwiper,
-    CarouselImage,
-} from './Carousel.styled'
+import { CarouselSwiper, CarouselImage } from './Carousel.styled'
 
 import banner_1 from 'assets/images/bannerImgOne.jpg'
 import banner_2 from 'assets/images/bannerImgTwo.jpg'
@@ -33,22 +29,20 @@ const banners = [
 
 export const Carousel = () => {
     return (
-        <CarouselContainer>
-            <CarouselSwiper
-                loop={true}
-                spaceBetween={0}
-                modules={[Navigation, Autoplay]}
-                autoplay={{
-                    delay: 4000,
-                }}
-                navigation={true}
-            >
-                {banners.map((banner, index) => (
-                    <SwiperSlide key={index}>
-                        <CarouselImage src={banner} alt='banner' />
-                    </SwiperSlide>
-                ))}
-            </CarouselSwiper>
-        </CarouselContainer>
+        <CarouselSwiper
+            loop={true}
+            spaceBetween={0}
+            modules={[Navigation, Autoplay]}
+            autoplay={{
+                delay: 4000,
+            }}
+            navigation={true}
+        >
+            {banners.map((banner, index) => (
+                <SwiperSlide key={index}>
+                    <CarouselImage src={banner} alt='banner' />
+                </SwiperSlide>
+            ))}
+        </CarouselSwiper>
     )
 }

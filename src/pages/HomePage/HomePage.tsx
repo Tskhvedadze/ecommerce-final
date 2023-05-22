@@ -5,7 +5,7 @@ import { useQuery } from 'react-query'
 import { TProducts } from 'types/productsAPI.types'
 import { getAllProducts } from 'utils'
 
-import { Carousel } from './components/Carousel'
+import { Carousel } from './components/Carousel/Carousel'
 
 import { Button, ProductCard, SuggestionCarousel, Pagination } from 'components'
 
@@ -20,11 +20,11 @@ const HomePage = () => {
     const navigate = useNavigate()
     const [currentPage, setCurrentPage] = useState<number>(1)
 
-    const itemsPerPage = 10
+    const itemsPerPage = 15
     const skip = (currentPage - 1) * itemsPerPage
 
     const { isLoading, data, refetch } = useQuery(
-        ['products', currentPage],
+        ['homePageProducts', currentPage],
         () => getAllProducts(itemsPerPage, skip),
         {
             keepPreviousData: true,
@@ -36,20 +36,21 @@ const HomePage = () => {
     }, [refetch])
 
     const productCard = useCallback(
-        ({ id, images, price, brand }: TProducts) => (
+        ({ id, images, price, brand, title }: TProducts) => (
             <ProductCard
                 key={id}
                 id={id}
                 brand={brand}
                 images={images}
                 price={price}
+                title={title}
             />
         ),
         [],
     )
 
     return (
-        <div className='min-w-[1000px]'>
+        <>
             <Carousel />
             <ProductPageHeaderContainer>
                 <ProductPageTitle>Products</ProductPageTitle>
@@ -81,7 +82,7 @@ const HomePage = () => {
                 spaceBetween={4}
                 headerTitle={'Top Products'}
             />
-        </div>
+        </>
     )
 }
 

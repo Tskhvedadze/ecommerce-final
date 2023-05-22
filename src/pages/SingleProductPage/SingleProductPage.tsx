@@ -1,12 +1,15 @@
 import { useParams } from 'react-router-dom'
+
+import { BreadcrumbComponent } from 'components'
+
 type SingleProductPageProps = {}
 
 function SingleProductPage({}: SingleProductPageProps) {
-    const { itemID } = useParams()
+    const params = useParams()
 
     return (
-        <div className='flex h-[200px] justify-center items-center'>
-            Single Products ID : {itemID}
+        <div className='flex h-[100vh] justify-center items-center'>
+            <BreadcrumbComponent />
         </div>
     )
 }

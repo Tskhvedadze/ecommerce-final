@@ -1,14 +1,20 @@
 import { Outlet } from 'react-router-dom'
 
-import { Header } from './Header/Header'
-import { Footer } from './Footer/Footer'
+import NavBar from './NavBar/NavBar'
+import Footer from './Footer/Footer'
 
-export default function MainLayout() {
+import { MainContainer, ContentLayout } from './MainLayout.styled'
+
+function MainLayout() {
     return (
-        <div className='flex flex-col grow justify-between content-between min-w-[1000px]'>
-            <Header />
-            <Outlet />
+        <MainContainer>
+            <NavBar />
+            <ContentLayout>
+                <Outlet />
+            </ContentLayout>
             <Footer />
-        </div>
+        </MainContainer>
     )
 }
+
+export default MainLayout

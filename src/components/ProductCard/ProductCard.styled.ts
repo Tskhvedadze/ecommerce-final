@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import tw from 'twin.macro'
 
 export const ProductCardContainer = styled.div`
-    ${tw`w-[95%] bg-white border border-gray-200 rounded shadow-md dark:bg-gray-800 dark:border-gray-700`}
+    ${tw`w-[100%] bg-white border border-gray-200 rounded shadow-md dark:bg-gray-800 dark:border-gray-700`}
 `
 
 export const ProductCardContent = styled.div`

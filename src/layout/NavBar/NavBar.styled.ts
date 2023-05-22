@@ -3,28 +3,20 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import tw from 'twin.macro'
 
-import amazon from 'assets/images/amazon.png'
-
-export const logoImage = amazon
-
-export const NavBarLayout = styled.header`
-    ${tw`min-w-[1000px] relative`}
-`
-
 export const FlexLayout = styled.div`
-    ${tw`flex bg-amazonclone text-white h-[60px]`}
+    ${tw`flex  bg-amazonclone text-white h-[4rem] min-w-[1000px] relative`}
 `
 
 export const DivLayout = styled.div`
-    ${tw`pr-4 pl-4`}
+    ${tw`px-3 `}
 `
 
 export const ContentLayout = styled.div`
-    ${tw`flex items-center m-4`}
+    ${tw`flex items-center m-2`}
 `
 
-export const LogoImage = styled.img`
-    ${tw`h-[35px] w-[100px] m-2 `}
+export const StyledUser = styled.h1`
+    ${tw`text-sm xl:text-base font-bold `}
 `
 
 export const StyledLink = styled(Link)`

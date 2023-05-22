@@ -22,16 +22,17 @@ export const ProductCard = ({
     images,
     brand,
     quantity,
+    title,
 }: ProductCardProps) => {
     const { addItemToCart } = useContext(ShoppingCartContext)
     const addProductToCart = () =>
-        addItemToCart({ id, price, brand, images, quantity })
+        addItemToCart({ id, price, brand, images, quantity, title })
 
     return (
         <ProductCardContainer>
             <ProductCardSlider img={images} />
             <ProductCardContent>
-                <ProductCardTitle to={`/product/${id}`}>
+                <ProductCardTitle to={`/products/${title}/${id}`}>
                     {brand}
                 </ProductCardTitle>
             </ProductCardContent>

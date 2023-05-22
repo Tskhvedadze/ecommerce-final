@@ -1,24 +1,3 @@
-import { TProducts } from 'types/productsAPI.types'
-
-function getFilteredProducts(
-    allProducts: { products: TProducts[] } | undefined,
-    brandName: string,
-): TProducts[] | undefined {
-    return allProducts?.products?.filter((item: TProducts) =>
-        item.brand.includes(brandName),
-    )
-}
-
-function getDataSlice(
-    filteredData: TProducts[] | undefined,
-    skip: number,
-    itemsPerPage: number,
-): TProducts[] | undefined {
-    const startIndex = skip
-    const endIndex = startIndex + itemsPerPage
-    return filteredData?.slice(startIndex, endIndex)
-}
-
 const OPTIONS = [
     'Acer',
     'Amazon',
@@ -65,8 +44,6 @@ const OPTIONS = [
     'Xiaomi',
 ]
 
-function filteredOptions(brandName: string) {
+export function filteredOptions(brandName: string) {
     return OPTIONS.filter((o) => !brandName.includes(o))
 }
-
-export { getFilteredProducts, getDataSlice, filteredOptions }
