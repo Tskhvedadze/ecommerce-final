@@ -5,7 +5,7 @@ import { useQuery } from 'react-query'
 import { TProducts } from 'types/productsAPI.types'
 import { getAllProducts } from 'utils'
 
-import { Carousel } from './components/Carousel'
+import { Carousel } from './components/Carousel/Carousel'
 
 import { Button, ProductCard, SuggestionCarousel, Pagination } from 'components'
 
@@ -50,7 +50,7 @@ const HomePage = () => {
     )
 
     return (
-        <div className='min-w-[1000px]'>
+        <>
             <Carousel />
             <ProductPageHeaderContainer>
                 <ProductPageTitle>Products</ProductPageTitle>
@@ -82,7 +82,7 @@ const HomePage = () => {
                 spaceBetween={4}
                 headerTitle={'Top Products'}
             />
-        </div>
+        </>
     )
 }
 

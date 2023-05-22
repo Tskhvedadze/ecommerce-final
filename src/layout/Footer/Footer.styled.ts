@@ -3,15 +3,11 @@ import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import tw from 'twin.macro'
 
-export const FooterContainer = styled.footer`
-    ${tw`bg-gray-900 min-w-[1000px] mt-12`}
-`
-
-export const FooterContent = styled.div`
-    ${tw`mx-auto w-full max-w-screen-xl  py-4 `}
+export const FooterContent = styled.footer`
+    ${tw`mx-auto w-full mt-9  p-4 bg-amazonclone `}
 `
 export const StyledGridContainer = styled.div`
-    ${tw`grid grid-cols-3`}
+    ${tw`grid grid-cols-3 items-center text-center`}
 `
 
 export const StyledLi = styled.li`
@@ -30,7 +26,7 @@ export const StyledLine = styled.hr`
 `
 
 export const StyledFlexContainer = styled.div`
-    ${tw`flex items-center justify-between`}
+    ${tw`flex items-center justify-between mx-7`}
 
     span {
         ${tw`text-sm text-white`}

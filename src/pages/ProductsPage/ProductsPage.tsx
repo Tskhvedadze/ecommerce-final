@@ -92,7 +92,7 @@ function ProductsPage() {
                     )}
 
                     <Pagination
-                        className='mb-4 md:mb-0 border rounded-lg p-2'
+                        className='mb-4 md:mb-0 border-b p-2 w-full text-center'
                         showSizeChanger={false}
                         showQuickJumper
                         current={currentPage}

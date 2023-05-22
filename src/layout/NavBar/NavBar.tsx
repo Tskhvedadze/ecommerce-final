@@ -1,42 +1,40 @@
+import { Link } from 'react-router-dom'
+
 import { useContext } from 'react'
 import { ShoppingCartContext } from 'context'
 
 import {
-    SearchBar,
-    LanguageSelector,
     ShoppingCart,
+    SearchBar,
     ShoppingCartDropdown,
-} from 'components'
-
+    LanguageSwitcher,
+} from './components'
 import {
     FlexLayout,
     DivLayout,
     ContentLayout,
-    LogoImage,
     StyledLink,
-    LogoutButton,
-    UserName,
-    UserEmail,
-    logoImage,
-} from '../Header.styled'
+    StyledUser,
+} from './NavBar.styled'
 
-type PrivateNavBarProps = {}
+import amazon from 'assets/images/amazon.png'
 
-export const PrivateNavBar = (props: PrivateNavBarProps) => {
+type NavBarProps = {}
+
+function NavBar(props: NavBarProps) {
     const { isCartOpen } = useContext(ShoppingCartContext)
 
     return (
         <FlexLayout>
             <ContentLayout>
-                <LogoImage src={logoImage} alt='logo' />
-                <DivLayout>
-                    <UserName>UserName</UserName>
-                    <UserEmail>giorgi.cxvedadze4@gmail.com</UserEmail>
-                </DivLayout>
+                <Link to={'/'}>
+                    <img width={90} height={35} src={amazon} alt='eshop' />
+                </Link>
             </ContentLayout>
+
             <ContentLayout>
                 <DivLayout>
-                    <StyledLink to='/'>Home</StyledLink>
+                    <StyledUser>User</StyledUser>
                 </DivLayout>
                 <DivLayout>
                     <StyledLink to='contact-us'>Contact Us</StyledLink>
@@ -45,12 +43,13 @@ export const PrivateNavBar = (props: PrivateNavBarProps) => {
             <SearchBar />
             <ContentLayout>
                 <DivLayout>
-                    <LanguageSelector />
+                    <LanguageSwitcher />
                 </DivLayout>
                 <DivLayout>
-                    <LogoutButton onClick={() => console.log('logout')}>
-                        Log Out
-                    </LogoutButton>
+                    <StyledLink to='login'>Log In</StyledLink>
+                </DivLayout>
+                <DivLayout>
+                    <StyledLink to='register'>Register</StyledLink>
                 </DivLayout>
                 <ShoppingCart />
                 {isCartOpen && <ShoppingCartDropdown />}
@@ -58,3 +57,5 @@ export const PrivateNavBar = (props: PrivateNavBarProps) => {
         </FlexLayout>
     )
 }
+
+export default NavBar

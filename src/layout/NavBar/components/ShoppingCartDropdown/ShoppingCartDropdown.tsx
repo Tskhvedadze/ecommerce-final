@@ -3,7 +3,7 @@ import { ShoppingCartContext } from 'context'
 
 import { TShoppingCart } from 'types/shoppingCart.types'
 
-import { Button, ShoppingCartItem } from '..'
+import { Button, ShoppingCartItem } from '../../../../components'
 import {
     CartDropdownContainer,
     CartItems,
