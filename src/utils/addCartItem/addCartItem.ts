@@ -1,21 +1,17 @@
 import { TShoppingCart } from 'types/shoppingCart.types'
-
-export const existingCartItem = (
-    shoppingCartItems: TShoppingCart[],
-    productToAdd: TShoppingCart,
-) => shoppingCartItems.find((cartItem) => cartItem.id === productToAdd.id)
+import { existingCartItem } from 'utils/existingCartItem/existingCartItem'
 
 export const addCartItem = (
-    shoppingCartItems: TShoppingCart[],
+    cartItems: TShoppingCart[],
     productToAdd: TShoppingCart,
 ): TShoppingCart[] => {
-    if (existingCartItem(shoppingCartItems, productToAdd)) {
-        return shoppingCartItems.map((cartItem) =>
+    if (existingCartItem(cartItems, productToAdd)) {
+        return cartItems.map((cartItem) =>
             cartItem.id === productToAdd.id
                 ? { ...cartItem, quantity: (cartItem.quantity ?? 0) + 1 }
                 : cartItem,
         )
     }
 
-    return [...shoppingCartItems, { ...productToAdd, quantity: 1 }]
+    return [...cartItems, { ...productToAdd, quantity: 1 }]
 }

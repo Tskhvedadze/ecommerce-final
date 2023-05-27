@@ -1,14 +1,10 @@
 import { Link } from 'react-router-dom'
 
 import { useContext } from 'react'
-import { ShoppingCartContext } from 'context'
+import { CartContext } from 'context'
 
-import {
-    ShoppingCart,
-    SearchBar,
-    ShoppingCartDropdown,
-    LanguageSwitcher,
-} from './components'
+import { Cart, SearchBar, CartDropdown, LanguageSwitcher } from './components'
+
 import {
     FlexLayout,
     DivLayout,
@@ -22,7 +18,7 @@ import amazon from 'assets/images/amazon.png'
 type NavBarProps = {}
 
 function NavBar(props: NavBarProps) {
-    const { isCartOpen } = useContext(ShoppingCartContext)
+    const { isCartOpen } = useContext(CartContext)
 
     return (
         <FlexLayout>
@@ -51,8 +47,8 @@ function NavBar(props: NavBarProps) {
                 <DivLayout>
                     <StyledLink to='register'>Register</StyledLink>
                 </DivLayout>
-                <ShoppingCart />
-                {isCartOpen && <ShoppingCartDropdown />}
+                <Cart />
+                {isCartOpen && <CartDropdown />}
             </ContentLayout>
         </FlexLayout>
     )

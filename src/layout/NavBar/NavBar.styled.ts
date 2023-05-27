@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import tw from 'twin.macro'
 
 export const FlexLayout = styled.div`
-    ${tw`flex  bg-amazonclone text-white h-[4rem] min-w-[1000px] relative`}
+    ${tw`flex  bg-amazonclone text-white h-[4rem] min-w-[1000px] px-3 relative`}
 `
 
 export const DivLayout = styled.div`

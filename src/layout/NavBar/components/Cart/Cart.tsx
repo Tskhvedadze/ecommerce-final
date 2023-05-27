@@ -1,15 +1,12 @@
 import { useContext, useCallback, useRef, useEffect, useState } from 'react'
-import { ShoppingCartContext } from 'context'
-import { ShoppingCartContainer, ShoppingIcon } from './ShoppingCart.styled'
+import { CartContext } from 'context'
+import { ShoppingCartContainer, ShoppingIcon } from './Cart.styled'
 
-type ShoppingCartProps = {}
-
-export const ShoppingCart: React.FC<ShoppingCartProps> = () => {
+export const Cart: React.FC = () => {
     const spanRef = useRef<HTMLSpanElement>(null)
     const [animate, setAnimate] = useState<boolean>(false)
 
-    const { isCartOpen, setIsCartOpen, cartCount } =
-        useContext(ShoppingCartContext)
+    const { isCartOpen, setIsCartOpen, cartCount } = useContext(CartContext)
 
     const toggleDropdown = useCallback(() => {
         setIsCartOpen(!isCartOpen)
