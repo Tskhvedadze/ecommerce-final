@@ -27,7 +27,7 @@ export const QuantityContainer = styled.div`
     ${tw`flex items-center justify-between`}
 `
 
-export const AddItem = styled(AiOutlineMinusCircle)`
+export const RemoveItem = styled(AiOutlineMinusCircle)`
     ${tw`text-gray-500 cursor-pointer transition-colors duration-200 hover:text-gray-600 active:text-gray-900 h-6 w-6`}
 `
 
@@ -35,7 +35,7 @@ export const QuantityText = styled.span`
     ${tw`text-lg font-semibold w-12 text-center`}
 `
 
-export const RemoveItem = styled(AiFillPlusCircle)`
+export const AddItem = styled(AiFillPlusCircle)`
     ${tw`text-gray-500 cursor-pointer transition-colors duration-200 hover:text-gray-600 active:text-gray-900 h-6 w-6`}
 `
 

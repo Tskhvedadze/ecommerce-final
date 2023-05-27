@@ -2,9 +2,7 @@ import { useContext, useCallback, useRef, useEffect, useState } from 'react'
 import { CartContext } from 'context'
 import { ShoppingCartContainer, ShoppingIcon } from './Cart.styled'
 
-type ShoppingCartProps = {}
-
-export const Cart: React.FC<ShoppingCartProps> = () => {
+export const Cart: React.FC = () => {
     const spanRef = useRef<HTMLSpanElement>(null)
     const [animate, setAnimate] = useState<boolean>(false)
 

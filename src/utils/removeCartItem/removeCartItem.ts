@@ -1,23 +1,19 @@
 import { TShoppingCart } from 'types/shoppingCart.types'
-
-export const existingCartItem = (
-    cartItems: TShoppingCart[],
-    productToRemove: TShoppingCart,
-) => cartItems.find((cartItem) => cartItem.id === productToRemove.id)
+import { existingCartItem } from 'utils/existingCartItem/existingCartItem'
 
 export const removeCartItem = (
     cartItems: TShoppingCart[],
-    productToRemove: TShoppingCart,
+    cartItemToRemove: TShoppingCart,
 ): TShoppingCart[] => {
-    if (existingCartItem(cartItems, productToRemove)?.quantity === 1) {
-        return cartItems.filter(
-            (cartItem) => cartItem.id !== productToRemove.id,
-        )
+    const { id, quantity } = cartItemToRemove
+
+    if (existingCartItem(cartItems, cartItemToRemove)?.quantity === 1) {
+        return cartItems.filter((cartItem) => cartItem.id !== id)
     }
 
     return cartItems.map((cartItem) =>
-        cartItem.id === productToRemove.id
-            ? { ...cartItem, quantity: (cartItem.quantity ?? 0) - 1 }
+        cartItem.id === id
+            ? { ...cartItem, quantity: (quantity ?? 0) - 1 }
             : cartItem,
     )
 }

@@ -19,13 +19,15 @@ type ShoppingCartItemProps = {} & TShoppingCart
 
 export const CartItem: React.FC<ShoppingCartItemProps> = React.memo(
     ({ id, brand, quantity, price, images, title }) => {
-        const { addItemToCart, removeItemToCart } = useContext(CartContext)
+        const { addItemToCart, removeItemFromCart, clearItemFromCart } =
+            useContext(CartContext)
+
+        const cartItems = { id, brand, quantity, price, images, title }
 
         const totalPrice = useMemo(
             () => (Number(price) * Number(quantity)).toFixed(0),
             [price, quantity],
         )
-        const cartItem = { id, images, brand, title, price, quantity }
 
         return (
             <CartItemContainer>
@@ -33,15 +35,17 @@ export const CartItem: React.FC<ShoppingCartItemProps> = React.memo(
                     <ItemImage src={images[0]} alt={brand} />
                     <QuantityContainer>
                         <RemoveItem
-                            onClick={() => removeItemToCart({ ...cartItem })}
+                            onClick={() => removeItemFromCart({ ...cartItems })}
                         />
                         <QuantityText>{quantity}</QuantityText>
 
                         <AddItem
-                            onClick={() => addItemToCart({ ...cartItem })}
+                            onClick={() => addItemToCart({ ...cartItems })}
                         />
                     </QuantityContainer>
-                    <DeleteIcon />
+                    <DeleteIcon
+                        onClick={() => clearItemFromCart({ ...cartItems })}
+                    />
                 </ItemWrapper>
                 <TotalQuantityContainer>
                     <span className='flex-grow font-semibold'>{brand}</span>

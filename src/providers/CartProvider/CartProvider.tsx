@@ -1,28 +1,42 @@
 import { useState, useEffect, PropsWithChildren } from 'react'
 import { CartContext } from 'context'
+
 import { TShoppingCart } from 'types/shoppingCart.types'
-import { addCartItem } from 'utils/addCartItem/addCartItem'
-import { removeCartItem } from 'utils/removeCartItem/removeCartItem'
+import { addCartItem, removeCartItem, clearCartItem } from 'utils'
 
 export const CartProvider: React.FC<PropsWithChildren> = ({ children }) => {
     const [isCartOpen, setIsCartOpen] = useState<boolean>(false)
     const [cartItems, setCartItems] = useState<TShoppingCart[]>([])
     const [cartCount, setCartCount] = useState<number>(0)
+    const [cartTotal, setCartTotal] = useState<number>(0)
 
     useEffect(() => {
-        const newCartCount = cartItems.reduce(
+        const cartCount = cartItems.reduce(
             (total, cartItem) => total + (cartItem.quantity ?? 0),
             0,
         )
-        setCartCount(newCartCount)
+        setCartCount(cartCount)
     }, [cartItems])
 
-    const addItemToCart = (productToAdd: TShoppingCart) => {
-        setCartItems(addCartItem(cartItems, productToAdd))
+    useEffect(() => {
+        const cartTotal = cartItems.reduce(
+            (total, cartItem) =>
+                total + (cartItem.quantity ?? 0) * cartItem.price,
+            0,
+        )
+        setCartTotal(cartTotal)
+    }, [cartItems])
+
+    const addItemToCart = (cartItemToAdd: TShoppingCart) => {
+        setCartItems(addCartItem(cartItems, cartItemToAdd))
     }
 
-    const removeItemToCart = (cartItemToRemove: TShoppingCart) => {
+    const removeItemFromCart = (cartItemToRemove: TShoppingCart) => {
         setCartItems(removeCartItem(cartItems, cartItemToRemove))
+    }
+
+    const clearItemFromCart = (cartItemToClear: TShoppingCart) => {
+        setCartItems(clearCartItem(cartItems, cartItemToClear))
     }
 
     return (
@@ -31,9 +45,11 @@ export const CartProvider: React.FC<PropsWithChildren> = ({ children }) => {
                 isCartOpen,
                 setIsCartOpen,
                 addItemToCart,
-                removeItemToCart,
+                removeItemFromCart,
+                clearItemFromCart,
                 cartItems,
                 cartCount,
+                cartTotal,
             }}
         >
             {children}
