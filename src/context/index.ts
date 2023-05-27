@@ -1,2 +1,2 @@
 export { ContactFormContext } from './ContactFormContext/ContactFormContext'
-export { ShoppingCartContext } from './ShoppingCartContext/ShoppingCartContext'
+export { CartContext } from './CartContext/CartContext'

@@ -1,11 +1,10 @@
 import { useState, useEffect, PropsWithChildren } from 'react'
-import { ShoppingCartContext } from 'context'
+import { CartContext } from 'context'
 import { TShoppingCart } from 'types/shoppingCart.types'
 import { addCartItem } from 'utils/addCartItem/addCartItem'
+import { removeCartItem } from 'utils/removeCartItem/removeCartItem'
 
-export const ShoppingCartProvider: React.FC<PropsWithChildren> = ({
-    children,
-}) => {
+export const CartProvider: React.FC<PropsWithChildren> = ({ children }) => {
     const [isCartOpen, setIsCartOpen] = useState<boolean>(false)
     const [cartItems, setCartItems] = useState<TShoppingCart[]>([])
     const [cartCount, setCartCount] = useState<number>(0)
@@ -19,22 +18,25 @@ export const ShoppingCartProvider: React.FC<PropsWithChildren> = ({
     }, [cartItems])
 
     const addItemToCart = (productToAdd: TShoppingCart) => {
-        setCartItems((prevCartItems) =>
-            addCartItem(prevCartItems, productToAdd),
-        )
+        setCartItems(addCartItem(cartItems, productToAdd))
+    }
+
+    const removeItemToCart = (cartItemToRemove: TShoppingCart) => {
+        setCartItems(removeCartItem(cartItems, cartItemToRemove))
     }
 
     return (
-        <ShoppingCartContext.Provider
+        <CartContext.Provider
             value={{
                 isCartOpen,
                 setIsCartOpen,
                 addItemToCart,
+                removeItemToCart,
                 cartItems,
                 cartCount,
             }}
         >
             {children}
-        </ShoppingCartContext.Provider>
+        </CartContext.Provider>
     )
 }

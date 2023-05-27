@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { ShoppingCartContext } from 'context'
+import { CartContext } from 'context'
 
 import { TShoppingCart } from 'types/shoppingCart.types'
 
@@ -24,7 +24,7 @@ export const ProductCard = ({
     quantity,
     title,
 }: ProductCardProps) => {
-    const { addItemToCart } = useContext(ShoppingCartContext)
+    const { addItemToCart } = useContext(CartContext)
     const addProductToCart = () =>
         addItemToCart({ id, price, brand, images, quantity, title })
 
@@ -39,7 +39,7 @@ export const ProductCard = ({
             <ProductCardPriceContainer>
                 <ProductCardPrice>
                     <span>$</span>
-                    {Number(price).toFixed(2)}
+                    {Number(price).toFixed(0)}
                 </ProductCardPrice>
                 <Button
                     mode='secondary'

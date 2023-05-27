@@ -28,7 +28,7 @@ const fadeOut = keyframes`
 `
 
 export const CartDropdownContainer = styled.div<CartDropdownContainerProps>`
-    ${tw`absolute w-[295px] h-[350px] flex flex-col items-center p-0.5 pt-2 border border-gray-300 rounded-lg bg-amazonclone-background top-16 right-4 z-10`}
+    ${tw`absolute w-[320px] h-[350px] flex flex-col items-center p-0.5 pt-2 border border-gray-300 rounded-lg bg-amazonclone-background top-[5rem] right-4 z-10`}
     animation: ${({ isOpen }) => (isOpen ? fadeIn : fadeOut)} 0.3s linear;
 `
 

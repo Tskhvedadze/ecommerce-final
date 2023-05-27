@@ -1,4 +1,5 @@
 export { LanguageSwitcher } from './LanguageSwitcher/LanguageSwitcher'
 export { SearchBar } from './SearchBar/SearchBar'
-export { ShoppingCart } from './ShoppingCart/ShoppingCart'
-export { ShoppingCartDropdown } from './ShoppingCartDropdown/ShoppingCartDropdown'
+export { Cart } from './Cart/Cart'
+export { CartDropdown } from './CartDropdown/CartDropdown'
+export { CartItem } from './CartItem/CartItem'
