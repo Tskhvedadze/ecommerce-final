@@ -1,0 +1,15 @@
+{
+    "Contact_Us": "Contact Us",
+    "send_feedback": "Got a technical issue? Want to send feedback about a beta feature? Need details about our Business plan? Let us Know.",
+    "email": "Your email",
+    "Subject": "Subject",
+    "message": "Your message",
+    "Send_message": "Send message",
+    "Home": "Home Page",
+    "placeholder_1": "Let us know how we can help you",
+    "placeholder_2": "Leave a comment...",
+    "email_invalid": "Invalid email address",
+    "email_required": "Please fill out this field.",
+    "subject_required": "Subject is required",
+    "Feedback_Sent": "Feedback Sent Successfully"
+}

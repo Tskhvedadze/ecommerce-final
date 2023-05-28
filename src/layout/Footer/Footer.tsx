@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 import { ReactComponent as Facebook } from 'assets/images/facebook.svg'
 import { ReactComponent as Instagram } from 'assets/images/instagram.svg'
@@ -16,50 +17,52 @@ import {
 } from './Footer.styled'
 
 function Footer() {
+    const { t } = useTranslation(['footer'])
+
     return (
         <FooterContent>
             <StyledGridContainer>
                 <div>
-                    <StyledHeading>Resources</StyledHeading>
+                    <StyledHeading>{t('Resources')}</StyledHeading>
                     <ul>
                         <StyledLi>
                             <StyledLink to='https://flowbite.com/'>
-                                Flowbite
+                                {t('Flowbite')}
                             </StyledLink>
                         </StyledLi>
                         <StyledLi>
                             <StyledLink to='https://tailwindcss.com/'>
-                                Tailwind CSS
+                                {t('Tailwind')}
                             </StyledLink>
                         </StyledLi>
                     </ul>
                 </div>
                 <div>
-                    <StyledHeading>Follow us</StyledHeading>
+                    <StyledHeading>{t('Follow')}</StyledHeading>
                     <ul>
                         <StyledLi>
                             <StyledLink to='https://github.com/themesberg/flowbite'>
-                                Github
+                                {t('Github')}
                             </StyledLink>
                         </StyledLi>
                         <StyledLi>
                             <StyledLink to='https://discord.gg/4eeurUVvTy'>
-                                Discord
+                                {t('Discord')}
                             </StyledLink>
                         </StyledLi>
                     </ul>
                 </div>
                 <div>
-                    <StyledHeading>Legal</StyledHeading>
+                    <StyledHeading>{t('Legal')}</StyledHeading>
                     <ul>
                         <StyledLi>
                             <StyledLink to='https://www.changjiang750sidecar.com/pages/privacy-policy?gclid=CjwKCAjw9pGjBhB-EiwAa5jl3MdPm0cS8gso1-z7IaTo5sbd0e7Vze-Fu6DYrV5KXz-KI6hOeLzhwRoCAVEQAvD_BwE'>
-                                Privacy Policy
+                                {t('Policy')}
                             </StyledLink>
                         </StyledLi>
                         <StyledLi>
                             <StyledLink to='https://www.astartingpoint.com/static/tos.html?psafe_param=1&gclid=CjwKCAjw9pGjBhB-EiwAa5jl3MGVdvJMgPq7yjAt6J0Kb0-7y01SGJHoixJ_uf8q6ecXuK5TRr1icBoCwxEQAvD_BwE'>
-                                Terms &amp; Conditions
+                                {t('Terms')}
                             </StyledLink>
                         </StyledLi>
                     </ul>
@@ -68,7 +71,7 @@ function Footer() {
             <StyledLine />
 
             <StyledFlexContainer>
-                <span>© 2023 All Rights Reserved.</span>
+                <span> {t('Reserved')}</span>
                 <div>
                     <Link to={'#'}>
                         <Facebook />

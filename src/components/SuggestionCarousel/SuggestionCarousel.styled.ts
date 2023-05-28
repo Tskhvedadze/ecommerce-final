@@ -9,10 +9,6 @@ export const Container = styled.div`
         ${tw`text-gray-700`}
     }
 `
-export const Header = styled.div`
-    ${tw`text-2xl font-semibold pb-5 text-yellow-700 `}
-`
-
 export const StyledSpin = styled(Spin)`
     ${tw`flex justify-center items-center h-[200px] `}
 `

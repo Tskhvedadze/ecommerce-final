@@ -6,9 +6,23 @@ export type FormValueProps = {
     message: string
 }
 
+export type FormErrorsProps = {
+    email?: string
+    subject?: string
+    message?: string
+}
+
+export type FormTouchedProps = {
+    email?: boolean
+    subject?: boolean
+    message?: boolean
+}
+
 type ContactFormContextProps = {
     open: boolean
     formValues: FormValueProps
+    formErrors: FormErrorsProps
+    formTouched: FormTouchedProps
     handleCancelModal: () => void
     setFormValues: (values: FormValueProps) => void
     handleInputChange: (
@@ -24,6 +38,8 @@ export const ContactFormContext = createContext<ContactFormContextProps>({
         subject: '',
         message: '',
     },
+    formErrors: {},
+    formTouched: {},
     handleCancelModal: () => {},
     setFormValues: () => {},
     handleInputChange: () => {},

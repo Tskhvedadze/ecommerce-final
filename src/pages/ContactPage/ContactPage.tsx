@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import { ContactFormContext } from 'context'
+import { useTranslation } from 'react-i18next'
 
 import { ContactForm } from './components/ContactForm/ContactForm'
 import { ModalComponent } from 'components'
@@ -12,13 +13,14 @@ import {
 } from './Contact.styled'
 
 export default function ContactPage() {
+    const { t } = useTranslation(['ContactPage'])
     const { formValues, open, handleCancelModal } =
         useContext(ContactFormContext)
 
     return (
         <>
             <ModalComponent
-                title='Feedback Sent Successfully'
+                title={`${t('Feedback_Sent')}`}
                 message={formValues.message}
                 subject={formValues.subject}
                 email={formValues.email}
@@ -27,12 +29,8 @@ export default function ContactPage() {
             />
             <ContactSection>
                 <ContentContainer>
-                    <Title>Contact Us</Title>
-                    <Paragraph>
-                        Got a technical issue? Want to send feedback about a
-                        beta feature? Need details about our Business plan? Let
-                        us know.
-                    </Paragraph>
+                    <Title>{t('Contact_Us')}</Title>
+                    <Paragraph>{t('send_feedback')}</Paragraph>
                     <ContactForm />
                 </ContentContainer>
             </ContactSection>

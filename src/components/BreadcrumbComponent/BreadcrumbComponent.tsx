@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
 import { useMemo } from 'react'
 
@@ -8,6 +9,7 @@ import {
 } from './BreadcrumbComponent.styled'
 
 export const BreadcrumbComponent = () => {
+    const { t } = useTranslation(['components'])
     const location = useLocation()
     let currentLink = ''
 
@@ -27,6 +29,8 @@ export const BreadcrumbComponent = () => {
                 return null
             }
 
+            const translatedCrumb = t('crumb')
+
             return (
                 <BreadcrumbItem key={crumb}>
                     {isLastCrumb ? (
@@ -35,7 +39,7 @@ export const BreadcrumbComponent = () => {
                         </span>
                     ) : (
                         <BreadcrumbLink to={currentLink}>
-                            {crumb}
+                            {translatedCrumb}
                         </BreadcrumbLink>
                     )}
                 </BreadcrumbItem>
@@ -44,7 +48,7 @@ export const BreadcrumbComponent = () => {
 
     const homeBreadcrumb = (
         <BreadcrumbItem key='home'>
-            <BreadcrumbLink to='/'>Home</BreadcrumbLink>
+            <BreadcrumbLink to='/'>{t('Home')}</BreadcrumbLink>
         </BreadcrumbItem>
     )
 

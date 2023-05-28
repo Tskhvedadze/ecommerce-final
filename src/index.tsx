@@ -4,12 +4,12 @@ import { BrowserRouter } from 'react-router-dom'
 import { QueryClientProvider } from 'react-query'
 
 import { queryClient } from 'utils/api/api'
-
-import App from 'App'
-
 import { Providers } from 'providers/Providers'
 
+import App from 'App'
 import 'assets/styles/global.tailwind.css'
+
+import 'i18n'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(

@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import { useTranslation } from 'react-i18next'
 import { CartContext } from 'context'
 
 import { TShoppingCart } from 'types/shoppingCart.types'
@@ -24,6 +25,7 @@ export const ProductCard = ({
     quantity,
     title,
 }: ProductCardProps) => {
+    const { t } = useTranslation(['components'])
     const { addItemToCart } = useContext(CartContext)
     const addProductToCart = () =>
         addItemToCart({ id, price, brand, images, quantity, title })
@@ -46,7 +48,7 @@ export const ProductCard = ({
                     className='uppercase'
                     onClick={addProductToCart}
                 >
-                    Add to Cart
+                    {t('Add')}
                 </Button>
             </ProductCardPriceContainer>
         </ProductCardContainer>

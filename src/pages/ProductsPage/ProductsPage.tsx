@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useQuery } from 'react-query'
+import { useTranslation } from 'react-i18next'
 import { Pagination, Select } from 'antd'
 import { getAllProducts, filteredOptions } from 'utils'
 import { ProductCard, BreadcrumbComponent } from 'components'
@@ -14,6 +15,7 @@ import {
 import { TProducts } from 'types/productsAPI.types'
 
 function ProductsPage() {
+    const { t } = useTranslation(['ProductsPage'])
     const [currentPage, setCurrentPage] = useState<number>(1)
     const [brandName, setBrandName] = useState<string>('Samsung')
 
@@ -47,7 +49,7 @@ function ProductsPage() {
         <OuterContainer>
             <InnerContainer>
                 <FilterContainer>
-                    <h1>Filter By Brand Names</h1>
+                    <h1>{t('filter')}</h1>
                     <Select
                         defaultValue='Samsung'
                         value={brandName}
