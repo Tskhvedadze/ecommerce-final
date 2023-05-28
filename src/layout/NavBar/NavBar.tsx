@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom'
-
 import { useContext } from 'react'
 import { CartContext } from 'context'
+import { Link } from 'react-router-dom'
+
+import { useTranslation } from 'react-i18next'
 
 import { Cart, SearchBar, CartDropdown, LanguageSwitcher } from './components'
 
@@ -15,9 +16,8 @@ import {
 
 import amazon from 'assets/images/amazon.png'
 
-type NavBarProps = {}
-
-function NavBar(props: NavBarProps) {
+function NavBar() {
+    const { t } = useTranslation(['navbar'])
     const { isCartOpen } = useContext(CartContext)
 
     return (
@@ -30,10 +30,10 @@ function NavBar(props: NavBarProps) {
 
             <ContentLayout>
                 <DivLayout>
-                    <StyledUser>User</StyledUser>
+                    <StyledUser>{t('User')}</StyledUser>
                 </DivLayout>
                 <DivLayout>
-                    <StyledLink to='contact-us'>Contact Us</StyledLink>
+                    <StyledLink to='contact-us'>{t('Contact_us')}</StyledLink>
                 </DivLayout>
             </ContentLayout>
             <SearchBar />
@@ -42,10 +42,10 @@ function NavBar(props: NavBarProps) {
                     <LanguageSwitcher />
                 </DivLayout>
                 <DivLayout>
-                    <StyledLink to='login'>Log In</StyledLink>
+                    <StyledLink to='login'>{t('Log_in')}</StyledLink>
                 </DivLayout>
                 <DivLayout>
-                    <StyledLink to='register'>Register</StyledLink>
+                    <StyledLink to='register'>{t('Register')}</StyledLink>
                 </DivLayout>
                 <Cart />
                 {isCartOpen && <CartDropdown />}

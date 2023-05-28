@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import { useTranslation } from 'react-i18next'
 import { CartContext } from 'context'
 
 import { TShoppingCart } from 'types/shoppingCart.types'
@@ -16,13 +17,14 @@ import {
 } from './CartDropdown.styled'
 
 export const CartDropdown = () => {
+    const { t } = useTranslation(['components'])
     const { cartItems, isCartOpen, cartTotal } = useContext(CartContext)
 
     return (
         <CartDropdownContainer isOpen={isCartOpen}>
             <CartItems>
                 {cartItems.length === 0 ? (
-                    <EmptyMessage>Cart is empty</EmptyMessage>
+                    <EmptyMessage>{t('empty')}</EmptyMessage>
                 ) : (
                     cartItems.map((cartItem: TShoppingCart) => (
                         <CartItem key={cartItem.id} {...cartItem} />
@@ -31,10 +33,10 @@ export const CartDropdown = () => {
             </CartItems>
             <ButtonContainer>
                 <Button mode='secondary' disabled={cartItems.length === 0}>
-                    Buy now
+                    {t('buy')}
                 </Button>
                 <TotalText>
-                    Total: <span>$</span>
+                    {t('total')}: <span>$</span>
                     <AmountNumber>{Number(cartTotal).toFixed(0)}</AmountNumber>
                 </TotalText>
             </ButtonContainer>

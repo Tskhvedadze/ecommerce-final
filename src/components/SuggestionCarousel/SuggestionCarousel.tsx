@@ -4,12 +4,11 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper'
 
 import { TProducts } from 'types/productsAPI.types'
-import { Container, Header, StyledSpin } from './SuggestionCarousel.styled'
+import { Container, StyledSpin } from './SuggestionCarousel.styled'
 import { getAllProducts } from 'utils'
 import { useQuery } from 'react-query'
 
 type CarouselProductProps = {
-    headerTitle: string
     slidesPerView: number
     spaceBetween: number
     itemsPerPage: number
@@ -19,7 +18,6 @@ type CarouselProductProps = {
 
 export const SuggestionCarousel = React.memo(
     ({
-        headerTitle,
         slidesPerView,
         spaceBetween,
         itemsPerPage,
@@ -37,7 +35,6 @@ export const SuggestionCarousel = React.memo(
 
         return (
             <Container>
-                <Header>{headerTitle}</Header>
                 <Swiper
                     slidesPerView={slidesPerView}
                     spaceBetween={spaceBetween}

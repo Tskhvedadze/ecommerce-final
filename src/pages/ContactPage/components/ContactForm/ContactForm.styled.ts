@@ -1,11 +1,24 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import tw from 'twin.macro'
+
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+    hasError?: boolean | undefined
+}
+
+const errorStyles = css`
+    border-color: #ff1e1e;
+
+    &:focus,
+    &:hover {
+        border-color: #ff1e1e;
+    }
+`
 
 export const Form = styled.form`
     ${tw`space-y-8 border rounded-lg p-6 bg-gray-300`}
 `
 
-export const EmailInput = styled.input`
+export const EmailInput = styled.input<InputProps>`
     ${tw`shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500`}
 
     outline: 2px solid transparent;
@@ -14,9 +27,11 @@ export const EmailInput = styled.input`
         outline-offset: 2px;
         outline-color: primary;
     }
+
+    ${({ hasError }) => hasError && errorStyles}
 `
 
-export const SubjectInput = styled.input`
+export const SubjectInput = styled.input<InputProps>`
     ${tw`block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500`}
 
     outline: 2px solid transparent;
@@ -25,6 +40,8 @@ export const SubjectInput = styled.input`
         outline-offset: 2px;
         outline-color: primary;
     }
+
+    ${({ hasError }) => hasError && errorStyles}
 `
 
 export const TextArea = styled.textarea`

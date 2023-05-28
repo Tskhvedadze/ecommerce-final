@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query'
+import { useTranslation } from 'react-i18next'
 
 import { TProducts } from 'types/productsAPI.types'
 import { getAllProducts } from 'utils'
@@ -14,9 +15,11 @@ import {
     ProductPageHeaderContainer,
     StyledSpin,
     ProductCardGridContainer,
+    TopProducts,
 } from './HomePage.styled'
 
 const HomePage = () => {
+    const { t } = useTranslation(['HomePage'])
     const navigate = useNavigate()
     const [currentPage, setCurrentPage] = useState<number>(1)
 
@@ -53,9 +56,9 @@ const HomePage = () => {
         <>
             <Carousel />
             <ProductPageHeaderContainer>
-                <ProductPageTitle>Products</ProductPageTitle>
+                <ProductPageTitle>{t('Products')}</ProductPageTitle>
                 <Button mode='primary' onClick={() => navigate('/products')}>
-                    All
+                    {t('All')}
                 </Button>
             </ProductPageHeaderContainer>
 
@@ -75,12 +78,12 @@ const HomePage = () => {
                 itemsPerPage={itemsPerPage}
             />
 
+            <TopProducts>{t('Top_Products')}</TopProducts>
             <SuggestionCarousel
                 itemsPerPage={50}
                 page_number={1500}
                 slidesPerView={7}
                 spaceBetween={4}
-                headerTitle={'Top Products'}
             />
         </>
     )

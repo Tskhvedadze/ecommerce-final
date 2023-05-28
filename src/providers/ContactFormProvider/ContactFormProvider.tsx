@@ -1,9 +1,13 @@
-import { PropsWithChildren, useState, ChangeEvent, FormEvent } from 'react'
+import { PropsWithChildren, useState } from 'react'
+import { useFormik } from 'formik'
 
-import { ContactFormContext } from 'context'
-import { FormValueProps } from 'context/ContactFormContext/ContactFormContext'
+import {
+    ContactFormContext,
+    FormValueProps,
+} from 'context/ContactFormContext/ContactFormContext'
+import { useValidationSchema } from 'pages/ContactPage/hook/useValidationSchema'
 
-const initialFormValues = {
+const initialFormValues: FormValueProps = {
     email: '',
     subject: '',
     message: '',
@@ -11,38 +15,36 @@ const initialFormValues = {
 
 export const ContactFormProvider = ({ children }: PropsWithChildren) => {
     const [open, setOpen] = useState<boolean>(false)
-    const [formValues, setFormValues] =
-        useState<FormValueProps>(initialFormValues)
-
-    const handleInputChange = (
-        event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    ) => {
-        const { name, value } = event.target
-        setFormValues((prevValues) => ({
-            ...prevValues,
-            [name]: value,
-        }))
-    }
-
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-        setOpen(true)
-    }
 
     const handleCancelModal = () => {
-        setFormValues(initialFormValues)
+        formik.resetForm()
         setOpen(false)
     }
+
+    const handleSubmit = (values: FormValueProps) => {
+        setOpen(true)
+        formik.setValues(values)
+    }
+
+    const validationSchema = useValidationSchema()
+
+    const formik = useFormik({
+        initialValues: initialFormValues,
+        validationSchema,
+        onSubmit: handleSubmit,
+    })
 
     return (
         <ContactFormContext.Provider
             value={{
                 open,
-                formValues,
-                setFormValues,
+                formValues: formik.values as FormValueProps,
+                setFormValues: formik.setValues,
                 handleCancelModal,
-                handleInputChange,
-                handleSubmit,
+                formErrors: formik.errors,
+                formTouched: formik.touched,
+                handleInputChange: formik.handleChange,
+                handleSubmit: formik.handleSubmit,
             }}
         >
             {children}

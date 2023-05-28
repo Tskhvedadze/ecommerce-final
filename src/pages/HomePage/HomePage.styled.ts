@@ -17,3 +17,7 @@ export const ProductCardGridContainer = styled.div`
 export const StyledSpin = styled(Spin)`
     ${tw`flex justify-center items-center h-screen w-screen`}
 `
+
+export const TopProducts = styled.h2`
+    ${tw`text-2xl pl-3 font-semibold  text-yellow-700 `}
+`
