@@ -6,7 +6,7 @@ export const ProductCardSlider = ({ img }: { img: string[] }) => {
         <StyledSwiper slidesPerView={1} navigation modules={[Navigation]}>
             {img.map((src, i) => (
                 <StyledSlider key={i}>
-                    <img width={230} height={230} src={src} alt={src} />
+                    <img className='  h-[200px]  ' src={src} alt={src} />
                 </StyledSlider>
             ))}
         </StyledSwiper>

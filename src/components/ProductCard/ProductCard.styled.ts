@@ -12,7 +12,15 @@ export const ProductCardContent = styled.div`
 `
 
 export const ProductCardTitle = styled(NavLink)`
-    ${tw`text-[1.2rem] uppercase font-semibold tracking-tight text-gray-dark hover:text-red-light hover:underline active:text-red [display: inline-block]`}
+    ${tw`text-[1rem] mt-3 uppercase font-semibold tracking-tight text-gray-dark hover:text-red-light hover:underline active:text-red [display: inline-block]`}
+`
+
+export const RatingContainer = styled.div`
+    ${tw`flex  justify-between items-center my-4`}
+
+    p {
+        ${tw`text-gray-700 font-semibold`}
+    }
 `
 
 export const ProductCardPrice = styled.span`
@@ -23,5 +31,5 @@ export const ProductCardPrice = styled.span`
 `
 
 export const ProductCardPriceContainer = styled.div`
-    ${tw`flex items-center justify-between p-3`}
+    ${tw`flex items-center justify-between px-3`}
 `

@@ -1,49 +1,43 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import { useTranslation } from 'react-i18next'
-import { Pagination, Select } from 'antd'
-import { getAllProducts, filteredOptions } from 'utils'
+import { Select } from 'antd'
+
+import { filteredOptions } from './util/productsUtils/productsUtils'
+import { apiClient2 } from 'utils'
 import { ProductCard, BreadcrumbComponent } from 'components'
+import { TProducts } from 'types/productsAPI.types'
+
 import {
     OuterContainer,
     InnerContainer,
     FilterContainer,
     ResultsContainer,
     ProductCardContainer,
-    NoItemFound,
 } from './Products.styled'
-import { TProducts } from 'types/productsAPI.types'
 
 function ProductsPage() {
     const { t } = useTranslation(['ProductsPage'])
-    const [currentPage, setCurrentPage] = useState<number>(1)
-    const [brandName, setBrandName] = useState<string>('Samsung')
+    const [brandName, setBrandName] = useState<string>('smartphones')
 
-    const itemsPerPage = 12
-    const skip = (currentPage - 1) * itemsPerPage
+    const getFiltered = useCallback(async () => {
+        const response = await apiClient2.get(`/products/category/${brandName}`)
+        return response.data
+    }, [brandName])
 
-    const { data, refetch } = useQuery(
-        ['allProducts', currentPage, brandName],
-        () => getAllProducts(itemsPerPage, skip, brandName),
+    const { data, refetch } = useQuery(['allProducts', brandName], getFiltered)
+
+    const handleBrandChange = useCallback(
+        (value: string) => {
+            setBrandName(value)
+            refetch()
+        },
+        [refetch],
     )
 
     useEffect(() => {
         refetch()
-    }, [currentPage, brandName, refetch])
-
-    const handlePageClick = useCallback((page: number) => {
-        setCurrentPage(page)
-    }, [])
-
-    const handleBrandChange = useCallback((value: string) => {
-        setBrandName(value)
-        setCurrentPage(1)
-    }, [])
-
-    const getSelectOptions = useMemo(
-        () => filteredOptions(brandName),
-        [brandName],
-    )
+    }, [brandName, refetch])
 
     return (
         <OuterContainer>
@@ -51,57 +45,42 @@ function ProductsPage() {
                 <FilterContainer>
                     <h1>{t('filter')}</h1>
                     <Select
-                        defaultValue='Samsung'
+                        defaultValue={brandName}
                         value={brandName}
                         showSearch
                         size='large'
                         onChange={handleBrandChange}
                         style={{ width: '17rem' }}
-                        options={getSelectOptions.map((item) => ({
+                        options={filteredOptions(brandName).map((item) => ({
                             value: item,
                             label: item,
                         }))}
                     />
-                    <BreadcrumbComponent />
+                    <BreadcrumbComponent title={brandName} />
                 </FilterContainer>
                 <ResultsContainer>
-                    {data?.products.length === 0 ? (
-                        <NoItemFound>
-                            No '{brandName}' found. Please go to the previous
-                            page or select another brand.
-                        </NoItemFound>
-                    ) : (
-                        <ProductCardContainer>
-                            {data?.products.map(
-                                ({
-                                    id,
-                                    images,
-                                    price,
-                                    brand,
-                                    title,
-                                }: TProducts) => (
-                                    <ProductCard
-                                        key={id}
-                                        id={id}
-                                        brand={brand}
-                                        images={images}
-                                        price={price}
-                                        title={title}
-                                    />
-                                ),
-                            )}
-                        </ProductCardContainer>
-                    )}
-
-                    <Pagination
-                        className='mb-4 md:mb-0 border-b p-2 w-full text-center'
-                        showSizeChanger={false}
-                        showQuickJumper
-                        current={currentPage}
-                        defaultCurrent={1}
-                        total={data.total_found}
-                        onChange={handlePageClick}
-                    />
+                    <ProductCardContainer>
+                        {data?.products.map(
+                            ({
+                                id,
+                                images,
+                                price,
+                                brand,
+                                title,
+                                rating,
+                            }: TProducts) => (
+                                <ProductCard
+                                    key={id}
+                                    id={id}
+                                    brand={title}
+                                    images={images}
+                                    price={price}
+                                    title={title}
+                                    rating={rating}
+                                />
+                            ),
+                        )}
+                    </ProductCardContainer>
                 </ResultsContainer>
             </InnerContainer>
         </OuterContainer>

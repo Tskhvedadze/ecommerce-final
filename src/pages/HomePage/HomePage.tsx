@@ -1,45 +1,38 @@
 import { useState, useCallback, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useQuery } from 'react-query'
 import { useTranslation } from 'react-i18next'
-
+import { useHomeProducts } from './hook/useHomeProducts'
 import { TProducts } from 'types/productsAPI.types'
-import { getAllProducts } from 'utils'
 
-import { Carousel } from './components/Carousel/Carousel'
-
-import { Button, ProductCard, SuggestionCarousel, Pagination } from 'components'
+import { Carousel, TopProducts } from './components'
+import { Button, ProductCard } from 'components'
 
 import {
     ProductPageTitle,
     ProductPageHeaderContainer,
-    StyledSpin,
     ProductCardGridContainer,
-    TopProducts,
+    TopProductsTitle,
+    StyledAntdPagination,
 } from './HomePage.styled'
 
 const HomePage = () => {
-    const { t } = useTranslation(['HomePage'])
+    const [currentPage, setCurrentPage] = useState(1)
     const navigate = useNavigate()
-    const [currentPage, setCurrentPage] = useState<number>(1)
+    const { t } = useTranslation(['HomePage'])
 
     const itemsPerPage = 15
-    const skip = (currentPage - 1) * itemsPerPage
-
-    const { isLoading, data, refetch } = useQuery(
-        ['homePageProducts', currentPage],
-        () => getAllProducts(itemsPerPage, skip),
-        {
-            keepPreviousData: true,
-        },
-    )
+    const { data, refetch } = useHomeProducts(currentPage, itemsPerPage)
 
     useEffect(() => {
         refetch()
     }, [refetch])
 
+    const handlePageClick = useCallback((page: number) => {
+        setCurrentPage(page)
+    }, [])
+
     const productCard = useCallback(
-        ({ id, images, price, brand, title }: TProducts) => (
+        ({ id, images, price, brand, title, rating }: TProducts) => (
             <ProductCard
                 key={id}
                 id={id}
@@ -47,6 +40,7 @@ const HomePage = () => {
                 images={images}
                 price={price}
                 title={title}
+                rating={rating}
             />
         ),
         [],
@@ -62,29 +56,22 @@ const HomePage = () => {
                 </Button>
             </ProductPageHeaderContainer>
 
-            {isLoading ? (
-                <StyledSpin size='large' />
-            ) : (
-                <ProductCardGridContainer>
-                    {data?.products.map((product: TProducts) =>
-                        productCard(product),
-                    )}
-                </ProductCardGridContainer>
-            )}
+            <ProductCardGridContainer>
+                {data?.products.map((product: TProducts) =>
+                    productCard(product),
+                )}
+            </ProductCardGridContainer>
 
-            <Pagination
-                totalItems={data?.total_found}
-                setCurrentPage={setCurrentPage}
-                itemsPerPage={itemsPerPage}
+            <StyledAntdPagination
+                showSizeChanger={false}
+                showQuickJumper
+                current={currentPage}
+                defaultPageSize={itemsPerPage}
+                total={data?.total}
+                onChange={handlePageClick}
             />
-
-            <TopProducts>{t('Top_Products')}</TopProducts>
-            <SuggestionCarousel
-                itemsPerPage={50}
-                page_number={1500}
-                slidesPerView={7}
-                spaceBetween={4}
-            />
+            <TopProductsTitle>{t('Top_Products')}</TopProductsTitle>
+            <TopProducts slidesPerView={5} spaceBetween={1} />
         </>
     )
 }

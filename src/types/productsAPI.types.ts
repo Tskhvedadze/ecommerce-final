@@ -1,5 +1,4 @@
 export type TProducts = {
-    [x: string]: any
     id: number
     title: string
     brand: string

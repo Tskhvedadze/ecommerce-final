@@ -1,5 +1,3 @@
-import { Spin } from 'antd'
-
 import styled from 'styled-components'
 import tw from 'twin.macro'
 
@@ -20,20 +18,13 @@ export const FilterContainer = styled.div`
 `
 
 export const ResultsContainer = styled.div`
-    ${tw`flex flex-col items-center w-full md:w-[90%] mb-8`}
+    ${tw`flex flex-col items-center w-[70%] sm:w-[90%] mb-8`}
 `
 
-export const StyledSpin = styled(Spin)`
-    ${tw`flex justify-center items-center h-screen w-screen`}
-`
 export const ProductCardContainer = styled.div`
-    ${tw`grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2  mx-auto my-4`}
+    ${tw`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16  mx-auto my-10`}
 
     @media (max-width: 398px) {
         grid-template-columns: repeat(1, minmax(0, 1fr));
     }
-`
-
-export const NoItemFound = styled.h1`
-    ${tw`flex justify-center items-center h-screen capitalize text-2xl text-center text-gray-700 `}
 `

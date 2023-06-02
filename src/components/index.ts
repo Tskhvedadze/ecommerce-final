@@ -1,7 +1,5 @@
 export { ProductCard } from './ProductCard/ProductCard'
-export { SuggestionCarousel } from './SuggestionCarousel/SuggestionCarousel'
 export { Button } from './Button/Button'
 export { ModalComponent } from './ModalComponent/ModalComponent'
 export { LoadingSpiner } from './LoadingSpiner/LoadingSpiner'
-export { Pagination } from './Pagination/Pagination'
 export { BreadcrumbComponent } from './BreadcrumbComponent/BreadcrumbComponent'

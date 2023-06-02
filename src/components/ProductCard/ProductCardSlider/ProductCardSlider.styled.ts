@@ -12,11 +12,11 @@ export const StyledSwiper = styled(Swiper)`
     }
 
     .swiper-button-prev {
-        left: 20px;
+        left: 0;
     }
 
     .swiper-button-next {
-        right: 20px;
+        right: 0;
     }
 
     .swiper-button-prev::after,

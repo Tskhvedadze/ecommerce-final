@@ -4,5 +4,11 @@
     "crumb": "products",
     "empty": "Cart is empty",
     "buy": "Buy now",
-    "total": "Total"
+    "total": "Total",
+    "Brand": "Brand",
+    "Title": "Model",
+    "Category": "Category",
+    "Price": "Price",
+    "Rating": "Rating",
+    "Description": "Description"
 }
