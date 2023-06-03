@@ -1,4 +1,4 @@
-import { Spin } from 'antd'
+import { Spin, Pagination } from 'antd'
 
 import styled from 'styled-components'
 import tw from 'twin.macro'
@@ -18,6 +18,10 @@ export const StyledSpin = styled(Spin)`
     ${tw`flex justify-center items-center h-screen w-screen`}
 `
 
-export const TopProducts = styled.h2`
+export const TopProductsTitle = styled.h2`
     ${tw`text-2xl pl-3 font-semibold  text-yellow-700 `}
+`
+
+export const StyledAntdPagination = styled(Pagination)`
+    ${tw`mb-4  border-b p-2 w-full text-center`}
 `

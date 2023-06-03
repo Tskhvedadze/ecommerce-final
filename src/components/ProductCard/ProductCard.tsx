@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { CartContext } from 'context'
+import { Rate } from 'antd'
 
 import { TShoppingCart } from 'types/shoppingCart.types'
 
@@ -12,6 +13,7 @@ import {
     ProductCardContent,
     ProductCardTitle,
     ProductCardPriceContainer,
+    RatingContainer,
     ProductCardPrice,
 } from './ProductCard.styled'
 
@@ -24,6 +26,7 @@ export const ProductCard = ({
     brand,
     quantity,
     title,
+    rating,
 }: ProductCardProps) => {
     const { t } = useTranslation(['components'])
     const { addItemToCart } = useContext(CartContext)
@@ -34,9 +37,13 @@ export const ProductCard = ({
         <ProductCardContainer>
             <ProductCardSlider img={images} />
             <ProductCardContent>
-                <ProductCardTitle to={`/products/${title}/${id}`}>
+                <ProductCardTitle to={`/products/${id}`}>
                     {brand}
                 </ProductCardTitle>
+                <RatingContainer>
+                    <Rate disabled defaultValue={rating} />
+                    <p>{rating}</p>
+                </RatingContainer>
             </ProductCardContent>
             <ProductCardPriceContainer>
                 <ProductCardPrice>

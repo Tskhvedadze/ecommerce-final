@@ -1,4 +1,5 @@
-import React, { useContext, useMemo } from 'react'
+import React, { useContext, useMemo, useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { CartContext } from 'context'
 
 import { TShoppingCart } from 'types/shoppingCart.types'
@@ -19,33 +20,52 @@ type ShoppingCartItemProps = {} & TShoppingCart
 
 export const CartItem: React.FC<ShoppingCartItemProps> = React.memo(
     ({ id, brand, quantity, price, images, title }) => {
-        const { addItemToCart, removeItemFromCart, clearItemFromCart } =
-            useContext(CartContext)
+        const navigate = useNavigate()
+        const {
+            addItemToCart,
+            removeItemFromCart,
+            clearItemFromCart,
+            setIsCartOpen,
+            isCartOpen,
+        } = useContext(CartContext)
 
-        const cartItems = { id, brand, quantity, price, images, title }
+        const redirect = useCallback(() => {
+            setIsCartOpen(!isCartOpen)
+            navigate(`/products/${id}`)
+        }, [setIsCartOpen, isCartOpen, navigate, id])
+
+        const cartItems = useMemo(
+            () => ({ id, brand, quantity, price, images, title }),
+            [id, brand, quantity, price, images, title],
+        )
 
         const totalPrice = useMemo(
             () => (Number(price) * Number(quantity)).toFixed(0),
             [price, quantity],
         )
 
+        const handleRemoveItem = useCallback(() => {
+            removeItemFromCart(cartItems)
+        }, [removeItemFromCart, cartItems])
+
+        const handleAddItem = useCallback(() => {
+            addItemToCart(cartItems)
+        }, [addItemToCart, cartItems])
+
+        const handleClearItem = useCallback(() => {
+            clearItemFromCart(cartItems)
+        }, [clearItemFromCart, cartItems])
+
         return (
             <CartItemContainer>
                 <ItemWrapper>
-                    <ItemImage src={images[0]} alt={brand} />
+                    <ItemImage onClick={redirect} src={images[0]} alt={brand} />
                     <QuantityContainer>
-                        <RemoveItem
-                            onClick={() => removeItemFromCart({ ...cartItems })}
-                        />
+                        <RemoveItem onClick={handleRemoveItem} />
                         <QuantityText>{quantity}</QuantityText>
-
-                        <AddItem
-                            onClick={() => addItemToCart({ ...cartItems })}
-                        />
+                        <AddItem onClick={handleAddItem} />
                     </QuantityContainer>
-                    <DeleteIcon
-                        onClick={() => clearItemFromCart({ ...cartItems })}
-                    />
+                    <DeleteIcon onClick={handleClearItem} />
                 </ItemWrapper>
                 <TotalQuantityContainer>
                     <span className='flex-grow font-semibold'>{brand}</span>

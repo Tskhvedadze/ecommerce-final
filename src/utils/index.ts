@@ -1,6 +1,4 @@
-export { getAllProducts } from './getAllProducts/getAllProducts'
-export { apiClient, queryClient } from './api/api'
-export { filteredOptions } from './productsUtils/productsUtils'
+export { apiClient, queryClient, apiClient2 } from './api/api'
 export { addCartItem } from './addCartItem/addCartItem'
 export { removeCartItem } from './removeCartItem/removeCartItem'
 export { clearCartItem } from './clearCartItem/clearCartItem'

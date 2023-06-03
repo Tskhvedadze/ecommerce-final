@@ -8,6 +8,10 @@ const apiClient = axios.create({
     },
 })
 
+const apiClient2 = axios.create({
+    baseURL: 'https://dummyjson.com',
+})
+
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
@@ -16,4 +20,4 @@ const queryClient = new QueryClient({
     },
 })
 
-export { apiClient, queryClient }
+export { apiClient, queryClient, apiClient2 }
