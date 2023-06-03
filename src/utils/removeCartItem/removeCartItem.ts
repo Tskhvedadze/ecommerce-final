@@ -7,13 +7,12 @@ export const removeCartItem = (
 ): TShoppingCart[] => {
     const { id, quantity } = cartItemToRemove
 
-    if (existingCartItem(cartItems, cartItemToRemove)?.quantity === 1) {
-        return cartItems.filter((cartItem) => cartItem.id !== id)
-    }
+    if (existingCartItem(cartItems, cartItemToRemove)?.quantity === 1)
+        return cartItems
 
     return cartItems.map((cartItem) =>
-        cartItem.id === id
-            ? { ...cartItem, quantity: (quantity ?? 0) - 1 }
+        cartItem.id === id && quantity
+            ? { ...cartItem, quantity: quantity - 1 }
             : cartItem,
     )
 }

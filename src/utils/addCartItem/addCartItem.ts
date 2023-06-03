@@ -7,7 +7,7 @@ export const addCartItem = (
 ): TShoppingCart[] => {
     if (existingCartItem(cartItems, productToAdd)) {
         return cartItems.map((cartItem) =>
-            cartItem.id === productToAdd.id
+            cartItem.id === productToAdd.id && cartItem.quantity
                 ? { ...cartItem, quantity: (cartItem.quantity ?? 0) + 1 }
                 : cartItem,
         )

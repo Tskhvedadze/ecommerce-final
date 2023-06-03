@@ -52,6 +52,6 @@ export const TotalText = styled.h2`
     }
 `
 
-export const AmountNumber = styled.h3`
+export const AmountNumber = styled.p`
     ${tw`text-green-500 `}
 `

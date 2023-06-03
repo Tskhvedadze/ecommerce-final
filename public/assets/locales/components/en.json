@@ -1,5 +1,6 @@
 {
     "Add": "Add to Cart",
+    "remove": "Remove Item",
     "Home": "Home",
     "crumb": "products",
     "empty": "Cart is empty",
@@ -10,5 +11,6 @@
     "Category": "Category",
     "Price": "Price",
     "Rating": "Rating",
-    "Description": "Description"
+    "Description": "Description",
+    "Related": "Related Products"
 }

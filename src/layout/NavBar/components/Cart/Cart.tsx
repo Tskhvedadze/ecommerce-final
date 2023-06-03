@@ -1,38 +1,40 @@
-import { useContext, useCallback, useRef, useEffect, useState } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useContext, useRef, useEffect } from 'react'
 import { CartContext } from 'context'
 import { ShoppingCartContainer, ShoppingIcon } from './Cart.styled'
+import { useLocation } from 'react-router-dom'
 
 export const Cart: React.FC = () => {
     const spanRef = useRef<HTMLSpanElement>(null)
-    const [animate, setAnimate] = useState<boolean>(false)
+    const location = useLocation()
 
     const { isCartOpen, setIsCartOpen, cartCount } = useContext(CartContext)
 
-    const toggleDropdown = useCallback(() => {
+    useEffect(() => {
+        setIsCartOpen(false)
+    }, [location])
+
+    const toggleDropdown = () => {
         setIsCartOpen(!isCartOpen)
-    }, [setIsCartOpen, isCartOpen])
+    }
 
     useEffect(() => {
         if (spanRef.current) {
-            setAnimate(true)
+            spanRef.current.classList.add('animate-ping')
             const timeout = setTimeout(() => {
-                setAnimate(false)
+                spanRef.current?.classList.remove('animate-ping')
             }, 200)
             return () => clearTimeout(timeout)
         }
     }, [cartCount])
 
     const itemClassName = cartCount ? 'text-orange-400' : ''
-    const animateClassName = animate ? 'animate-ping text-orange-500' : ''
 
     return (
         <ShoppingCartContainer>
             <ShoppingIcon onClick={toggleDropdown} />
             <div>
-                <span
-                    className={`${itemClassName} ${animateClassName}`}
-                    ref={spanRef}
-                >
+                <span className={`${itemClassName}`} ref={spanRef}>
                     {cartCount}
                 </span>
             </div>

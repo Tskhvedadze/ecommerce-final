@@ -14,7 +14,8 @@ import {
     Rating,
     Title,
     RatingContainer,
-    StyledButton,
+    AddButton,
+    RemoveButton,
     StyledContent,
     StyledLabel,
     StyledValue,
@@ -24,6 +25,7 @@ import {
 } from './Content.styled'
 
 type ContentProps = {
+    id: number
     brand: string
     title: string
     category: string
@@ -44,9 +46,11 @@ export const Content = ({
     rating,
 }: ContentProps) => {
     const { t } = useTranslation(['components'])
-    const { addItemToCart } = useContext(CartContext)
+    const { addItemToCart, clearItemFromCart } = useContext(CartContext)
     const addProduct = () =>
         addItemToCart({ id, price, brand, images, quantity, title })
+    const clearProduct = () =>
+        clearItemFromCart({ id, price, brand, images, quantity, title })
 
     return (
         <StyledContent>
@@ -80,10 +84,13 @@ export const Content = ({
                 <DescriptionLabel>{t('Description')}:</DescriptionLabel>
                 {description}
             </Description>
+
             <AddToCartContainer>
-                <StyledButton danger onClick={addProduct}>
-                    {t('Add')}
-                </StyledButton>
+                <AddButton onClick={addProduct}>{t('Add')}</AddButton>
+
+                <RemoveButton danger onClick={clearProduct}>
+                    {t('remove')}
+                </RemoveButton>
             </AddToCartContainer>
         </StyledContent>
     )

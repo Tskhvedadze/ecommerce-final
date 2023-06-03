@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
 
 import { apiClient2 } from 'utils'
-import { MyImage, Content } from './components'
+import { MyImage, Content, Suggestions } from './components'
 import { BreadcrumbComponent } from 'components'
 
 import { BreadcrumbContianer, MainContent } from './SingleProductPage.styled'
@@ -31,6 +31,7 @@ function SingleProductPage() {
                 <MyImage {...data} />
                 <Content {...data} />
             </MainContent>
+            <Suggestions category={data?.category} />
         </>
     )
 }

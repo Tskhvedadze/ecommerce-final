@@ -1,9 +1,10 @@
 import { Button } from 'antd'
+
 import styled from 'styled-components'
 import tw from 'twin.macro'
 
 export const StyledContent = styled.div`
-    ${tw`w-[57%] sm:w-[50%]`}
+    ${tw`w-[57%] sm:w-[50%] `}
 `
 
 export const StyledParagraph = styled.p`
@@ -36,7 +37,7 @@ export const StyledPrice = styled.span`
 `
 
 export const RatingContainer = styled.div`
-    ${tw`flex items-center mb-4`}
+    ${tw`flex items-end mb-4`}
 `
 
 export const Rating = styled.p`
@@ -44,9 +45,13 @@ export const Rating = styled.p`
 `
 
 export const AddToCartContainer = styled.div`
-    ${tw`w-1/2 mt-20`}
+    ${tw`w-1/2 mt-[83px]`}
 `
 
-export const StyledButton = styled(Button)`
+export const AddButton = styled(Button)`
     ${tw`w-full`}
+`
+
+export const RemoveButton = styled(Button)`
+    ${tw`w-full mt-4 `}
 `

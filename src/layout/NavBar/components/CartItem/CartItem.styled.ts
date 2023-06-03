@@ -20,7 +20,7 @@ export const ItemWrapper = styled.div`
 `
 
 export const ItemImage = styled.img`
-    ${tw`w-16 h-16 rounded`}
+    ${tw`w-16 h-16 rounded cursor-pointer hover:scale-90 transition-transform duration-300`}
 `
 
 export const QuantityContainer = styled.div`

@@ -28,6 +28,7 @@ export const MyImage = ({ images, brand, thumbnail }: MyImageProps) => {
                     <StyledSecondaryImage
                         src={curEl}
                         alt={brand}
+                        isSelected={curEl === mainImage}
                         key={`${curEl}-${index}`}
                         onClick={() => setMainImage(curEl)}
                     />
