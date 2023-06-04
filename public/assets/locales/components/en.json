@@ -12,5 +12,9 @@
     "Price": "Price",
     "Rating": "Rating",
     "Description": "Description",
-    "Related": "Related Products"
+    "Related": "Related Products",
+    "currency": "USD",
+    "search": "Search store...",
+    "found": "We found",
+    "for": "0 Product for"
 }

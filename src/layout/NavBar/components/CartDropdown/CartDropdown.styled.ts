@@ -45,13 +45,9 @@ export const ButtonContainer = styled.div`
 `
 
 export const TotalText = styled.h2`
-    ${tw`text-amazonclone text-lg mt-[0.2rem] flex font-semibold `}
-
-    span {
-        ${tw`text-green-600 font-bold mr-1 ml-1`}
-    }
+    ${tw`text-amazonclone text-[18px] mt-[0.2rem] flex font-semibold `}
 `
 
 export const AmountNumber = styled.p`
-    ${tw`text-green-500 `}
+    ${tw`text-green-500 ml-1`}
 `

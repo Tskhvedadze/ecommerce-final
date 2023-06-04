@@ -1,8 +1,8 @@
-import { useContext } from 'react'
-import { CartContext } from 'context'
+import { useCartContext } from 'hook'
 import { useTranslation } from 'react-i18next'
 import { Rate } from 'antd'
 
+import { formatCurrency } from 'utils'
 import { TShoppingCart } from 'types/shoppingCart.types'
 
 import {
@@ -19,7 +19,6 @@ import {
     StyledContent,
     StyledLabel,
     StyledValue,
-    StyledDollar,
     StyledPrice,
     DescriptionLabel,
 } from './Content.styled'
@@ -46,7 +45,7 @@ export const Content = ({
     rating,
 }: ContentProps) => {
     const { t } = useTranslation(['components'])
-    const { addItemToCart, clearItemFromCart } = useContext(CartContext)
+    const { addItemToCart, clearItemFromCart } = useCartContext()
     const addProduct = () =>
         addItemToCart({ id, price, brand, images, quantity, title })
     const clearProduct = () =>
@@ -70,8 +69,9 @@ export const Content = ({
             </Category>
             <Price>
                 <StyledLabel>{t('Price')}:</StyledLabel>
-                <StyledDollar>$</StyledDollar>
-                <StyledPrice>{price}</StyledPrice>
+                <StyledPrice>
+                    {formatCurrency(price, t('currency'))}
+                </StyledPrice>
             </Price>
 
             <RatingContainer>

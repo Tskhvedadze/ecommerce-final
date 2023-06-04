@@ -12,13 +12,4 @@ type TCartContext = {
     clearItemFromCart: (productToClear: TShoppingCart) => void
 }
 
-export const CartContext = createContext<TCartContext>({
-    isCartOpen: false,
-    cartItems: [],
-    cartCount: 0,
-    cartTotal: 0,
-    setIsCartOpen: () => {},
-    addItemToCart: () => {},
-    removeItemFromCart: () => {},
-    clearItemFromCart: () => {},
-})
+export const CartContext = createContext({} as TCartContext)

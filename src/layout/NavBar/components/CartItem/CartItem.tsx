@@ -1,7 +1,9 @@
-import React, { useContext, useMemo, useCallback } from 'react'
+import React, { useMemo, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useCartContext } from 'hook'
 import { useNavigate } from 'react-router-dom'
-import { CartContext } from 'context'
 
+import { formatCurrency } from 'utils'
 import { TShoppingCart } from 'types/shoppingCart.types'
 
 import {
@@ -21,13 +23,14 @@ type ShoppingCartItemProps = {} & TShoppingCart
 export const CartItem: React.FC<ShoppingCartItemProps> = React.memo(
     ({ id, brand, quantity, price, images, title }) => {
         const navigate = useNavigate()
+        const { t } = useTranslation(['components'])
         const {
-            addItemToCart,
-            removeItemFromCart,
-            clearItemFromCart,
             setIsCartOpen,
             isCartOpen,
-        } = useContext(CartContext)
+            removeItemFromCart,
+            addItemToCart,
+            clearItemFromCart,
+        } = useCartContext()
 
         const redirect = useCallback(() => {
             setIsCartOpen(!isCartOpen)
@@ -40,7 +43,7 @@ export const CartItem: React.FC<ShoppingCartItemProps> = React.memo(
         )
 
         const totalPrice = useMemo(
-            () => (Number(price) * Number(quantity)).toFixed(0),
+            () => Number(price) * Number(quantity),
             [price, quantity],
         )
 
@@ -69,10 +72,7 @@ export const CartItem: React.FC<ShoppingCartItemProps> = React.memo(
                 </ItemWrapper>
                 <TotalQuantityContainer>
                     <span className='flex-grow font-semibold'>{brand}</span>
-                    <p>
-                        <span className='font-bold mr-1'>$</span>
-                        {totalPrice}
-                    </p>
+                    <p>{formatCurrency(totalPrice, t('currency'))}</p>
                 </TotalQuantityContainer>
             </CartItemContainer>
         )
