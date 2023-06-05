@@ -1,4 +1,4 @@
-import { useCartContext } from 'hook'
+import { useCartContext } from 'context'
 import { useTranslation } from 'react-i18next'
 
 import { TShoppingCart } from 'types/shoppingCart.types'

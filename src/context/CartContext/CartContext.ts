@@ -1,4 +1,4 @@
-import { createContext } from 'react'
+import { createContext, useContext } from 'react'
 import { TShoppingCart } from 'types/shoppingCart.types'
 
 type TCartContext = {
@@ -13,3 +13,7 @@ type TCartContext = {
 }
 
 export const CartContext = createContext({} as TCartContext)
+
+export const useCartContext = () => {
+    return useContext(CartContext)
+}

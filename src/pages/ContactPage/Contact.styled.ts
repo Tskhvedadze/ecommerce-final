@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import tw from 'twin.macro'
 
 export const ContactSection = styled.section`
-    ${tw`h-[100vh] bg-white dark:bg-gray-900`}
+    ${tw` bg-white dark:bg-gray-900`}
 `
 
 export const ContentContainer = styled.div`

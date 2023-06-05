@@ -23,15 +23,13 @@ export const SearchResult = ({
     price,
 }: SearchResultProps) => {
     const { t } = useTranslation(['components'])
-    const { setText, setIsFocused } = useSearchBarContext()
-
-    const handleClick = () => {
-        setText('')
-        setIsFocused(false)
-    }
+    const { setIsFocused } = useSearchBarContext()
 
     return (
-        <FlexContainer to={`/products/${id}`} onClick={handleClick}>
+        <FlexContainer
+            to={`/products/${id}`}
+            onClick={() => setIsFocused(false)}
+        >
             <StyledImage src={images} alt={title} />
             <StyledTitle>{title}</StyledTitle>
             <StyledPrice>{formatCurrency(price, t('currency'))}</StyledPrice>

@@ -1,6 +1,6 @@
 import React, { useMemo, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useCartContext } from 'hook'
+import { useCartContext } from 'context'
 import { useNavigate } from 'react-router-dom'
 
 import { formatCurrency } from 'utils'

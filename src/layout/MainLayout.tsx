@@ -7,15 +7,20 @@ import Footer from './Footer/Footer'
 import { MainContainer, ContentLayout } from './MainLayout.styled'
 
 function MainLayout() {
-    const { setIsFocused } = useSearchBarContext()
+    const { setIsFocused, setText } = useSearchBarContext()
+    const handleSearchReset = () => {
+        setIsFocused(false)
+        setText('')
+    }
+
     return (
-        <MainContainer>
+        <>
             <NavBar />
-            <ContentLayout onClick={() => setIsFocused(false)}>
+            <ContentLayout onClick={handleSearchReset}>
                 <Outlet />
             </ContentLayout>
             <Footer />
-        </MainContainer>
+        </>
     )
 }
 

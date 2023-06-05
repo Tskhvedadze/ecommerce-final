@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useRef, useEffect } from 'react'
-import { useCartContext } from 'hook'
+import { useCartContext } from 'context'
 import { useLocation } from 'react-router-dom'
 
 import { ShoppingCartContainer, ShoppingIcon } from './Cart.styled'

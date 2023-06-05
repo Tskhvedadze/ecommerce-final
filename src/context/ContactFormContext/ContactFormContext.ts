@@ -1,4 +1,4 @@
-import { createContext, ChangeEvent, FormEvent } from 'react'
+import { createContext, ChangeEvent, FormEvent, useContext } from 'react'
 
 export type FormValueProps = {
     email: string
@@ -45,3 +45,7 @@ export const ContactFormContext = createContext<ContactFormContextProps>({
     handleInputChange: () => {},
     handleSubmit: () => {},
 })
+
+export const useContactFormContext = () => {
+    return useContext(ContactFormContext)
+}

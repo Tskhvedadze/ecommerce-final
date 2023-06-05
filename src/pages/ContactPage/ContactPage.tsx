@@ -1,5 +1,4 @@
-import { useContext } from 'react'
-import { ContactFormContext } from 'context'
+import { useContactFormContext } from 'context'
 import { useTranslation } from 'react-i18next'
 
 import { ContactForm } from './components/ContactForm/ContactForm'
@@ -14,8 +13,7 @@ import {
 
 export default function ContactPage() {
     const { t } = useTranslation(['ContactPage'])
-    const { formValues, open, handleCancelModal } =
-        useContext(ContactFormContext)
+    const { formValues, open, handleCancelModal } = useContactFormContext()
 
     return (
         <>
