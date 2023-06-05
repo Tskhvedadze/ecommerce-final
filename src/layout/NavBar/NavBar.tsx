@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom'
 
 import { useTranslation } from 'react-i18next'
 
-import { Cart, SearchBar, CartDropdown, LanguageSwitcher } from './components'
+import { Cart, SearchBar, CartDropdown } from './components'
+import { LanguageSwitcher } from 'components'
 
 import {
     FlexLayout,
