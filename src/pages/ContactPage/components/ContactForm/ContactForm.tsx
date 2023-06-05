@@ -1,7 +1,6 @@
-import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { ContactFormContext } from 'context'
+import { useContactFormContext } from 'context'
 
 import {
     EmailInput,
@@ -23,7 +22,7 @@ export const ContactForm = () => {
         handleSubmit,
         formErrors,
         formTouched,
-    } = useContext(ContactFormContext)
+    } = useContactFormContext()
 
     const emailError = formTouched.email && formErrors.email
     const subjectError = formTouched.subject && formErrors.subject

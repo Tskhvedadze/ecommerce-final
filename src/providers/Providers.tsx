@@ -1,12 +1,15 @@
 import { PropsWithChildren } from 'react'
 import { ContactFormProvider } from './ContactFormProvider/ContactFormProvider'
 import { CartProvider } from './CartProvider/CartProvider'
+import { SearchBarProvider } from './SearchBarProvider/SearchBarProvider'
 
 export const Providers = ({ children }: PropsWithChildren) => {
     return (
         <>
             <ContactFormProvider>
-                <CartProvider>{children}</CartProvider>
+                <CartProvider>
+                    <SearchBarProvider>{children}</SearchBarProvider>
+                </CartProvider>
             </ContactFormProvider>
         </>
     )

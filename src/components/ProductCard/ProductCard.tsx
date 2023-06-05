@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { CartContext } from 'context'
 import { Rate } from 'antd'
 
+import { formatCurrency } from 'utils'
 import { TShoppingCart } from 'types/shoppingCart.types'
 
 import { Button } from '..'
@@ -35,7 +36,7 @@ export const ProductCard = ({
 
     return (
         <ProductCardContainer>
-            <ProductCardSlider img={images} />
+            <ProductCardSlider img={images} brand={brand} />
             <ProductCardContent>
                 <ProductCardTitle to={`/products/${id}`}>
                     {brand}
@@ -47,8 +48,7 @@ export const ProductCard = ({
             </ProductCardContent>
             <ProductCardPriceContainer>
                 <ProductCardPrice>
-                    <span>$</span>
-                    {Number(price).toFixed(0)}
+                    {formatCurrency(price, t('currency'))}
                 </ProductCardPrice>
                 <Button
                     mode='secondary'

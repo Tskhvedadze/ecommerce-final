@@ -1,8 +1,7 @@
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { useQuery } from 'react-query'
+import { useFetch } from 'hook'
 
-import { apiClient2 } from 'utils'
 import { MyImage, Content, Suggestions } from './components'
 import { BreadcrumbComponent } from 'components'
 
@@ -11,12 +10,10 @@ import { BreadcrumbContianer, MainContent } from './SingleProductPage.styled'
 function SingleProductPage() {
     const { itemID } = useParams()
 
-    const getSingleProduct = async () => {
-        const response = await apiClient2.get(`/product/${itemID}`)
-        return response?.data
-    }
-
-    const { data, refetch } = useQuery(['singleProduct'], getSingleProduct)
+    const { data, refetch } = useFetch({
+        url: `/product/${itemID}`,
+        caching: ['singleProduct'],
+    })
 
     useEffect(() => {
         refetch()

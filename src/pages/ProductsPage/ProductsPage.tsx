@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useQuery } from 'react-query'
+import { useFetch } from 'hook'
 import { useTranslation } from 'react-i18next'
 import { Select } from 'antd'
 
 import { filteredOptions } from './util/productsUtils/productsUtils'
-import { apiClient2 } from 'utils'
 import { ProductCard, BreadcrumbComponent } from 'components'
 import { TProducts } from 'types/productsAPI.types'
 
@@ -19,13 +18,10 @@ import {
 function ProductsPage() {
     const { t } = useTranslation(['ProductsPage'])
     const [brandName, setBrandName] = useState<string>('smartphones')
-
-    const getFiltered = useCallback(async () => {
-        const response = await apiClient2.get(`/products/category/${brandName}`)
-        return response.data
-    }, [brandName])
-
-    const { data, refetch } = useQuery(['allProducts', brandName], getFiltered)
+    const { data, refetch } = useFetch({
+        url: `/products/category/${brandName}`,
+        caching: ['allProducts', brandName],
+    })
 
     const handleBrandChange = useCallback(
         (value: string) => {
@@ -72,7 +68,7 @@ function ProductsPage() {
                                 <ProductCard
                                     key={id}
                                     id={id}
-                                    brand={title}
+                                    brand={brand}
                                     images={images}
                                     price={price}
                                     title={title}

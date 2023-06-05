@@ -1,11 +1,12 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { useHomeProducts } from './hook/useHomeProducts'
-import { TProducts } from 'types/productsAPI.types'
 
-import { Carousel, TopProducts } from './components'
 import { Button, ProductCard } from 'components'
+
+import { useHomeProducts } from './hook'
+import { TProducts } from 'types/productsAPI.types'
+import { Carousel, TopProducts } from './components'
 
 import {
     ProductPageTitle,
@@ -16,20 +17,10 @@ import {
 } from './HomePage.styled'
 
 const HomePage = () => {
-    const [currentPage, setCurrentPage] = useState(1)
     const navigate = useNavigate()
     const { t } = useTranslation(['HomePage'])
-
-    const itemsPerPage = 15
-    const { data, refetch } = useHomeProducts(currentPage, itemsPerPage)
-
-    useEffect(() => {
-        refetch()
-    }, [refetch])
-
-    const handlePageClick = useCallback((page: number) => {
-        setCurrentPage(page)
-    }, [])
+    const { data, handlePageClick, currentPage, itemsPerPage } =
+        useHomeProducts()
 
     const productCard = useCallback(
         ({ id, images, price, brand, title, rating }: TProducts) => (

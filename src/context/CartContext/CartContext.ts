@@ -1,4 +1,4 @@
-import { createContext } from 'react'
+import { createContext, useContext } from 'react'
 import { TShoppingCart } from 'types/shoppingCart.types'
 
 type TCartContext = {
@@ -12,13 +12,8 @@ type TCartContext = {
     clearItemFromCart: (productToClear: TShoppingCart) => void
 }
 
-export const CartContext = createContext<TCartContext>({
-    isCartOpen: false,
-    cartItems: [],
-    cartCount: 0,
-    cartTotal: 0,
-    setIsCartOpen: () => {},
-    addItemToCart: () => {},
-    removeItemFromCart: () => {},
-    clearItemFromCart: () => {},
-})
+export const CartContext = createContext({} as TCartContext)
+
+export const useCartContext = () => {
+    return useContext(CartContext)
+}

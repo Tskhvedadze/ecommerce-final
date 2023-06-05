@@ -1,14 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useContext, useRef, useEffect } from 'react'
-import { CartContext } from 'context'
-import { ShoppingCartContainer, ShoppingIcon } from './Cart.styled'
+import { useRef, useEffect } from 'react'
+import { useCartContext } from 'context'
 import { useLocation } from 'react-router-dom'
+
+import { ShoppingCartContainer, ShoppingIcon } from './Cart.styled'
 
 export const Cart: React.FC = () => {
     const spanRef = useRef<HTMLSpanElement>(null)
     const location = useLocation()
 
-    const { isCartOpen, setIsCartOpen, cartCount } = useContext(CartContext)
+    const { setIsCartOpen, isCartOpen, cartCount } = useCartContext()
 
     useEffect(() => {
         setIsCartOpen(false)

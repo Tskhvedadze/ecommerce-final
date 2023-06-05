@@ -29,9 +29,7 @@ export const StyledLabel = styled.span`
 export const StyledValue = styled.span`
     ${tw`text-gray-700 uppercase text-lg font-semibold font-mono`}
 `
-export const StyledDollar = styled.span`
-    ${tw`text-green-500 font-semibold mr-1`}
-`
+
 export const StyledPrice = styled.span`
     ${tw`text-green-600 font-semibold`}
 `

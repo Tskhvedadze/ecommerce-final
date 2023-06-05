@@ -1,9 +1,8 @@
 import { ProductCard } from 'components/index'
 import { useEffect } from 'react'
-import { useQuery } from 'react-query'
+import { useFetch } from 'hook'
 import { useTranslation } from 'react-i18next'
 
-import { apiClient2 } from 'utils'
 import { TProducts } from 'types/productsAPI.types'
 
 import {
@@ -19,11 +18,10 @@ type SuggestionsProps = {
 
 export const Suggestions = ({ category }: SuggestionsProps) => {
     const { t } = useTranslation(['components'])
-    const getSuggestions = async () => {
-        const response = await apiClient2.get(`/products/category/${category}`)
-        return response?.data
-    }
-    const { data, refetch } = useQuery(['suggestions'], getSuggestions)
+    const { data, refetch } = useFetch({
+        url: `/products/category/${category}`,
+        caching: ['suggestionProducts', category],
+    })
 
     useEffect(() => {
         refetch()
