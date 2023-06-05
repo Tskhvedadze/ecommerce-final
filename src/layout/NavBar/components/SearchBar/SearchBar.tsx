@@ -20,15 +20,8 @@ import { TProducts } from 'types/productsAPI.types'
 export const SearchBar = () => {
     const navigate = useNavigate()
     const { t } = useTranslation(['components'])
-    const {
-        text,
-        setText,
-        setIsFocused,
-        isFocused,
-        resultsRef,
-        modalOpen,
-        setModalOpen,
-    } = useSearchBarContext()
+    const { text, setText, setIsFocused, isFocused, resultsRef, setModalOpen } =
+        useSearchBarContext()
     const trimmedText = text.trim()
 
     const { data, refetch } = useFetch({
