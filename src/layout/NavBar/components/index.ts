@@ -1,4 +1,3 @@
-export { LanguageSwitcher } from './LanguageSwitcher/LanguageSwitcher'
 export { SearchBar } from './SearchBar/SearchBar'
 export { Cart } from './Cart/Cart'
 export { CartDropdown } from './CartDropdown/CartDropdown'

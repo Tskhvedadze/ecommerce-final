@@ -1,5 +1,8 @@
-import React from 'react'
+import { useTranslation } from 'react-i18next'
+
+import { StyledFooter } from './Footer.styled'
 
 export default function Footer() {
-    return <div>Footer</div>
+    const { t } = useTranslation(['footer'])
+    return <StyledFooter>{t('Reserved')}</StyledFooter>
 }
