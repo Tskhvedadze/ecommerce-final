@@ -1,9 +1,11 @@
-import { useEffect } from 'react'
+import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
-import { useFetch } from 'hook'
 import { useSearchBarContext } from 'context'
 import { useTranslation } from 'react-i18next'
 import { SearchErrorModal, SearchResult } from './components'
+
+import { apiClient2 } from 'config/api/api'
+import { TProducts } from 'types/productsAPI.types'
 
 import {
     SearchContainer,
@@ -14,8 +16,8 @@ import {
     EmptyResultContainer,
     EmptyText,
     EmptySpan,
+    ErrorText,
 } from './SearchBar.styled'
-import { TProducts } from 'types/productsAPI.types'
 
 export const SearchBar = () => {
     const navigate = useNavigate()
@@ -24,14 +26,22 @@ export const SearchBar = () => {
         useSearchBarContext()
     const trimmedText = text.trim()
 
-    const { data, refetch } = useFetch({
-        url: `products/search?q=${trimmedText}`,
-        caching: ['searchProducts'],
-    })
-
-    useEffect(() => {
-        refetch()
-    }, [text, refetch])
+    const {
+        status,
+        data,
+        error,
+        isError,
+    }: { status: string; data: any; error: any; isError: boolean } = useQuery(
+        ['searchProducts', text],
+        async () => {
+            const res = await apiClient2.get(`products/search?q=${trimmedText}`)
+            return res?.data
+        },
+        {
+            suspense: false,
+            cacheTime: 0,
+        },
+    )
 
     const handleSearchResultRedirect = () => {
         if (trimmedText.length === 0) {
@@ -42,15 +52,23 @@ export const SearchBar = () => {
     }
 
     const renderSearchResults = () => {
-        if (trimmedText.length === 0 || !data || data?.products.length === 0) {
+        if (
+            trimmedText.length === 0 ||
+            isError ||
+            data?.products.length === 0
+        ) {
             return (
                 <EmptyResultContainer>
-                    <EmptyText>
-                        {t('found')}
-                        <EmptySpan>
-                            {t('for')} <span>{text}</span>
-                        </EmptySpan>
-                    </EmptyText>
+                    {status === 'error' && isError ? (
+                        <ErrorText>An Error: {error.message}</ErrorText>
+                    ) : (
+                        <EmptyText>
+                            {t('found')}
+                            <EmptySpan>
+                                {t('for')} <span>{text}</span>
+                            </EmptySpan>
+                        </EmptyText>
+                    )}
                 </EmptyResultContainer>
             )
         }

@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query'
-import { apiClient2 } from 'utils'
+import { apiClient2 } from 'config/api/api'
 
 export const useFetch = ({
     url,
