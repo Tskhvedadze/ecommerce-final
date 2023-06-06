@@ -11,6 +11,7 @@ const queryClient = new QueryClient({
         queries: {
             suspense: true,
             refetchOnWindowFocus: false,
+            refetchOnMount: true,
             retry: false,
             staleTime: 6000,
             useErrorBoundary: (error: any) => error.response?.status >= 500,

@@ -43,7 +43,7 @@ function NavBar() {
                     <LanguageSwitcher />
                 </DivLayout>
                 <DivLayout>
-                    <StyledLink to='login'>{t('Log_in')}</StyledLink>
+                    <StyledLink to='SignIn'>{t('Log_in')}</StyledLink>
                 </DivLayout>
                 <DivLayout>
                     <StyledLink to='register'>{t('Register')}</StyledLink>
