@@ -1,11 +1,12 @@
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
+import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
-import { Button, ProductCard } from 'components'
-
-import { useHomeProducts } from './hook'
+import { apiClient2 } from 'config/api/api'
 import { TProducts } from 'types/productsAPI.types'
+
+import { Button, ErrorMsg, ProductCard } from 'components'
 import { Carousel, TopProducts } from './components'
 
 import {
@@ -19,8 +20,31 @@ import {
 const HomePage = () => {
     const navigate = useNavigate()
     const { t } = useTranslation(['HomePage'])
-    const { data, handlePageClick, currentPage, itemsPerPage } =
-        useHomeProducts()
+    const [currentPage, setCurrentPage] = useState<number>(1)
+    const itemsPerPage = 15
+    const skip = (currentPage - 1) * itemsPerPage
+
+    const {
+        status,
+        data,
+        error,
+        isError,
+    }: { status: string; data: any; error: any; isError: boolean } = useQuery(
+        ['homeProducts', currentPage, skip],
+        async () => {
+            const res = await apiClient2.get(
+                `/products?limit=${itemsPerPage}&skip=${skip}&select=title,price,images,brand,rating`,
+            )
+            return res?.data
+        },
+        {
+            keepPreviousData: true,
+        },
+    )
+
+    const handlePageClick = useCallback((page: number) => {
+        setCurrentPage(page)
+    }, [])
 
     const productCard = useCallback(
         ({ id, images, price, brand, title, rating }: TProducts) => (
@@ -37,6 +61,9 @@ const HomePage = () => {
         [],
     )
 
+    if (status === 'error' && isError)
+        return <ErrorMsg errorText={error.message} />
+
     return (
         <>
             <Carousel />
@@ -48,9 +75,10 @@ const HomePage = () => {
             </ProductPageHeaderContainer>
 
             <ProductCardGridContainer>
-                {data?.products.map((product: TProducts) =>
-                    productCard(product),
-                )}
+                {!isError &&
+                    data?.products.map((product: TProducts) =>
+                        productCard(product),
+                    )}
             </ProductCardGridContainer>
 
             <StyledAntdPagination

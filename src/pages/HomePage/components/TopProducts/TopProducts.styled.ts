@@ -16,3 +16,7 @@ export const StyledImg = styled.img`
 export const StyledParagraph = styled.p`
     ${tw`relative bg-orange-400  bottom-[35px] font-semibold w-[70%] text-end`}
 `
+
+export const ErrorText = styled.h1`
+    ${tw`h-[30vh] flex justify-center items-center text-3xl text-red`}
+`

@@ -18,3 +18,7 @@ export const SuggestionGridContainer = styled.div`
 export const SuggestionInnerContainer = styled.div`
     ${tw``}
 `
+
+export const ErrorText = styled.h1`
+    ${tw`h-[30vh] flex justify-center items-center text-3xl text-red`}
+`

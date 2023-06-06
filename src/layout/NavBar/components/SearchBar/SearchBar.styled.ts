@@ -45,3 +45,7 @@ export const EmptySpan = styled.span`
         ${tw`text-amazonclone-yellow`}
     }
 `
+
+export const ErrorText = styled.h1`
+    ${tw`text-2xl text-red-400`}
+`
