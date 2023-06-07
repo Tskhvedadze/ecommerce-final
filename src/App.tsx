@@ -11,8 +11,8 @@ const SingleProduct = lazy(() => import('pages/SingleProductPage'))
 const SecondaryLayout = lazy(() => import('secondaryLayout/SecondaryLayout'))
 const Contact = lazy(() => import('pages/ContactPage'))
 const Search = lazy(() => import('pages/SearchPage'))
-const SignIn = lazy(() => import('pages/SignIn'))
-const SignUp = lazy(() => import('pages/SignUp'))
+const SignIn = lazy(() => import('pages/auth/SignIn/SignIn'))
+const SignUp = lazy(() => import('pages/auth/SignUp/SignUp'))
 
 const App = () => {
     return (
@@ -29,8 +29,8 @@ const App = () => {
                 <Route element={<SecondaryLayout />}>
                     <Route path='contact-us' element={<Contact />} />
                     <Route path='search-result/:keyword' element={<Search />} />
-                    <Route path='SignIn' element={<SignIn />} />
-                    <Route path='SignUp' element={<SignUp />} />
+                    <Route path='/SignIn' element={<SignIn />} />
+                    <Route path='/SignUp' element={<SignUp />} />
                     <Route />
                 </Route>
                 <Route path='/*' element={<Navigate to='/' />} />

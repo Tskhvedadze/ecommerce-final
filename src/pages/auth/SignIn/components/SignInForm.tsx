@@ -1,28 +1,39 @@
 import { useTranslation } from 'react-i18next'
-import { Formik } from 'formik'
+import { useMutation } from 'react-query'
+import { Formik, Form } from 'formik'
 
-import { Button, Input, Label, Form } from 'components'
+import { Login } from 'config/api/api'
 
-type SignInFormProps = {}
+import { Button, Label, Input } from 'components'
 
 type TSignIn = {
     email: string
-    password: string | number
+    password: string
 }
 
-const handleSubmit = (values: TSignIn) => {
-    console.log(values)
-}
-
-export const SignInForm = (props: SignInFormProps) => {
+export const SignInForm = () => {
     const { t } = useTranslation(['SignIn'])
+
+    const { isLoading, error, isError, mutateAsync, data } = useMutation(
+        'login',
+        Login,
+    )
+
+    console.log(data)
+
+    // console.log(error)
 
     return (
         <Formik
             initialValues={{ email: '', password: '' }}
-            onSubmit={handleSubmit}
+            onSubmit={async ({ email, password }: TSignIn) =>
+                await mutateAsync({
+                    email: email,
+                    password: password,
+                })
+            }
         >
-            <Form>
+            <Form className='space-y-4 md:space-y-6'>
                 <div>
                     <Label htmlFor='email'>{t('email')}</Label>
                     <Input

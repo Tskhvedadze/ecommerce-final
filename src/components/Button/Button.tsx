@@ -1,9 +1,10 @@
 import { ButtonHTMLAttributes } from 'react'
 
-import { FormButton, SPrimaryBTN, SSecondaryBTN } from './Button.styled'
+import { SPrimaryBTN, SSecondaryBTN, FormBtn } from './Button.styled'
 
 type ButtonProps = {
     mode: string
+    type?: 'submit' | 'button'
 }
 
 type FullButtonProps = ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>
@@ -14,6 +15,7 @@ export const Button = ({
     onClick,
     className,
     disabled,
+    type,
 }: FullButtonProps): JSX.Element => {
     if (mode === 'primary') {
         return (
@@ -40,14 +42,16 @@ export const Button = ({
 
     if (mode === 'form') {
         return (
-            <FormButton
+            <FormBtn
                 onClick={onClick}
                 className={className}
                 disabled={disabled}
+                type={type}
             >
                 {children}
-            </FormButton>
+            </FormBtn>
         )
     }
+
     throw new Error(`Invalid mode: ${mode}`)
 }
