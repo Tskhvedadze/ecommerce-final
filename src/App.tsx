@@ -12,7 +12,7 @@ const SecondaryLayout = lazy(() => import('secondaryLayout/SecondaryLayout'))
 const Contact = lazy(() => import('pages/ContactPage'))
 const Search = lazy(() => import('pages/SearchPage'))
 const SignIn = lazy(() => import('pages/SignIn'))
-const Register = lazy(() => import('pages/Register'))
+const SignUp = lazy(() => import('pages/SignUp'))
 
 const App = () => {
     return (
@@ -20,20 +20,17 @@ const App = () => {
             <Routes>
                 <Route element={<MainLayout />}>
                     <Route path='/' element={<Home />} />
-                    <Route path='/products' element={<Products />} />
+                    <Route path='products' element={<Products />} />
                     <Route
-                        path='/products/:itemID'
+                        path='products/:itemID'
                         element={<SingleProduct />}
                     />
                 </Route>
                 <Route element={<SecondaryLayout />}>
-                    <Route path='/contact-us' element={<Contact />} />
-                    <Route
-                        path='/search-result/:keyword'
-                        element={<Search />}
-                    />
+                    <Route path='contact-us' element={<Contact />} />
+                    <Route path='search-result/:keyword' element={<Search />} />
                     <Route path='SignIn' element={<SignIn />} />
-                    <Route path='Register' element={<Register />} />
+                    <Route path='SignUp' element={<SignUp />} />
                     <Route />
                 </Route>
                 <Route path='/*' element={<Navigate to='/' />} />

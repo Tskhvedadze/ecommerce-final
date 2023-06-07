@@ -1,11 +1,7 @@
+import { useTranslation } from 'react-i18next'
 import { Formik } from 'formik'
-import {
-    StyledForm,
-    StyledLabel,
-    StyledEmailInput,
-    StyledPasswordInput,
-    StyledButton,
-} from './SignInForm.styled'
+
+import { Button, Input, Label, Form } from 'components'
 
 type SignInFormProps = {}
 
@@ -19,33 +15,36 @@ const handleSubmit = (values: TSignIn) => {
 }
 
 export const SignInForm = (props: SignInFormProps) => {
+    const { t } = useTranslation(['SignIn'])
+
     return (
         <Formik
             initialValues={{ email: '', password: '' }}
             onSubmit={handleSubmit}
         >
-            <StyledForm>
+            <Form>
                 <div>
-                    <StyledLabel htmlFor='email'>Your email</StyledLabel>
-                    <StyledEmailInput
+                    <Label htmlFor='email'>{t('email')}</Label>
+                    <Input
                         type='email'
                         name='email'
                         id='email'
-                        placeholder='Email'
+                        placeholder={`${t('pl_email')}`}
                     />
                 </div>
                 <div>
-                    <StyledLabel htmlFor='password'>Password</StyledLabel>
-                    <StyledPasswordInput
+                    <Label htmlFor='password'>{t('password')}</Label>
+                    <Input
                         type='password'
                         name='password'
                         id='password'
                         placeholder='••••••••'
                     />
                 </div>
-
-                <StyledButton type='submit'>Sign in</StyledButton>
-            </StyledForm>
+                <Button mode='form' type='submit'>
+                    {t('in')}
+                </Button>
+            </Form>
         </Formik>
     )
 }

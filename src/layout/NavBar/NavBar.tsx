@@ -13,6 +13,7 @@ import {
     ContentLayout,
     StyledLink,
     StyledUser,
+    AuthContainer,
 } from './NavBar.styled'
 
 import amazon from 'assets/images/amazon.png'
@@ -43,10 +44,10 @@ function NavBar() {
                     <LanguageSwitcher />
                 </DivLayout>
                 <DivLayout>
-                    <StyledLink to='SignIn'>{t('Log_in')}</StyledLink>
-                </DivLayout>
-                <DivLayout>
-                    <StyledLink to='register'>{t('Register')}</StyledLink>
+                    <AuthContainer>
+                        <StyledLink to='SignIn'>{t('in')}</StyledLink>
+                        <StyledLink to='SignUp'>{t('up')}</StyledLink>
+                    </AuthContainer>
                 </DivLayout>
                 <Cart />
                 {isCartOpen && <CartDropdown />}

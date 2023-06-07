@@ -1,9 +1,9 @@
 import { ButtonHTMLAttributes } from 'react'
 
-import { SPrimaryBTN, SSecondaryBTN } from './Button.styled'
+import { FormButton, SPrimaryBTN, SSecondaryBTN } from './Button.styled'
 
 type ButtonProps = {
-    mode?: string
+    mode: string
 }
 
 type FullButtonProps = ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>
@@ -35,6 +35,18 @@ export const Button = ({
             >
                 {children}
             </SSecondaryBTN>
+        )
+    }
+
+    if (mode === 'form') {
+        return (
+            <FormButton
+                onClick={onClick}
+                className={className}
+                disabled={disabled}
+            >
+                {children}
+            </FormButton>
         )
     }
     throw new Error(`Invalid mode: ${mode}`)

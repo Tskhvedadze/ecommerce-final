@@ -4,23 +4,27 @@ import styled from 'styled-components'
 import tw from 'twin.macro'
 
 export const FlexLayout = styled.div`
-    ${tw`flex  bg-amazonclone text-white h-[4rem] min-w-[1000px] px-3 relative`}
+    ${tw`flex  justify-between items-center  bg-amazonclone text-white h-[4rem] min-w-[1000px] px-3 relative`}
 `
 
 export const DivLayout = styled.div`
-    ${tw`px-3 `}
+    ${tw`px-1.5 `}
 `
 
 export const ContentLayout = styled.div`
-    ${tw`flex items-center m-2`}
+    ${tw`flex items-center  m-2`}
 `
 
 export const StyledUser = styled.h1`
-    ${tw`text-sm xl:text-base font-bold `}
+    ${tw`text-[14px]  font-semibold `}
+`
+
+export const AuthContainer = styled.div`
+    ${tw` flex flex-col justify-center items-start pl-2 uppercase`}
 `
 
 export const StyledLink = styled(Link)`
-    ${tw`text-sm xl:text-base font-bold cursor-pointer hover:text-orange-light`}
+    ${tw`text-[14px]  font-semibold cursor-pointer hover:text-orange-light`}
 `
 
 export const LogoutButton = styled.button`

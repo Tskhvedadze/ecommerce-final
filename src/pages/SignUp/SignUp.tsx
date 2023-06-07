@@ -1,5 +1,4 @@
-import { useTranslation } from 'react-i18next'
-import { SignInForm } from './components'
+import { SignUpForm } from './components'
 
 import {
     StyledSection,
@@ -10,22 +9,22 @@ import {
     FooterContainer,
     StyledParagraph,
     StyledNavLink,
-} from './SignIn.styled'
+} from './SignUp.styled'
 
 function SignIn() {
-    const { t } = useTranslation(['SignIn'])
-
     return (
         <StyledSection>
             <FlexContainer>
                 <ContentDiv>
                     <InnerDiv>
-                        <StyledTitle>{t('signIn')}</StyledTitle>
-                        <SignInForm />
+                        <StyledTitle>Create and account</StyledTitle>
+                        <SignUpForm />
                         <FooterContainer>
-                            <StyledParagraph>{t('notHave')}</StyledParagraph>
-                            <StyledNavLink to={'/signup'}>
-                                {t('signUp')}
+                            <StyledParagraph>
+                                Already have an account?{' '}
+                            </StyledParagraph>
+                            <StyledNavLink to={'/signin'}>
+                                Login here
                             </StyledNavLink>
                         </FooterContainer>
                     </InnerDiv>
