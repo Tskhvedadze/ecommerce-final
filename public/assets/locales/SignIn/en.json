@@ -1,0 +1,12 @@
+{
+    "signIn": "Sign in to your account",
+    "notHave": "Don’t have an account yet?",
+    "signUp": "Sign up",
+    "email": "Your email",
+    "password": "Password",
+    "pl_email": "Email",
+    "in": "Sign in",
+    "invalid_email": "Invalid email",
+    "email_required": "Email is required",
+    "password_required": "Password is required"
+}

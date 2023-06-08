@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
+import { useTranslation } from 'react-i18next'
 import { Breadcrumb } from 'antd'
 
 import { apiClient2 } from 'config/api/api'
@@ -15,6 +16,7 @@ import {
 } from './SearchPage.styled'
 
 function SearchPage() {
+    const { t } = useTranslation(['search'])
     const { keyword } = useParams()
 
     const {
@@ -33,7 +35,7 @@ function SearchPage() {
     const breadcrumbItems = [
         {
             className: 'text-gray-700 font-semibold',
-            title: 'Home',
+            title: `${t('home')}`,
             href: '/',
         },
         {
@@ -49,10 +51,9 @@ function SearchPage() {
         <MainFlexContainer>
             <InnerHeaderFlexContainer>
                 <div>
-                    <SearchResultTitle>Search results</SearchResultTitle>
+                    <SearchResultTitle>{t('search')}</SearchResultTitle>
                     <SearchResultParagraph>
-                        We found {data?.products.length}{' '}
-                        {data?.products.length > 1 ? 'Products' : 'Product'} for
+                        {t('found')} {data?.products.length} {t('product')}
                         <span>{keyword}</span>
                     </SearchResultParagraph>
                 </div>
