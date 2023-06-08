@@ -35,16 +35,10 @@ export const SignUpForm = () => {
     async function signUp(values: TSignUp) {
         try {
             await public_axios.post('/register', values)
-            message.open({
-                type: 'success',
-                content: 'Account created successfully',
-            })
+            message.success('Account created successfully')
             navigate('/SignIn')
         } catch (error: any) {
-            message.open({
-                type: 'error',
-                content: error?.response?.data,
-            })
+            message.error(error?.response?.data)
         }
     }
 

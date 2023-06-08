@@ -1,9 +1,11 @@
-import { useCallback, useEffect, useState } from 'react'
-import { useFetch } from 'hook'
+import { useCallback, useState } from 'react'
+import { useQuery } from 'react-query'
 import { useTranslation } from 'react-i18next'
 import { Select } from 'antd'
 
+import { apiClient2 } from 'config/api/api'
 import { filteredOptions } from './util/productsUtils/productsUtils'
+
 import { ProductCard, BreadcrumbComponent } from 'components'
 import { TProducts } from 'types/productsAPI.types'
 
@@ -18,22 +20,15 @@ import {
 function ProductsPage() {
     const { t } = useTranslation(['ProductsPage'])
     const [brandName, setBrandName] = useState<string>('smartphones')
-    const { data, refetch } = useFetch({
-        url: `/products/category/${brandName}`,
-        caching: ['allProducts', brandName],
+
+    const { data } = useQuery(['allProducts', brandName], async () => {
+        const res = await apiClient2.get(`/products/category/${brandName}`)
+        return res?.data
     })
 
-    const handleBrandChange = useCallback(
-        (value: string) => {
-            setBrandName(value)
-            refetch()
-        },
-        [refetch],
-    )
-
-    useEffect(() => {
-        refetch()
-    }, [brandName, refetch])
+    const handleBrandChange = useCallback((value: string) => {
+        setBrandName(value)
+    }, [])
 
     return (
         <OuterContainer>

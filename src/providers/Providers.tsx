@@ -1,10 +1,11 @@
+import { PropsWithChildren } from 'react'
 import { QueryClient } from 'react-query'
 import { QueryClientProvider } from 'react-query'
 
-import { PropsWithChildren } from 'react'
 import { ContactFormProvider } from './ContactFormProvider/ContactFormProvider'
 import { CartProvider } from './CartProvider/CartProvider'
 import { SearchBarProvider } from './SearchBarProvider/SearchBarProvider'
+import { AuthProvider } from './authProvider/authProvider'
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -22,11 +23,13 @@ const queryClient = new QueryClient({
 const Providers = ({ children }: PropsWithChildren) => {
     return (
         <QueryClientProvider client={queryClient}>
-            <ContactFormProvider>
-                <CartProvider>
-                    <SearchBarProvider>{children}</SearchBarProvider>
-                </CartProvider>
-            </ContactFormProvider>
+            <AuthProvider>
+                <ContactFormProvider>
+                    <CartProvider>
+                        <SearchBarProvider>{children}</SearchBarProvider>
+                    </CartProvider>
+                </ContactFormProvider>
+            </AuthProvider>
         </QueryClientProvider>
     )
 }

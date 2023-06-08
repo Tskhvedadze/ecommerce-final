@@ -5,5 +5,8 @@
     "email": "Your email",
     "password": "Password",
     "pl_email": "Email",
-    "in": "Sign in"
+    "in": "Sign in",
+    "invalid_email": "Invalid email",
+    "email_required": "Email is required",
+    "password_required": "Password is required"
 }
