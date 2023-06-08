@@ -37,7 +37,7 @@ export const SignInForm = () => {
                     )
                     setStatus(TAuthorizationStage.AUTHORIZED)
                 }
-                message.success('Account created successfully')
+                message.success('Welcome back!')
                 navigate('/')
             } catch (error: any) {
                 message.error('Email or password is incorrect')

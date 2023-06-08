@@ -15,8 +15,8 @@ export const ContentLayout = styled.div`
     ${tw`flex items-center  m-2`}
 `
 
-export const StyledUser = styled.h1`
-    ${tw`text-[14px]  font-semibold `}
+export const Greeting = styled.h1`
+    ${tw`text-[14px]  font-semibold  flex flex-col`}
 `
 
 export const AuthContainer = styled.div`
