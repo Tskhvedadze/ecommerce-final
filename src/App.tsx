@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 
 import { LoadingSpiner } from 'components'
+import { TAuthorizationStage, useAuthContext } from 'context' // Import useAuthContext hook
 
 const MainLayout = lazy(() => import('layout/MainLayout'))
 const Home = lazy(() => import('pages/HomePage'))
@@ -15,6 +16,8 @@ const SignIn = lazy(() => import('pages/auth/SignIn/SignIn'))
 const SignUp = lazy(() => import('pages/auth/SignUp/SignUp'))
 
 const App = () => {
+    const { status } = useAuthContext() // Get the user's signed-in status
+
     return (
         <Suspense fallback={<LoadingSpiner />}>
             <Routes>
@@ -29,9 +32,12 @@ const App = () => {
                 <Route element={<SecondaryLayout />}>
                     <Route path='contact-us' element={<Contact />} />
                     <Route path='search-result/:keyword' element={<Search />} />
-                    <Route path='/SignIn' element={<SignIn />} />
-                    <Route path='/SignUp' element={<SignUp />} />
-                    <Route />
+                    {status !== TAuthorizationStage.AUTHORIZED && (
+                        <>
+                            <Route path='/SignIn' element={<SignIn />} />
+                            <Route path='/SignUp' element={<SignUp />} />
+                        </>
+                    )}
                 </Route>
                 <Route path='/*' element={<Navigate to='/' />} />
             </Routes>

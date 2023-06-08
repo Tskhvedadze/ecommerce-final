@@ -1,20 +1,22 @@
-import { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import { useQuery } from 'react-query'
 import { useTranslation } from 'react-i18next'
-import { CartContext, TAuthorizationStage, useAuthContext } from 'context'
-import { private_axios } from 'utils/axios/private_axios'
-import { TLocalStorage } from 'types/localestorage'
+import { useCartContext } from 'context'
+import { TAuthorizationStage, useAuthContext } from 'context'
+import {
+    useHandleLogout,
+    getGreeting,
+    useUserDataQuery,
+} from './helper/NavBarHelpers'
 
-import { Button, LanguageSwitcher } from 'components'
 import { Cart, SearchBar, CartDropdown } from './components'
+import { Button, LanguageSwitcher } from 'components'
 
 import {
     FlexLayout,
     DivLayout,
     ContentLayout,
     StyledLink,
-    StyledUser,
+    Greeting,
     AuthContainer,
 } from './NavBar.styled'
 
@@ -22,28 +24,11 @@ import amazon from 'assets/images/amazon.png'
 
 function NavBar() {
     const { t } = useTranslation(['navbar'])
-    const { isCartOpen } = useContext(CartContext)
+    const { isCartOpen } = useCartContext()
     const { status, setStatus } = useAuthContext()
-
-    const { data } = useQuery(
-        ['User', status],
-        async () => {
-            if (status === TAuthorizationStage.AUTHORIZED) {
-                const res = await private_axios.get('/me')
-                return res?.data
-            }
-            return null
-        },
-        {
-            enabled: status === TAuthorizationStage.AUTHORIZED,
-            cacheTime: 0,
-        },
-    )
-
-    const handleLogout = () => {
-        localStorage.removeItem(TLocalStorage.ACCESSTOKEN)
-        setStatus(TAuthorizationStage.UNAUTHORIZED)
-    }
+    const { data } = useUserDataQuery(status)
+    const handleLogout = useHandleLogout(setStatus)
+    const greeting = getGreeting(data)
 
     return (
         <FlexLayout>
@@ -55,13 +40,10 @@ function NavBar() {
 
             <ContentLayout>
                 <DivLayout>
-                    <StyledUser>
-                        {data && (
-                            <span className=' text-amber-500 font-semibold'>
-                                {data?.email}
-                            </span>
-                        )}
-                    </StyledUser>
+                    <Greeting>
+                        Hello!
+                        {greeting}
+                    </Greeting>
                 </DivLayout>
                 <DivLayout>
                     <StyledLink to='contact-us'>{t('Contact_us')}</StyledLink>
