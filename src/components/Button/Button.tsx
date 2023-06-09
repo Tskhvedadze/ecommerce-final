@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes } from 'react'
 
-import { SPrimaryBTN, SSecondaryBTN, FormBtn } from './Button.styled'
+import { SPrimaryBTN, SSecondaryBTN, FormBtn, UserBtn } from './Button.styled'
 
 type ButtonProps = {
     mode: string
@@ -50,6 +50,19 @@ export const Button = ({
             >
                 {children}
             </FormBtn>
+        )
+    }
+
+    if (mode === 'user') {
+        return (
+            <UserBtn
+                onClick={onClick}
+                className={className}
+                disabled={disabled}
+                type={type}
+            >
+                {children}
+            </UserBtn>
         )
     }
 
