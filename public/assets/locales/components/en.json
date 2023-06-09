@@ -19,5 +19,8 @@
     "for": "0 Product for",
     "searchError": "search.errortitle",
     "keyword": "Please enter some search keyword",
-    "ok": "Ok"
+    "ok": "Ok",
+    "profile": "Profile",
+    "settings": "Settings",
+    "out": "Sign out"
 }

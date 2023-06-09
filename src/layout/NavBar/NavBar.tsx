@@ -8,8 +8,8 @@ import {
     useUserDataQuery,
 } from './helper/NavBarHelpers'
 
-import { Cart, SearchBar, CartDropdown } from './components'
-import { Button, LanguageSwitcher } from 'components'
+import { Cart, SearchBar, CartDropdown, UserDropdown } from './components'
+import { LanguageSwitcher } from 'components'
 
 import {
     FlexLayout,
@@ -41,7 +41,7 @@ function NavBar() {
             <ContentLayout>
                 <DivLayout>
                     <Greeting>
-                        Hello!
+                        {t('hello')}
                         {greeting}
                     </Greeting>
                 </DivLayout>
@@ -57,13 +57,7 @@ function NavBar() {
                 <DivLayout>
                     <AuthContainer>
                         {status === TAuthorizationStage.AUTHORIZED ? (
-                            <Button
-                                mode='secondary'
-                                className=' rounded'
-                                onClick={handleLogout}
-                            >
-                                Log Out
-                            </Button>
+                            <UserDropdown handleLogout={handleLogout} />
                         ) : (
                             <>
                                 <StyledLink to='SignIn'>{t('in')}</StyledLink>
