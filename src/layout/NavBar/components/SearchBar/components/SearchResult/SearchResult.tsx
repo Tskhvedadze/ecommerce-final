@@ -11,14 +11,14 @@ import {
 
 type SearchResultProps = {
     id: number
-    title: string
+    brand: string
     price: number
     images: string
 }
 
 export const SearchResult = ({
     id,
-    title,
+    brand,
     images,
     price,
 }: SearchResultProps) => {
@@ -30,8 +30,8 @@ export const SearchResult = ({
             to={`/products/${id}`}
             onClick={() => setIsFocused(false)}
         >
-            <StyledImage src={images} alt={title} />
-            <StyledTitle>{title}</StyledTitle>
+            <StyledImage src={images} alt={brand} />
+            <StyledTitle>{brand}</StyledTitle>
             <StyledPrice>{formatCurrency(price, t('currency'))}</StyledPrice>
         </FlexContainer>
     )

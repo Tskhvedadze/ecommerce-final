@@ -41,7 +41,7 @@ export const ProductCard = ({
             <ProductCardSlider img={images} brand={brand} />
             <ProductCardContent>
                 <ProductCardTitle to={`/products/${id}`}>
-                    {brand}
+                    {title.slice(0, 25)}...
                 </ProductCardTitle>
                 <RatingContainer>
                     <Rate disabled defaultValue={rating} />
