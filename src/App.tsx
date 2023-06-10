@@ -1,23 +1,23 @@
 import { lazy, Suspense } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
-
 import { LoadingSpiner } from 'components'
-import { TAuthorizationStage, useAuthContext } from 'context' // Import useAuthContext hook
+
+const PrivateRoutes = lazy(() => import('routes/Private/PrivateRoutes'))
+const PublicRoutes = lazy(() => import('routes/Public/PublicRoutes'))
 
 const MainLayout = lazy(() => import('layout/MainLayout'))
-const Home = lazy(() => import('pages/HomePage'))
-const Products = lazy(() => import('pages/ProductsPage'))
-const SingleProduct = lazy(() => import('pages/SingleProductPage'))
-
 const SecondaryLayout = lazy(() => import('secondaryLayout/SecondaryLayout'))
-const Contact = lazy(() => import('pages/ContactPage'))
-const Search = lazy(() => import('pages/SearchPage'))
-const SignIn = lazy(() => import('pages/auth/SignIn/SignIn'))
-const SignUp = lazy(() => import('pages/auth/SignUp/SignUp'))
+
+const Profile = lazy(() => import('pages/User'))
+const Home = lazy(() => import('pages/Home'))
+const Products = lazy(() => import('pages/Products'))
+const SingleProduct = lazy(() => import('pages/SingleProduct'))
+const Contact = lazy(() => import('pages/Contact'))
+const Search = lazy(() => import('pages/Search'))
+const SignUp = lazy(() => import('pages/SignUp'))
+const SignIn = lazy(() => import('pages/SignIn'))
 
 const App = () => {
-    const { status } = useAuthContext() // Get the user's signed-in status
-
     return (
         <Suspense fallback={<LoadingSpiner />}>
             <Routes>
@@ -29,17 +29,26 @@ const App = () => {
                         element={<SingleProduct />}
                     />
                 </Route>
+
                 <Route element={<SecondaryLayout />}>
                     <Route path='contact-us' element={<Contact />} />
                     <Route path='search-result/:keyword' element={<Search />} />
-                    {status !== TAuthorizationStage.AUTHORIZED && (
-                        <>
-                            <Route path='/SignIn' element={<SignIn />} />
-                            <Route path='/SignUp' element={<SignUp />} />
-                        </>
-                    )}
                 </Route>
-                <Route path='/*' element={<Navigate to='/' />} />
+
+                <Route element={<PublicRoutes />}>
+                    <Route element={<SecondaryLayout />}>
+                        <Route path='SignUp' element={<SignUp />} />
+                        <Route path='SignIn' element={<SignIn />} />
+                    </Route>
+                </Route>
+
+                <Route element={<PrivateRoutes />}>
+                    <Route element={<SecondaryLayout />}>
+                        <Route path='profile' element={<Profile />} />
+                    </Route>
+                </Route>
+
+                <Route path='/*' element={<Navigate to='/' replace />} />
             </Routes>
         </Suspense>
     )

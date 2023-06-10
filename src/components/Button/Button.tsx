@@ -1,9 +1,15 @@
 import { ButtonHTMLAttributes } from 'react'
 
-import { SPrimaryBTN, SSecondaryBTN, FormBtn, UserBtn } from './Button.styled'
+import {
+    SPrimaryBTN,
+    SSecondaryBTN,
+    FormBtn,
+    UserBtn,
+    UpdateBtn,
+} from './Button.styled'
 
 type ButtonProps = {
-    mode: string
+    mode: 'primary' | 'secondary' | 'form' | 'user' | 'update'
     type?: 'submit' | 'button'
 }
 
@@ -17,54 +23,61 @@ export const Button = ({
     disabled,
     type,
 }: FullButtonProps): JSX.Element => {
-    if (mode === 'primary') {
-        return (
-            <SPrimaryBTN
-                onClick={onClick}
-                className={className}
-                disabled={disabled}
-            >
-                {children}
-            </SPrimaryBTN>
-        )
+    switch (mode) {
+        case 'primary':
+            return (
+                <SPrimaryBTN
+                    onClick={onClick}
+                    className={className}
+                    disabled={disabled}
+                >
+                    {children}
+                </SPrimaryBTN>
+            )
+        case 'secondary':
+            return (
+                <SSecondaryBTN
+                    onClick={onClick}
+                    className={className}
+                    disabled={disabled}
+                >
+                    {children}
+                </SSecondaryBTN>
+            )
+        case 'form':
+            return (
+                <FormBtn
+                    onClick={onClick}
+                    className={className}
+                    disabled={disabled}
+                    type={type}
+                >
+                    {children}
+                </FormBtn>
+            )
+        case 'user':
+            return (
+                <UserBtn
+                    onClick={onClick}
+                    className={className}
+                    disabled={disabled}
+                    type={type}
+                >
+                    {children}
+                </UserBtn>
+            )
+        case 'update':
+            return (
+                <UpdateBtn
+                    onClick={onClick}
+                    className={className}
+                    disabled={disabled}
+                    type={type}
+                >
+                    {children}
+                </UpdateBtn>
+            )
+        default:
+            throw new Error(`Invalid mode: ${mode}`)
     }
-    if (mode === 'secondary') {
-        return (
-            <SSecondaryBTN
-                onClick={onClick}
-                className={className}
-                disabled={disabled}
-            >
-                {children}
-            </SSecondaryBTN>
-        )
-    }
-
-    if (mode === 'form') {
-        return (
-            <FormBtn
-                onClick={onClick}
-                className={className}
-                disabled={disabled}
-                type={type}
-            >
-                {children}
-            </FormBtn>
-        )
-    }
-
-    if (mode === 'user') {
-        return (
-            <UserBtn
-                onClick={onClick}
-                className={className}
-                disabled={disabled}
-                type={type}
-            >
-                {children}
-            </UserBtn>
-        )
-    }
-
-    throw new Error(`Invalid mode: ${mode}`)
 }
