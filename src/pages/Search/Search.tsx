@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
 import { useTranslation } from 'react-i18next'
 import { Breadcrumb } from 'antd'
-
+// import InfiniteScroll from 'react-infinite-scroller';
 import { public_axios } from 'utils'
 import { TProducts } from 'types/productsAPI.types'
 import { ErrorMsg, ProductCard } from 'components'

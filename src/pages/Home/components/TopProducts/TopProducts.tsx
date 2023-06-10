@@ -5,7 +5,6 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper'
 
 import { TProducts } from 'types/productsAPI.types'
-import { apiClient2 } from 'config/api/api'
 
 import {
     Container,
