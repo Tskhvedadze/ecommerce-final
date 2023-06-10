@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react'
 import { useCartContext } from 'context'
 import { useTranslation } from 'react-i18next'
 import { Rate } from 'antd'
@@ -33,65 +34,82 @@ type ContentProps = {
     description: string
 } & TShoppingCart
 
-export const Content = ({
-    id,
-    quantity,
-    images,
-    description,
-    brand,
-    title,
-    category,
-    price,
-    rating,
-}: ContentProps) => {
-    const { t } = useTranslation(['components'])
-    const { addItemToCart, clearItemFromCart } = useCartContext()
-    const addProduct = () =>
-        addItemToCart({ id, price, brand, images, quantity, title })
-    const clearProduct = () =>
-        clearItemFromCart({ id, price, brand, images, quantity, title })
+const Content = React.memo(
+    ({
+        id,
+        quantity,
+        images,
+        description,
+        brand,
+        title,
+        category,
+        price,
+        rating,
+    }: ContentProps) => {
+        const { t } = useTranslation(['components'])
+        const [text, setText] = useState(description)
+        const [showMore, setShowMore] = useState(false)
 
-    return (
-        <StyledContent>
-            <Brand>
-                <StyledLabel>{t('Brand')}:</StyledLabel>
-                <StyledValue>{brand}</StyledValue>
-            </Brand>
+        useEffect(() => {
+            setText((prev: string) => prev.slice(0, 350))
+        }, [description, showMore])
 
-            <Title>
-                <StyledLabel>{t('Title')}:</StyledLabel>
-                <StyledValue>{title}</StyledValue>
-            </Title>
+        const { addItemToCart, clearItemFromCart } = useCartContext()
+        const addProduct = () =>
+            addItemToCart({ id, price, brand, images, quantity, title })
+        const clearProduct = () =>
+            clearItemFromCart({ id, price, brand, images, quantity, title })
 
-            <Category>
-                <StyledLabel>{t('Category')}:</StyledLabel>
-                <StyledValue>{category}</StyledValue>
-            </Category>
-            <Price>
-                <StyledLabel>{t('Price')}:</StyledLabel>
-                <StyledPrice>
-                    {formatCurrency(price, t('currency'))}
-                </StyledPrice>
-            </Price>
+        return (
+            <StyledContent>
+                <Brand>
+                    <StyledLabel>{t('Brand')}:</StyledLabel>
+                    <StyledValue>{brand}</StyledValue>
+                </Brand>
 
-            <RatingContainer>
-                <StyledLabel>{t('Rating')}:</StyledLabel>
-                <Rate disabled defaultValue={rating} />
-                <Rating>{rating}</Rating>
-            </RatingContainer>
+                <Title>
+                    <StyledLabel>{t('Title')}:</StyledLabel>
+                    <StyledValue>{title}</StyledValue>
+                </Title>
 
-            <Description>
-                <DescriptionLabel>{t('Description')}:</DescriptionLabel>
-                {description}
-            </Description>
+                <Category>
+                    <StyledLabel>{t('Category')}:</StyledLabel>
+                    <StyledValue>{category}</StyledValue>
+                </Category>
+                <Price>
+                    <StyledLabel>{t('Price')}:</StyledLabel>
+                    <StyledPrice>
+                        {formatCurrency(price, t('currency'))}
+                    </StyledPrice>
+                </Price>
 
-            <AddToCartContainer>
-                <AddButton onClick={addProduct}>{t('Add')}</AddButton>
+                <RatingContainer>
+                    <StyledLabel>{t('Rating')}:</StyledLabel>
+                    <Rate disabled defaultValue={rating} />
+                    <Rating>{rating}</Rating>
+                </RatingContainer>
 
-                <RemoveButton danger onClick={clearProduct}>
-                    {t('remove')}
-                </RemoveButton>
-            </AddToCartContainer>
-        </StyledContent>
-    )
-}
+                <Description>
+                    <DescriptionLabel>{t('Description')}:</DescriptionLabel>
+                    {showMore ? description : text}
+                    <button
+                        className='text-blue-400 hover:text-blue-300 text-[16px] ml-2'
+                        onClick={() => setShowMore(!showMore)}
+                    >
+                        {showMore ? `${t('less')}` : `${t('more')}`}
+                    </button>
+                </Description>
+
+                <AddToCartContainer>
+                    <AddButton onClick={addProduct}>{t('Add')}</AddButton>
+
+                    <RemoveButton danger onClick={clearProduct}>
+                        {t('remove')}
+                    </RemoveButton>
+                </AddToCartContainer>
+            </StyledContent>
+        )
+    },
+)
+
+export default Content

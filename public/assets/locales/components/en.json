@@ -22,5 +22,9 @@
     "ok": "Ok",
     "profile": "Profile",
     "settings": "Settings",
-    "out": "Sign out"
+    "out": "Sign out",
+    "more": "Show more...",
+    "less": "Show less",
+    "prev": "Previous",
+    "next": "Next"
 }

@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { CartContext } from 'context'
 import { Rate } from 'antd'
@@ -27,9 +27,11 @@ export const ProductCard = ({
     brand,
     quantity,
     title,
-    rating,
 }: ProductCardProps) => {
     const { t } = useTranslation(['components'])
+    const [rating] = useState(() =>
+        Number((Math.random() * (5 - 3.7) + 3.7).toFixed(1)),
+    )
     const { addItemToCart } = useContext(CartContext)
     const addProductToCart = () =>
         addItemToCart({ id, price, brand, images, quantity, title })

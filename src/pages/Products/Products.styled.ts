@@ -22,9 +22,5 @@ export const ResultsContainer = styled.div`
 `
 
 export const ProductCardContainer = styled.div`
-    ${tw`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16  mx-auto my-10`}
-
-    @media (max-width: 398px) {
-        grid-template-columns: repeat(1, minmax(0, 1fr));
-    }
+    ${tw`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4  mx-auto my-10`}
 `
