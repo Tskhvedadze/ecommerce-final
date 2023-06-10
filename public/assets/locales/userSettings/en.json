@@ -1,0 +1,19 @@
+{
+    "User": "User Information",
+    "name": "First Name",
+    "last_name": "Last Name",
+    "No.": "Contact No.",
+    "phone": "Phone Number",
+    "email": "Email",
+    "update": "Save and Update",
+    "invalid_email": "Invalid email",
+    "email_is_required": "Email is required",
+    "invalid_number": "Invalid phone number",
+    "number_required": "Phone number is required",
+    "short": "Too Short!",
+    "long": "Too Long!",
+    "name_required": "First name is required",
+    "last_name_required": "Last name is required",
+    "successfully": "Information changed successfully",
+    "error_occurred": "An error occurred, please try again!"
+}

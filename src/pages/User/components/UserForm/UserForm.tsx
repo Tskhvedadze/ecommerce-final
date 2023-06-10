@@ -1,8 +1,12 @@
+import { useState } from 'react'
 import { useMutation } from 'react-query'
 import { useTranslation } from 'react-i18next'
 import { Formik, Field, Form } from 'formik'
-
 import { userValidationSchema } from './schema/userSettings.shcema'
+import { private_axios } from 'utils/axios/private_axios'
+
+import { Spin, message } from 'antd'
+import { Button } from 'components'
 
 import {
     FieldContainer,
@@ -11,7 +15,6 @@ import {
     Input,
     ErrorMsg,
 } from './UserForm.styled'
-import { Button } from 'components/index'
 
 type TChangeUserInfo = {
     firstName: string
@@ -27,19 +30,40 @@ const initialValues = {
     email: '',
 }
 
-const submitHandler = (values: TChangeUserInfo) => {
-    console.log(values)
-}
-
 export const UserForm = () => {
-    const { t } = useTranslation()
-    const schema = userValidationSchema(t)
+    const { t } = useTranslation(['userSettings'])
+    const [isLoading, setIsLoading] = useState(false)
+
+    const { mutateAsync } = useMutation(signUp)
+
+    async function signUp(values: TChangeUserInfo) {
+        try {
+            await private_axios.post('/user', values)
+            message.success(`${t('successfully')}`)
+        } catch (error: any) {
+            message.error(`${t('error_occurred')}`)
+        }
+    }
+
+    async function submitHandler(values: TChangeUserInfo) {
+        setIsLoading(true)
+
+        // Delay the execution using setTimeout
+        await new Promise((resolve) => setTimeout(resolve, 3000))
+
+        // Send the information to the backend
+        await mutateAsync(values)
+
+        // Set the isLoading state back to false after sending the information
+        setIsLoading(false)
+    }
+
     return (
         <MainContainer>
             <Formik
                 initialValues={initialValues}
                 onSubmit={submitHandler}
-                validationSchema={schema}
+                validationSchema={userValidationSchema(t)}
             >
                 {({ errors, touched }) => (
                     <Form>
@@ -52,7 +76,7 @@ export const UserForm = () => {
                                     />
                                 ) : (
                                     <Label htmlFor='firstName'>
-                                        First Name
+                                        {t('name')}
                                     </Label>
                                 )}
                                 <Field
@@ -70,7 +94,9 @@ export const UserForm = () => {
                                         component='span'
                                     />
                                 ) : (
-                                    <Label htmlFor='lastName'>Last Name</Label>
+                                    <Label htmlFor='lastName'>
+                                        {t('last_name')}
+                                    </Label>
                                 )}
                                 <Field
                                     id='lastName'
@@ -90,36 +116,36 @@ export const UserForm = () => {
                                     />
                                 ) : (
                                     <Label htmlFor='phoneNumber'>
-                                        Phone Number
+                                        {t('phone')}
                                     </Label>
                                 )}
                                 <Field
                                     id='phoneNumber'
                                     name='phoneNumber'
                                     type='text'
-                                    placeholder='Phone Number'
+                                    placeholder='+9957485...'
                                     as={Input}
                                 />
                             </div>
-                            <div className='w-full '>
+                            <div className='w-full'>
                                 {errors.email && touched.email ? (
                                     <ErrorMsg name='email' component='span' />
                                 ) : (
-                                    <Label htmlFor='email'>Email</Label>
+                                    <Label htmlFor='email'>{t('email')}</Label>
                                 )}
                                 <Field
                                     id='email'
                                     name='email'
                                     type='text'
-                                    placeholder='Email'
+                                    placeholder='example@gmail.com'
                                     as={Input}
                                 />
                             </div>
                         </FieldContainer>
                         <div className='flex justify-end mt-4 w-full '>
                             <div className='w-full md:w-[35%]'>
-                                <Button mode='form' type='submit'>
-                                    Save and Update
+                                <Button mode='update' type='submit'>
+                                    {isLoading ? <Spin /> : `${t('update')}`}
                                 </Button>
                             </div>
                         </div>
