@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useMutation } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
 import { useTranslation } from 'react-i18next'
 import { Formik, Field, Form } from 'formik'
 import { userValidationSchema } from './schema/userSettings.shcema'
@@ -32,6 +32,7 @@ const initialValues = {
 
 export const UserForm = () => {
     const { t } = useTranslation(['userSettings'])
+    const queryClient = useQueryClient()
     const [isLoading, setIsLoading] = useState(false)
 
     const { mutateAsync } = useMutation(signUp)
@@ -40,6 +41,9 @@ export const UserForm = () => {
         try {
             await private_axios.post('/user', values)
             message.success(`${t('successfully')}`)
+
+            // Invalidate the query and trigger a refetch
+            queryClient.invalidateQueries('userProfile')
         } catch (error: any) {
             message.error(`${t('error_occurred')}`)
         }
@@ -83,7 +87,7 @@ export const UserForm = () => {
                                     id='firstName'
                                     type='text'
                                     name='firstName'
-                                    placeholder='Jane'
+                                    placeholder={`${t('name')}`}
                                     as={Input}
                                 />
                             </div>
@@ -102,7 +106,7 @@ export const UserForm = () => {
                                     id='lastName'
                                     name='lastName'
                                     type='text'
-                                    placeholder='Doe'
+                                    placeholder={`${t('last_name')}`}
                                     as={Input}
                                 />
                             </div>

@@ -9,12 +9,13 @@ import { MainContainer, Section } from './User.styled'
 
 function User() {
     const { data } = useQuery(
-        'userProfile',
+        ['userProfile'],
         async () => {
             const res = await private_axios.get('/me')
             return res?.data
         },
         {
+            suspense: true,
             refetchOnWindowFocus: false,
             onError: (error: any) => {
                 message.error(error?.message)
@@ -25,7 +26,7 @@ function User() {
     return (
         <MainContainer>
             <Section>
-                <About key={data?.id} {...data} />
+                <About {...data} />
             </Section>
             <Section>
                 <UserForm />
