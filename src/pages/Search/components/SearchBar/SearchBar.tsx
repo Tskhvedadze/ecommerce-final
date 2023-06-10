@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import { useSearchBarContext } from 'context'
 import { useTranslation } from 'react-i18next'
 import { SearchErrorModal, SearchResult } from './components'
 
-import { apiClient2 } from 'config/api/api'
+import { public_axios } from 'utils'
 import { TProducts } from 'types/productsAPI.types'
 
 import {
@@ -18,6 +19,7 @@ import {
     EmptySpan,
     ErrorText,
 } from './SearchBar.styled'
+import { useEffect } from 'react'
 
 export const SearchBar = () => {
     const navigate = useNavigate()
@@ -34,7 +36,11 @@ export const SearchBar = () => {
     }: { status: string; data: any; error: any; isError: boolean } = useQuery(
         ['searchProducts', text],
         async () => {
-            const res = await apiClient2.get(`products/search?q=${trimmedText}`)
+            const res = await public_axios.post('/products', {
+                keyword: trimmedText,
+                page_size: 9,
+                page_number: 0,
+            })
             return res?.data
         },
         {
@@ -73,7 +79,7 @@ export const SearchBar = () => {
             )
         }
 
-        return data?.products.map(({ id, title, price, images }: TProducts) => (
+        return data?.products.map(({ id, price, title, images }: TProducts) => (
             <SearchResult
                 key={id}
                 id={id}

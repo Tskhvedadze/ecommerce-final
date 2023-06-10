@@ -3,10 +3,8 @@ import { useQuery } from 'react-query'
 import { useTranslation } from 'react-i18next'
 import { Select } from 'antd'
 
-import { apiClient2 } from 'config/api/api'
 import { filteredOptions } from './util/productsUtils/productsUtils'
-
-import { ProductCard, BreadcrumbComponent } from 'components'
+import { ProductCard, BreadcrumbComponent, ErrorMsg } from 'components'
 import { TProducts } from 'types/productsAPI.types'
 
 import {
@@ -16,19 +14,31 @@ import {
     ResultsContainer,
     ProductCardContainer,
 } from './Products.styled'
+import { public_axios } from 'utils'
 
 function Products() {
     const { t } = useTranslation(['ProductsPage'])
-    const [brandName, setBrandName] = useState<string>('smartphones')
+    const [brandName, setBrandName] = useState<string>('Amazon')
 
-    const { data } = useQuery(['allProducts', brandName], async () => {
-        const res = await apiClient2.get(`/products/category/${brandName}`)
-        return res?.data
-    })
+    const { data, error }: { data: any; error: any } = useQuery(
+        ['allProducts', brandName],
+        async () => {
+            const res = await public_axios.post('/products', {
+                keyword: brandName,
+                page_size: 44,
+                page_number: 0,
+            })
+            return res?.data
+        },
+    )
 
     const handleBrandChange = useCallback((value: string) => {
         setBrandName(value)
     }, [])
+
+    if (error?.message) {
+        return <ErrorMsg errorText={error?.message} />
+    }
 
     return (
         <OuterContainer>
@@ -58,7 +68,6 @@ function Products() {
                                 price,
                                 brand,
                                 title,
-                                rating,
                             }: TProducts) => (
                                 <ProductCard
                                     key={id}
@@ -67,7 +76,6 @@ function Products() {
                                     images={images}
                                     price={price}
                                     title={title}
-                                    rating={rating}
                                 />
                             ),
                         )}

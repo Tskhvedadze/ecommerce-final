@@ -5,7 +5,6 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper'
 
 import { TProducts } from 'types/productsAPI.types'
-import { apiClient2 } from 'config/api/api'
 
 import {
     Container,
@@ -13,6 +12,7 @@ import {
     StyledParagraph,
     ErrorText,
 } from './TopProducts.styled'
+import { public_axios } from 'utils'
 
 type TopProductsProps = {
     slidesPerView: number
@@ -28,9 +28,10 @@ export const TopProducts = React.memo(
             error,
         }: { data: any; isError: boolean; error: any; status: string } =
             useQuery(['topProducts'], async () => {
-                const response = await apiClient2.get(
-                    `/products?limit=30&skip=50&select=images,brand`,
-                )
+                const response = await public_axios.post('/products', {
+                    page_size: 60,
+                    page_number: 0,
+                })
                 return response?.data
             })
 

@@ -31,7 +31,7 @@ export const SearchResult = ({
             onClick={() => setIsFocused(false)}
         >
             <StyledImage src={images} alt={title} />
-            <StyledTitle>{title}</StyledTitle>
+            <StyledTitle>{title.slice(0, 90)}...</StyledTitle>
             <StyledPrice>{formatCurrency(price, t('currency'))}</StyledPrice>
         </FlexContainer>
     )

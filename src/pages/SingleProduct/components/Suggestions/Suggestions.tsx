@@ -1,9 +1,10 @@
-import { ProductCard } from 'components/index'
 import { useQuery } from 'react-query'
+import { public_axios } from 'utils'
+import { Spin } from 'antd'
 import { useTranslation } from 'react-i18next'
-
-import { apiClient2 } from 'config/api/api'
 import { TProducts } from 'types/productsAPI.types'
+
+import { Button, ProductCard } from 'components'
 
 import {
     MainFlexContainer,
@@ -11,40 +12,94 @@ import {
     SuggestionGridContainer,
     SuggestionTitle,
     ErrorText,
+    BtnContainer,
+    Loading,
 } from './Suggestions.styled'
+import { useState } from 'react'
 
 type SuggestionsProps = {
-    category: string
+    brand: string
 }
 
-export const Suggestions = ({ category }: SuggestionsProps) => {
+export const Suggestions = ({ brand }: SuggestionsProps) => {
     const { t } = useTranslation(['components'])
+    const [page, setPage] = useState(0)
+
     const {
         status,
         data,
         error,
         isError,
-    }: { status: string; data: any; error: any; isError: boolean } = useQuery(
-        ['suggestionProducts', category],
+        isLoading,
+    }: {
+        status: string
+        data: any
+        error: any
+        isError: boolean
+        isLoading: boolean
+    } = useQuery(
+        ['suggestionProducts', brand, page],
         async () => {
-            const res = await apiClient2.get(`/products/category/${category}`)
+            const res = await public_axios.post('/products', {
+                keyword: brand,
+                page_size: 4,
+                page_number: page,
+            })
             return res?.data
+        },
+        {
+            suspense: false,
         },
     )
 
     if (status === 'error' && isError)
         return <ErrorText>An Error: {error.message}</ErrorText>
 
+    const handleNextPage = () => {
+        setPage((prevPage) => prevPage + 5)
+    }
+
+    const handlePreviousPage = () => {
+        if (page > 0) {
+            setPage((prevPage) => prevPage - 5)
+        }
+    }
+
+    const total = data?.total_found - page
+
     return (
         <MainFlexContainer>
             <StyledHr />
-            <SuggestionTitle>{t('Related')}</SuggestionTitle>
-            <SuggestionGridContainer>
-                {!isError &&
-                    data?.products.map((item: TProducts) => (
+            <BtnContainer>
+                <SuggestionTitle>{t('Related')}</SuggestionTitle>
+                <SuggestionTitle>
+                    <Button
+                        mode='suggestion'
+                        onClick={handlePreviousPage}
+                        disabled={page === 0}
+                    >
+                        {t('prev')}
+                    </Button>
+                    <Button
+                        mode='suggestion'
+                        onClick={handleNextPage}
+                        disabled={total <= 8}
+                    >
+                        {t('next')}
+                    </Button>
+                </SuggestionTitle>
+            </BtnContainer>
+            {!isLoading ? (
+                <SuggestionGridContainer>
+                    {data?.products.map((item: TProducts) => (
                         <ProductCard key={item.id} {...item} />
                     ))}
-            </SuggestionGridContainer>
+                </SuggestionGridContainer>
+            ) : (
+                <Loading>
+                    <Spin size='large' />
+                </Loading>
+            )}
         </MainFlexContainer>
     )
 }

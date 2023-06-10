@@ -2,8 +2,8 @@ import { useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
 import { useTranslation } from 'react-i18next'
 import { Breadcrumb } from 'antd'
-
-import { apiClient2 } from 'config/api/api'
+// import InfiniteScroll from 'react-infinite-scroller';
+import { public_axios } from 'utils'
 import { TProducts } from 'types/productsAPI.types'
 import { ErrorMsg, ProductCard } from 'components'
 
@@ -27,7 +27,11 @@ function Search() {
     }: { status: string; data: any; error: any; isError: boolean } = useQuery(
         ['searchResult', keyword],
         async () => {
-            const res = await apiClient2.get(`products/search?q=${keyword}`)
+            const res = await public_axios.post('/products', {
+                keyword: keyword,
+                page_size: 100,
+                page_number: 0,
+            })
             return res?.data
         },
     )
@@ -62,14 +66,7 @@ function Search() {
             <SearchedProductsGridContainer>
                 {!isError &&
                     data?.products.map(
-                        ({
-                            id,
-                            price,
-                            brand,
-                            images,
-                            title,
-                            rating,
-                        }: TProducts) => (
+                        ({ id, price, brand, images, title }: TProducts) => (
                             <ProductCard
                                 key={id}
                                 id={id}
@@ -77,7 +74,6 @@ function Search() {
                                 images={images}
                                 price={price}
                                 title={title}
-                                rating={rating}
                             />
                         ),
                     )}

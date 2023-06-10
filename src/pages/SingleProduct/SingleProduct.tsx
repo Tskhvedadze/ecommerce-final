@@ -1,14 +1,19 @@
+import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
-import { apiClient2 } from 'config/api/api'
 
-import { MyImage, Content, Suggestions } from './components'
+import { MyImage, Suggestions } from './components'
+import Content from './components/Content/Content'
 import { BreadcrumbComponent, ErrorMsg } from 'components'
 
 import { BreadcrumbContianer, MainContent } from './SingleProduct.styled'
+import { public_axios } from 'utils'
 
 function SingleProduct() {
     const { itemID } = useParams()
+    const [rating] = useState(() =>
+        Number((Math.random() * (5 - 3.7) + 3.7).toFixed(1)),
+    )
 
     const {
         status,
@@ -18,7 +23,7 @@ function SingleProduct() {
     }: { status: string; data: any; error: any; isError: boolean } = useQuery({
         queryKey: ['singleProduct', itemID],
         queryFn: async () => {
-            const res = await apiClient2.get(`/product/${itemID}`)
+            const res = await public_axios.get(`/product/${itemID}`)
             return res?.data
         },
     })
@@ -33,9 +38,9 @@ function SingleProduct() {
             </BreadcrumbContianer>
             <MainContent>
                 <MyImage {...data} />
-                <Content {...data} />
+                <Content {...data} rating={rating} />
             </MainContent>
-            <Suggestions category={data?.category} />
+            <Suggestions brand={data?.brand} />
         </>
     )
 }

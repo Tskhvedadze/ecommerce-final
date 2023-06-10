@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import {
     InnerFlexContainer,
@@ -9,22 +9,17 @@ import {
 
 type MyImageProps = {
     images: string[]
-    thumbnail: string
     brand: string
 }
 
-export const MyImage = ({ images, brand, thumbnail }: MyImageProps) => {
-    const [mainImage, setMainImage] = useState<string>(thumbnail)
-
-    useEffect(() => {
-        setMainImage(thumbnail)
-    }, [thumbnail])
+export const MyImage = ({ images, brand }: MyImageProps) => {
+    const [mainImage, setMainImage] = useState<string>(images[0])
 
     return (
         <MainFlexContainer>
             <StyledPrimaryImage src={mainImage} alt={brand} />
             <InnerFlexContainer>
-                {images.map((curEl, index) => (
+                {images?.map((curEl, index) => (
                     <StyledSecondaryImage
                         src={curEl}
                         alt={brand}
