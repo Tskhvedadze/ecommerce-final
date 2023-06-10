@@ -13,6 +13,7 @@ import {
 } from './UserDropdown.styled'
 
 type UserDropdownProps = {
+    token?: string
     handleLogout: () => void
 }
 
@@ -43,7 +44,7 @@ export const UserDropdown = ({ handleLogout }: UserDropdownProps) => {
                     <>
                         <StyledUl aria-labelledby='dropdownInformationButton'>
                             <li>
-                                <StyledLink to={'/'}>
+                                <StyledLink to={'/profile'}>
                                     {t('settings')}
                                 </StyledLink>
                             </li>

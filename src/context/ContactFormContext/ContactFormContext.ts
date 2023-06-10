@@ -1,48 +1,26 @@
-import { createContext, ChangeEvent, FormEvent, useContext } from 'react'
+import { createContext, useContext } from 'react'
 
-export type FormValueProps = {
-    email: string
-    subject: string
+export type TInitialValues = {
     message: string
-}
-
-export type FormErrorsProps = {
-    email?: string
-    subject?: string
-    message?: string
-}
-
-export type FormTouchedProps = {
-    email?: boolean
-    subject?: boolean
-    message?: boolean
+    subject: string
+    email: string
 }
 
 type ContactFormContextProps = {
+    initialValues: TInitialValues
     open: boolean
-    formValues: FormValueProps
-    formErrors: FormErrorsProps
-    formTouched: FormTouchedProps
     handleCancelModal: () => void
-    setFormValues: (values: FormValueProps) => void
-    handleInputChange: (
-        event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    ) => void
-    handleSubmit: (event: FormEvent<HTMLFormElement>) => void
+    handleSubmit: ({ message, subject, email }: TInitialValues) => void
 }
 
 export const ContactFormContext = createContext<ContactFormContextProps>({
-    open: false,
-    formValues: {
+    initialValues: {
         email: '',
         subject: '',
         message: '',
     },
-    formErrors: {},
-    formTouched: {},
+    open: false,
     handleCancelModal: () => {},
-    setFormValues: () => {},
-    handleInputChange: () => {},
     handleSubmit: () => {},
 })
 

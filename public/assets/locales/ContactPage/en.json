@@ -9,7 +9,7 @@
     "placeholder_1": "Let us know how we can help you",
     "placeholder_2": "Leave a comment...",
     "email_invalid": "Invalid email address",
-    "email_required": "Please fill out this field.",
+    "email_required": "Please fill out this field",
     "subject_required": "Subject is required",
     "Feedback_Sent": "Feedback Sent Successfully"
 }
