@@ -11,7 +11,7 @@ export const ProductPageHeaderContainer = styled.div`
     ${tw`pl-4 pr-4 flex justify-between items-center w-[100%] p-2`}
 `
 export const ProductCardGridContainer = styled.div`
-    ${tw`grid gap-8 sm:min-w-[500px] md:max-w-[100%] lg:max-w-[100%] grid-cols-2  md:grid-cols-3 xl:grid-cols-5 justify-items-center my-4 mx-2.5`}
+    ${tw`grid gap-3 grid-cols-2  md:grid-cols-3 xl:grid-cols-5 justify-items-center my-4 mx-2.5`}
 `
 
 export const StyledSpin = styled(Spin)`

@@ -3,7 +3,7 @@ import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
-import { apiClient2 } from 'config/api/api'
+import { public_axios } from 'utils'
 import { TProducts } from 'types/productsAPI.types'
 
 import { Button, ErrorMsg, ProductCard } from 'components'
@@ -20,7 +20,7 @@ import {
 function Home() {
     const navigate = useNavigate()
     const { t } = useTranslation(['HomePage'])
-    const [currentPage, setCurrentPage] = useState<number>(1)
+    const [currentPage, setCurrentPage] = useState(1)
     const itemsPerPage = 15
     const skip = (currentPage - 1) * itemsPerPage
 
@@ -32,13 +32,11 @@ function Home() {
     }: { status: string; data: any; error: any; isError: boolean } = useQuery(
         ['homeProducts', currentPage, skip],
         async () => {
-            const res = await apiClient2.get(
-                `/products?limit=${itemsPerPage}&skip=${skip}&select=title,price,images,brand,rating`,
-            )
+            const res = await public_axios.post('/products', {
+                page_size: itemsPerPage,
+                page_number: skip,
+            })
             return res?.data
-        },
-        {
-            keepPreviousData: true,
         },
     )
 
@@ -47,7 +45,7 @@ function Home() {
     }, [])
 
     const productCard = useCallback(
-        ({ id, images, price, brand, title, rating }: TProducts) => (
+        ({ id, images, price, brand, title }: TProducts) => (
             <ProductCard
                 key={id}
                 id={id}
@@ -55,7 +53,6 @@ function Home() {
                 images={images}
                 price={price}
                 title={title}
-                rating={rating}
             />
         ),
         [],
@@ -86,7 +83,7 @@ function Home() {
                 showQuickJumper
                 current={currentPage}
                 defaultPageSize={itemsPerPage}
-                total={data?.total}
+                total={data?.total_found}
                 onChange={handlePageClick}
             />
             <TopProductsTitle>{t('Top_Products')}</TopProductsTitle>

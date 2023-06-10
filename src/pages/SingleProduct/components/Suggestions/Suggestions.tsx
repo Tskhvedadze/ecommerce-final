@@ -83,7 +83,7 @@ export const Suggestions = ({ brand }: SuggestionsProps) => {
                     <Button
                         mode='suggestion'
                         onClick={handleNextPage}
-                        disabled={total <= 5}
+                        disabled={total <= 8}
                     >
                         {t('next')}
                     </Button>
