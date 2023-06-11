@@ -69,36 +69,40 @@ export const Suggestions = ({ brand }: SuggestionsProps) => {
 
     return (
         <MainFlexContainer>
-            <StyledHr />
-            <BtnContainer>
-                <SuggestionTitle>{t('Related')}</SuggestionTitle>
-                <SuggestionTitle>
-                    <Button
-                        mode='suggestion'
-                        onClick={handlePreviousPage}
-                        disabled={page === 0}
-                    >
-                        {t('prev')}
-                    </Button>
-                    <Button
-                        mode='suggestion'
-                        onClick={handleNextPage}
-                        disabled={total <= 8}
-                    >
-                        {t('next')}
-                    </Button>
-                </SuggestionTitle>
-            </BtnContainer>
-            {!isLoading ? (
-                <SuggestionGridContainer>
-                    {data?.products.map((item: TProducts) => (
-                        <ProductCard key={item.id} {...item} />
-                    ))}
-                </SuggestionGridContainer>
-            ) : (
-                <Loading>
-                    <Spin size='large' />
-                </Loading>
+            {data?.total_found !== 0 && (
+                <>
+                    <StyledHr />
+                    <BtnContainer>
+                        <SuggestionTitle>{t('Related')}</SuggestionTitle>
+                        <SuggestionTitle>
+                            <Button
+                                mode='suggestion'
+                                onClick={handlePreviousPage}
+                                disabled={page === 0}
+                            >
+                                {t('prev')}
+                            </Button>
+                            <Button
+                                mode='suggestion'
+                                onClick={handleNextPage}
+                                disabled={total <= 8}
+                            >
+                                {t('next')}
+                            </Button>
+                        </SuggestionTitle>
+                    </BtnContainer>
+                    {!isLoading ? (
+                        <SuggestionGridContainer>
+                            {data?.products.map((item: TProducts) => (
+                                <ProductCard key={item.id} {...item} />
+                            ))}
+                        </SuggestionGridContainer>
+                    ) : (
+                        <Loading>
+                            <Spin size='large' />
+                        </Loading>
+                    )}
+                </>
             )}
         </MainFlexContainer>
     )

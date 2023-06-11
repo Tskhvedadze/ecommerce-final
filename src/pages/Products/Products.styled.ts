@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import tw from 'twin.macro'
 
 export const OuterContainer = styled.div`
-    ${tw`flex items-center justify-center min-w-[1000px] `}
+    ${tw`flex items-center flex-col justify-center min-w-[1000px] `}
 `
 
 export const InnerContainer = styled.div`

@@ -5,12 +5,18 @@ type TSearchBarContext = {
     setText: (text: string) => void
     isFocused: boolean
     setIsFocused: (isFocused: boolean) => void
-    resultsRef: React.RefObject<HTMLDivElement> | null
     modalOpen: boolean
     setModalOpen: (modal: boolean) => void
 }
 
-export const SearchBarContext = createContext({} as TSearchBarContext)
+export const SearchBarContext = createContext<TSearchBarContext>({
+    text: '',
+    setText: () => {},
+    isFocused: false,
+    setIsFocused: () => {},
+    modalOpen: false,
+    setModalOpen: () => {},
+})
 
 export const useSearchBarContext = () => {
     return useContext(SearchBarContext)

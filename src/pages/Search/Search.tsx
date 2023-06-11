@@ -1,8 +1,8 @@
 import { useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
 import { useTranslation } from 'react-i18next'
-import { Breadcrumb } from 'antd'
-// import InfiniteScroll from 'react-infinite-scroller';
+import { Breadcrumb, Pagination } from 'antd'
+
 import { public_axios } from 'utils'
 import { TProducts } from 'types/productsAPI.types'
 import { ErrorMsg, ProductCard } from 'components'
@@ -14,27 +14,46 @@ import {
     SearchResultParagraph,
     SearchedProductsGridContainer,
 } from './Search.styled'
+import { useCallback, useState } from 'react'
+
+const getData = async (keyword: string, page: number, skip: number) => {
+    const res = await public_axios.post('/products', {
+        keyword: keyword,
+        page_size: page,
+        page_number: skip,
+    })
+    return res?.data
+}
 
 function Search() {
     const { t } = useTranslation(['search'])
     const { keyword } = useParams()
+    const [currentPage, setCurrentPage] = useState(1)
+    const itemsPerPage = 20
+    const skip = (currentPage - 1) * itemsPerPage
+    const keywordValue = keyword ?? ''
 
     const {
         status,
         data,
         error,
         isError,
-    }: { status: string; data: any; error: any; isError: boolean } = useQuery(
-        ['searchResult', keyword],
-        async () => {
-            const res = await public_axios.post('/products', {
-                keyword: keyword,
-                page_size: 100,
-                page_number: 0,
-            })
-            return res?.data
+    }: {
+        status: string
+        data: any
+        error: any
+        isError: boolean
+    } = useQuery(
+        ['searchResult', keyword, currentPage, skip],
+        () => getData(keywordValue, itemsPerPage, skip),
+        {
+            keepPreviousData: false,
         },
     )
+
+    const handlePageClick = useCallback((page: number) => {
+        setCurrentPage(page)
+    }, [])
 
     const breadcrumbItems = [
         {
@@ -48,8 +67,9 @@ function Search() {
         },
     ]
 
-    if (status === 'error' && isError)
-        return <ErrorMsg errorText={error.message} />
+    if (status === 'error' && isError) {
+        return <ErrorMsg key='errorMsg' errorText={error.message} />
+    }
 
     return (
         <MainFlexContainer>
@@ -78,6 +98,16 @@ function Search() {
                         ),
                     )}
             </SearchedProductsGridContainer>
+            <div className='flex justify-center mb-6 mt-4 border-b pb-3'>
+                <Pagination
+                    showSizeChanger={false}
+                    showQuickJumper
+                    current={currentPage}
+                    defaultPageSize={itemsPerPage}
+                    total={data?.total_found}
+                    onChange={handlePageClick}
+                />
+            </div>
         </MainFlexContainer>
     )
 }

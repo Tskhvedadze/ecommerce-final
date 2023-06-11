@@ -1,8 +1,9 @@
 import { useCallback, useState } from 'react'
 import { useQuery } from 'react-query'
 import { useTranslation } from 'react-i18next'
-import { Select } from 'antd'
+import { Pagination, Select } from 'antd'
 
+import { public_axios } from 'utils'
 import { filteredOptions } from './util/productsUtils/productsUtils'
 import { ProductCard, BreadcrumbComponent, ErrorMsg } from 'components'
 import { TProducts } from 'types/productsAPI.types'
@@ -14,26 +15,33 @@ import {
     ResultsContainer,
     ProductCardContainer,
 } from './Products.styled'
-import { public_axios } from 'utils'
 
 function Products() {
     const { t } = useTranslation(['ProductsPage'])
     const [brandName, setBrandName] = useState<string>('Amazon')
+    const [currentPage, setCurrentPage] = useState(1)
+    const itemsPerPage = 20
+    const skip = (currentPage - 1) * itemsPerPage
 
     const { data, error }: { data: any; error: any } = useQuery(
-        ['allProducts', brandName],
+        ['allProducts', brandName, currentPage, skip],
         async () => {
             const res = await public_axios.post('/products', {
                 keyword: brandName,
-                page_size: 44,
-                page_number: 0,
+                page_size: itemsPerPage,
+                page_number: skip,
             })
             return res?.data
         },
     )
 
+    const handlePageClick = useCallback((page: number) => {
+        setCurrentPage(page)
+    }, [])
+
     const handleBrandChange = useCallback((value: string) => {
         setBrandName(value)
+        setCurrentPage(1)
     }, [])
 
     if (error?.message) {
@@ -82,6 +90,16 @@ function Products() {
                     </ProductCardContainer>
                 </ResultsContainer>
             </InnerContainer>
+            <div className='flex w-full justify-center mb-6 mt-4 border-b pb-3'>
+                <Pagination
+                    showSizeChanger={false}
+                    showQuickJumper
+                    current={currentPage}
+                    defaultPageSize={itemsPerPage}
+                    total={data?.total_found}
+                    onChange={handlePageClick}
+                />
+            </div>
         </OuterContainer>
     )
 }
