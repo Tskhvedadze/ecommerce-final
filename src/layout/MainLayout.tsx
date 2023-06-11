@@ -4,19 +4,14 @@ import { useSearchBarContext } from 'context'
 import NavBar from './NavBar/NavBar'
 import Footer from './Footer/Footer'
 
-import { ContentLayout } from './MainLayout.styled'
+import { ContentLayout, Overlay } from './MainLayout.styled'
 
 function MainLayout() {
     const { setIsFocused, isFocused } = useSearchBarContext()
 
     return (
         <>
-            {isFocused && (
-                <div
-                    className='fixed w-full h-full bg-gray-800 opacity-[0.8] z-40'
-                    onMouseDown={() => setIsFocused(false)}
-                />
-            )}
+            {isFocused && <Overlay onMouseDown={() => setIsFocused(false)} />}
             <NavBar />
             <ContentLayout>
                 <Outlet />
