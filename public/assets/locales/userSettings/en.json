@@ -15,5 +15,6 @@
     "name_required": "First name is required",
     "last_name_required": "Last name is required",
     "successfully": "Information changed successfully",
-    "error_occurred": "An error occurred, please try again!"
+    "error_occurred": "An error occurred, please try again!",
+    "Make_changes": "Make any changes and then update"
 }

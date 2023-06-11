@@ -42,16 +42,16 @@ export const StyledModal = styled(Modal)`
     }
 
     .ant-btn-default {
-        background-color: #ff9900;
-        border-color: #ff9900;
+        background-color: #808080;
+        border-color: #808080;
         color: #fff;
         &:hover {
-            background-color: #febd69;
-            border-color: #febd69;
+            background-color: #a9a9a9;
+            border-color: #a9a9a9;
         }
     }
 `
 
 export const SModalP = styled.p`
-    ${tw`mb-4 text-orange-400`}
+    ${tw`mb-4 text-gray-700 border-b pb-1`}
 `

@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import tw from 'twin.macro'
 
 export const FooterContent = styled.footer`
-    ${tw`mx-auto w-full mt-9  p-10 `}
+    ${tw`mx-auto w-full mt-9  py-6 `}
 `
 
 export const StyledFlexContainer = styled.div`
