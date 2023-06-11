@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import {
     InnerFlexContainer,
@@ -13,7 +13,11 @@ type MyImageProps = {
 }
 
 export const MyImage = ({ images, brand }: MyImageProps) => {
-    const [mainImage, setMainImage] = useState<string>(images[0])
+    const [mainImage, setMainImage] = useState<string | undefined>(undefined)
+
+    useEffect(() => {
+        setMainImage(images[0])
+    }, [images])
 
     return (
         <MainFlexContainer>

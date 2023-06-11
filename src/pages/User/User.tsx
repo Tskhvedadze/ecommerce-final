@@ -29,7 +29,7 @@ function User() {
                 <About {...data} />
             </Section>
             <Section>
-                <UserForm />
+                <UserForm {...data} />
             </Section>
         </MainContainer>
     )

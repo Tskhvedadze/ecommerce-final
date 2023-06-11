@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useCartContext } from 'context'
 import { useTranslation } from 'react-i18next'
 import { Rate } from 'antd'
@@ -25,11 +25,7 @@ import {
 } from './Content.styled'
 
 type ContentProps = {
-    id: number
-    brand: string
-    title: string
     category: string
-    price: number
     rating: number
     description: string
 } & TShoppingCart
@@ -47,18 +43,17 @@ const Content = React.memo(
         rating,
     }: ContentProps) => {
         const { t } = useTranslation(['components'])
-        const [text, setText] = useState(description)
         const [showMore, setShowMore] = useState(false)
-
-        useEffect(() => {
-            setText((prev: string) => prev.slice(0, 350))
-        }, [description, showMore])
 
         const { addItemToCart, clearItemFromCart } = useCartContext()
         const addProduct = () =>
             addItemToCart({ id, price, brand, images, quantity, title })
         const clearProduct = () =>
             clearItemFromCart({ id, price, brand, images, quantity, title })
+
+        const truncatedDescription = showMore
+            ? description
+            : description.slice(0, 350)
 
         return (
             <StyledContent>
@@ -91,7 +86,7 @@ const Content = React.memo(
 
                 <Description>
                     <DescriptionLabel>{t('Description')}:</DescriptionLabel>
-                    {showMore ? description : text}
+                    {truncatedDescription}
                     <button
                         className='text-blue-400 hover:text-blue-300 text-[16px] ml-2'
                         onClick={() => setShowMore(!showMore)}
@@ -102,7 +97,6 @@ const Content = React.memo(
 
                 <AddToCartContainer>
                     <AddButton onClick={addProduct}>{t('Add')}</AddButton>
-
                     <RemoveButton danger onClick={clearProduct}>
                         {t('remove')}
                     </RemoveButton>

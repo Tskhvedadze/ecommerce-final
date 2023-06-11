@@ -19,12 +19,11 @@ import {
     EmptySpan,
     ErrorText,
 } from './SearchBar.styled'
-import { useEffect } from 'react'
 
 export const SearchBar = () => {
     const navigate = useNavigate()
     const { t } = useTranslation(['components'])
-    const { text, setText, setIsFocused, isFocused, resultsRef, setModalOpen } =
+    const { text, setText, setIsFocused, isFocused, setModalOpen } =
         useSearchBarContext()
     const trimmedText = text.trim()
 
@@ -45,7 +44,7 @@ export const SearchBar = () => {
         },
         {
             suspense: false,
-            cacheTime: 0,
+            enabled: trimmedText !== '',
         },
     )
 
@@ -93,7 +92,7 @@ export const SearchBar = () => {
     return (
         <SearchContainer>
             <MainContainer>
-                <InputContainer>
+                <InputContainer isFocused={isFocused}>
                     <input
                         placeholder={`${t('search')}`}
                         type='text'
@@ -107,9 +106,7 @@ export const SearchBar = () => {
                     <SearchErrorModal />
                 </InputContainer>
                 {isFocused && (
-                    <ResultsContainer ref={resultsRef}>
-                        {renderSearchResults()}
-                    </ResultsContainer>
+                    <ResultsContainer>{renderSearchResults()}</ResultsContainer>
                 )}
             </MainContainer>
         </SearchContainer>

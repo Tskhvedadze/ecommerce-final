@@ -12,6 +12,7 @@ import {
 type ButtonProps = {
     mode: 'primary' | 'secondary' | 'form' | 'user' | 'update' | 'suggestion'
     type?: 'submit' | 'button'
+    disabled?: boolean
 }
 
 type FullButtonProps = ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>
