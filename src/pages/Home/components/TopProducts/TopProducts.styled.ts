@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import tw from 'twin.macro'
 
 export const Container = styled.div`
-    ${tw`bg-white m-3 mt-10`}
+    ${tw`bg-white mx-3 mt-10`}
 
     p {
         ${tw`text-gray-700`}
@@ -10,7 +10,7 @@ export const Container = styled.div`
 `
 
 export const StyledImg = styled.img`
-    ${tw`h-[250px] w-[250px] border rounded mt-3`}
+    ${tw`h-[250px] w-[250px] border rounded `}
 `
 
 export const StyledParagraph = styled.p`

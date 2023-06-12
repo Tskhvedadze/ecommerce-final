@@ -84,7 +84,7 @@ function Home() {
             />
 
             <TopProductsTitle>{t('Top_Products')}</TopProductsTitle>
-            <TopProducts slidesPerView={5} spaceBetween={1} />
+            <TopProducts slidesPerView={6} spaceBetween={20} />
         </>
     )
 }

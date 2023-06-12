@@ -21,22 +21,20 @@ type TopProductsProps = {
 
 export const TopProducts = React.memo(
     ({ slidesPerView, spaceBetween }: TopProductsProps) => {
-        const {
-            status,
-            data,
-            isError,
-            error,
-        }: { data: any; isError: boolean; error: any; status: string } =
-            useQuery(['topProducts'], async () => {
+        const { status, data, isError, error } = useQuery({
+            queryKey: ['topProducts'],
+            queryFn: async () => {
                 const response = await public_axios.post('/products', {
                     page_size: 60,
                     page_number: 0,
                 })
                 return response?.data
-            })
+            },
+            useErrorBoundary: (error: any) => error.response?.status >= 500,
+        })
 
         if (status === 'error' && isError)
-            return <ErrorText>An error: {error.message}</ErrorText>
+            return <ErrorText>An error: {error?.message}</ErrorText>
 
         return (
             <Container>
