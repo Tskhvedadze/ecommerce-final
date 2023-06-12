@@ -22,3 +22,11 @@ export const SearchResultParagraph = styled.h2`
 export const SearchedProductsGridContainer = styled.div`
     ${tw`grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-8 my-6`}
 `
+
+export const NoMoreResult = styled.h4`
+    ${tw`text-center border-t  font-medium text-gray-700 py-6 text-2xl uppercase`}
+`
+
+export const Loading = styled.h4`
+    ${tw`text-center font-medium  text-blue-400 text-2xl py-6 `}
+`

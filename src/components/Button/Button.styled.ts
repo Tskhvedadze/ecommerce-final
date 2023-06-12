@@ -27,3 +27,7 @@ export const UpdateBtn = styled.button`
 export const SuggestionBtn = styled.button`
     ${tw`px-1 capitalize text-xl hover:text-gray-400 disabled:text-gray-400 `}
 `
+
+export const SearchResultBtn = styled.button`
+    ${tw`fixed z-10 uppercase border rounded-full py-5 px-5 bg-amazonclone-yellow hover:text-white hover:bg-amazonclone-light_blue transition-colors duration-300 bottom-10 right-12`}
+`

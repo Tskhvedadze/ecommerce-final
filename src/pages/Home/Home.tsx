@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
-import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
+import { useQuery } from 'react-query'
 import { useTranslation } from 'react-i18next'
 
 import { public_axios } from 'utils'
@@ -24,21 +24,17 @@ function Home() {
     const itemsPerPage = 15
     const skip = (currentPage - 1) * itemsPerPage
 
-    const {
-        status,
-        data,
-        error,
-        isError,
-    }: { status: string; data: any; error: any; isError: boolean } = useQuery(
-        ['homeProducts', currentPage, skip],
-        async () => {
+    const { status, data, error, isError } = useQuery({
+        queryKey: ['homeProducts', currentPage, skip],
+        queryFn: async () => {
             const res = await public_axios.post('/products', {
                 page_size: itemsPerPage,
                 page_number: skip,
             })
             return res?.data
         },
-    )
+        useErrorBoundary: (error: any) => error.response?.status >= 500,
+    })
 
     const handlePageClick = useCallback((page: number) => {
         setCurrentPage(page)
@@ -59,7 +55,7 @@ function Home() {
     )
 
     if (status === 'error' && isError)
-        return <ErrorMsg errorText={error.message} />
+        return <ErrorMsg errorText={error?.message} />
 
     return (
         <>
@@ -86,8 +82,9 @@ function Home() {
                 total={data?.total_found}
                 onChange={handlePageClick}
             />
+
             <TopProductsTitle>{t('Top_Products')}</TopProductsTitle>
-            <TopProducts slidesPerView={5} spaceBetween={1} />
+            <TopProducts slidesPerView={6} spaceBetween={20} />
         </>
     )
 }

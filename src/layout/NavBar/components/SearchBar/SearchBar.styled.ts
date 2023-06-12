@@ -19,7 +19,7 @@ export const ResultsContainer = styled.div`
 `
 
 export const InputContainer = styled.div<TInputContainer>`
-    ${tw`flex items-center h-10 bg-amazonclone-yellow `}
+    ${tw`flex items-center h-10 bg-amazonclone-yellow`}
 
     ${({ isFocused }) => (!isFocused ? tw`rounded-lg` : tw`rounded-t-lg`)}
 

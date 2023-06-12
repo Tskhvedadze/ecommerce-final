@@ -15,17 +15,13 @@ function SingleProduct() {
         Number((Math.random() * (5 - 3.7) + 3.7).toFixed(1)),
     )
 
-    const {
-        status,
-        data,
-        error,
-        isError,
-    }: { status: string; data: any; error: any; isError: boolean } = useQuery({
+    const { status, data, error, isError } = useQuery({
         queryKey: ['singleProduct', itemID],
         queryFn: async () => {
             const res = await public_axios.get(`/product/${itemID}`)
             return res?.data
         },
+        useErrorBoundary: (error: any) => error.response?.status >= 500,
     })
 
     if (status === 'error' && isError)

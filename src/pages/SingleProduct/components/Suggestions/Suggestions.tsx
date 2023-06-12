@@ -25,21 +25,9 @@ export const Suggestions = ({ brand }: SuggestionsProps) => {
     const { t } = useTranslation(['components'])
     const [page, setPage] = useState(0)
 
-    const {
-        status,
-        data,
-        error,
-        isError,
-        isLoading,
-    }: {
-        status: string
-        data: any
-        error: any
-        isError: boolean
-        isLoading: boolean
-    } = useQuery(
-        ['suggestionProducts', brand, page],
-        async () => {
+    const { status, data, error, isError, isLoading } = useQuery({
+        queryKey: ['suggestionProducts', brand, page],
+        queryFn: async () => {
             const res = await public_axios.post('/products', {
                 keyword: brand,
                 page_size: 4,
@@ -47,13 +35,13 @@ export const Suggestions = ({ brand }: SuggestionsProps) => {
             })
             return res?.data
         },
-        {
-            suspense: false,
-        },
-    )
+
+        suspense: false,
+        useErrorBoundary: (error: any) => error.response?.status >= 500,
+    })
 
     if (status === 'error' && isError)
-        return <ErrorText>An Error: {error.message}</ErrorText>
+        return <ErrorText>An Error: {error?.message}</ErrorText>
 
     const handleNextPage = () => {
         setPage((prevPage) => prevPage + 5)
