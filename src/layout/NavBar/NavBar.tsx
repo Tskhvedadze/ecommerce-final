@@ -8,8 +8,7 @@ import {
     useUserDataQuery,
 } from './helper/NavBarHelpers'
 
-import { Cart, CartDropdown, UserDropdown } from './components'
-import { SearchBar } from 'pages/Search/components'
+import { Cart, CartDropdown, UserDropdown, SearchBar } from './components'
 import { LanguageSwitcher } from 'components'
 
 import {

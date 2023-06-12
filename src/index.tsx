@@ -5,7 +5,6 @@ import App from 'App'
 
 import Providers from 'providers/Providers'
 import 'config/i18next/i18n'
-
 import 'assets/styles/global.tailwind.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)

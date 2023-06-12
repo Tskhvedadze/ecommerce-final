@@ -33,21 +33,12 @@ function Search() {
     const skip = (currentPage - 1) * itemsPerPage
     const keywordValue = keyword ?? ''
 
-    const {
-        status,
-        data,
-        error,
-        isError,
-    }: {
-        status: string
-        data: any
-        error: any
-        isError: boolean
-    } = useQuery(
+    const { status, data, error, isError } = useQuery(
         ['searchResult', keyword, currentPage, skip],
         () => getData(keywordValue, itemsPerPage, skip),
         {
             keepPreviousData: false,
+            useErrorBoundary: (error: any) => error.response?.status >= 500,
         },
     )
 

@@ -1,5 +1,6 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
+import { animateScroll } from 'react-scroll'
 import { useTranslation } from 'react-i18next'
 import { Pagination, Select } from 'antd'
 
@@ -23,7 +24,11 @@ function Products() {
     const itemsPerPage = 20
     const skip = (currentPage - 1) * itemsPerPage
 
-    const { data, error }: { data: any; error: any } = useQuery(
+    const {
+        data,
+        error,
+        isFetching,
+    }: { data: any; error: any; isFetching: boolean } = useQuery(
         ['allProducts', brandName, currentPage, skip],
         async () => {
             const res = await public_axios.post('/products', {
@@ -43,6 +48,15 @@ function Products() {
         setBrandName(value)
         setCurrentPage(1)
     }, [])
+
+    useEffect(() => {
+        if (!isFetching) {
+            animateScroll.scrollToTop({
+                duration: 1500,
+                smooth: 'easeInOutQuad',
+            })
+        }
+    }, [isFetching, currentPage])
 
     if (error?.message) {
         return <ErrorMsg errorText={error?.message} />

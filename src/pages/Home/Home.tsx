@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
-import { useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
+import { useQuery } from 'react-query'
 import { useTranslation } from 'react-i18next'
 
 import { public_axios } from 'utils'
@@ -21,15 +21,10 @@ function Home() {
     const navigate = useNavigate()
     const { t } = useTranslation(['HomePage'])
     const [currentPage, setCurrentPage] = useState(1)
-    const itemsPerPage = 15
+    const itemsPerPage = 10
     const skip = (currentPage - 1) * itemsPerPage
 
-    const {
-        status,
-        data,
-        error,
-        isError,
-    }: { status: string; data: any; error: any; isError: boolean } = useQuery(
+    const { status, data, error, isError } = useQuery(
         ['homeProducts', currentPage, skip],
         async () => {
             const res = await public_axios.post('/products', {
@@ -37,6 +32,9 @@ function Home() {
                 page_number: skip,
             })
             return res?.data
+        },
+        {
+            useErrorBoundary: (error: any) => error.response?.status >= 500,
         },
     )
 
@@ -59,7 +57,7 @@ function Home() {
     )
 
     if (status === 'error' && isError)
-        return <ErrorMsg errorText={error.message} />
+        return <ErrorMsg errorText={error?.message} />
 
     return (
         <>
@@ -86,6 +84,7 @@ function Home() {
                 total={data?.total_found}
                 onChange={handlePageClick}
             />
+
             <TopProductsTitle>{t('Top_Products')}</TopProductsTitle>
             <TopProducts slidesPerView={5} spaceBetween={1} />
         </>

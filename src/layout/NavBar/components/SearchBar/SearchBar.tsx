@@ -27,12 +27,7 @@ export const SearchBar = () => {
         useSearchBarContext()
     const trimmedText = text.trim()
 
-    const {
-        status,
-        data,
-        error,
-        isError,
-    }: { status: string; data: any; error: any; isError: boolean } = useQuery(
+    const { status, data, error, isError } = useQuery(
         ['searchProducts', text],
         async () => {
             const res = await public_axios.post('/products', {
@@ -45,6 +40,7 @@ export const SearchBar = () => {
         {
             suspense: false,
             enabled: trimmedText !== '',
+            useErrorBoundary: (error: any) => error.response?.status >= 500,
         },
     )
 
@@ -52,7 +48,7 @@ export const SearchBar = () => {
         if (trimmedText.length === 0) {
             setModalOpen(true)
         } else {
-            navigate(`/search-result/${trimmedText}`)
+            navigate(`/search-result/${text}`)
         }
     }
 

@@ -13,7 +13,7 @@ export const SuggestionTitle = styled.h1`
     ${tw`px-6  text-gray-600 font-semibold text-2xl`}
 `
 export const SuggestionGridContainer = styled.div`
-    ${tw`grid grid-cols-2 sm:grid-cols-4 gap-4 px-4 mt-8`}
+    ${tw`grid  grid-cols-2 sm:grid-cols-4 gap-4 px-4 mt-8`}
 `
 
 export const ErrorText = styled.h1`
@@ -25,5 +25,5 @@ export const BtnContainer = styled.div`
 `
 
 export const Loading = styled.div`
-    ${tw` h-[90.4vh] sm:h-[44vh] flex  justify-center items-center w-full`}
+    ${tw` h-[90.4vh] sm:h-[44.4vh] flex  justify-center items-center w-full`}
 `
