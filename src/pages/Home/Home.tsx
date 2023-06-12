@@ -21,7 +21,7 @@ function Home() {
     const navigate = useNavigate()
     const { t } = useTranslation(['HomePage'])
     const [currentPage, setCurrentPage] = useState(1)
-    const itemsPerPage = 10
+    const itemsPerPage = 15
     const skip = (currentPage - 1) * itemsPerPage
 
     const { status, data, error, isError } = useQuery(
