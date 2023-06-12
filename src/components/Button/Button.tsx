@@ -7,10 +7,18 @@ import {
     UserBtn,
     UpdateBtn,
     SuggestionBtn,
+    SearchResultBtn,
 } from './Button.styled'
 
 type ButtonProps = {
-    mode: 'primary' | 'secondary' | 'form' | 'user' | 'update' | 'suggestion'
+    mode:
+        | 'primary'
+        | 'secondary'
+        | 'form'
+        | 'user'
+        | 'update'
+        | 'suggestion'
+        | 'searchResult'
     type?: 'submit' | 'button'
     disabled?: boolean
 }
@@ -89,6 +97,17 @@ export const Button = ({
                 >
                     {children}
                 </SuggestionBtn>
+            )
+        case 'searchResult':
+            return (
+                <SearchResultBtn
+                    onClick={onClick}
+                    className={className}
+                    disabled={disabled}
+                    type={type}
+                >
+                    {children}
+                </SearchResultBtn>
             )
         default:
             throw new Error(`Invalid mode: ${mode}`)

@@ -24,19 +24,17 @@ function Home() {
     const itemsPerPage = 15
     const skip = (currentPage - 1) * itemsPerPage
 
-    const { status, data, error, isError } = useQuery(
-        ['homeProducts', currentPage, skip],
-        async () => {
+    const { status, data, error, isError } = useQuery({
+        queryKey: ['homeProducts', currentPage, skip],
+        queryFn: async () => {
             const res = await public_axios.post('/products', {
                 page_size: itemsPerPage,
                 page_number: skip,
             })
             return res?.data
         },
-        {
-            useErrorBoundary: (error: any) => error.response?.status >= 500,
-        },
-    )
+        useErrorBoundary: (error: any) => error.response?.status >= 500,
+    })
 
     const handlePageClick = useCallback((page: number) => {
         setCurrentPage(page)

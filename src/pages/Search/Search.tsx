@@ -1,13 +1,15 @@
 import { useParams } from 'react-router-dom'
 import { useInfiniteQuery } from 'react-query'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import { animateScroll } from 'react-scroll'
 import { useTranslation } from 'react-i18next'
 import { Breadcrumb } from 'antd'
 
 import { public_axios } from 'utils'
 import { TProducts } from 'types/productsAPI.types'
-import { ErrorMsg, ProductCard } from 'components'
+import { Button, ErrorMsg, ProductCard } from 'components'
 
-import InfiniteScroll from 'react-infinite-scroll-component'
+import { ReactComponent as UpArrow } from 'assets/images/chevronDoubleUp.svg'
 
 import {
     MainFlexContainer,
@@ -15,6 +17,8 @@ import {
     SearchResultTitle,
     SearchResultParagraph,
     SearchedProductsGridContainer,
+    NoMoreResult,
+    Loading,
 } from './Search.styled'
 
 function Search() {
@@ -30,7 +34,7 @@ function Search() {
         error,
         isError,
     } = useInfiniteQuery({
-        queryKey: ['searchResults'],
+        queryKey: ['searchResults', keyword],
         queryFn: async ({ pageParam = 0 }) => {
             const res = await public_axios.post('/products', {
                 keyword: keyword,
@@ -41,7 +45,7 @@ function Search() {
         },
         useErrorBoundary: (error: any) => error.response?.status >= 500,
         getNextPageParam: (lastPage) => {
-            if (lastPage.prevOffset + 10 > lastPage.total_found) {
+            if (lastPage.prevOffset + 10 > lastPage?.total_found) {
                 return false
             }
             return lastPage.prevOffset + 10
@@ -84,12 +88,8 @@ function Search() {
                 dataLength={products ? products.length : 0}
                 next={() => fetchNextPage()}
                 hasMore={hasNextPage ?? false}
-                loader={<h4 className=' text-center'>Loading...</h4>}
-                endMessage={
-                    <h4 className=' text-center  font-semibold text-gray-700 py-6 text-2xl'>
-                        No more results
-                    </h4>
-                }
+                loader={<Loading>{t('loading')}</Loading>}
+                endMessage={<NoMoreResult>{t('nomore')}</NoMoreResult>}
             >
                 <SearchedProductsGridContainer>
                     {isSuccess &&
@@ -115,6 +115,18 @@ function Search() {
                         )}
                 </SearchedProductsGridContainer>
             </InfiniteScroll>
+            <Button
+                mode='searchResult'
+                onClick={() => {
+                    animateScroll.scrollToTop({
+                        duration: 1000,
+                        delay: 100,
+                        smooth: true,
+                    })
+                }}
+            >
+                <UpArrow />
+            </Button>
         </MainFlexContainer>
     )
 }

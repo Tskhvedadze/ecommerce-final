@@ -2,5 +2,7 @@
     "search": "Search results",
     "found": "We found",
     "product": "Products for",
-    "home": "Home"
+    "home": "Home",
+    "nomore": "No more results",
+    "loading": "Loading..."
 }
