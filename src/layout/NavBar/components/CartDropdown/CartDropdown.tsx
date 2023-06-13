@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom'
 import { TAuthorizationStage, useAuthContext, useCartContext } from 'context'
 import { useTranslation } from 'react-i18next'
 
-import { formatCurrency } from 'utils'
 import { TShoppingCart } from 'types/shoppingCart.types'
 
 import { Button } from 'components'
@@ -13,15 +12,13 @@ import {
     CartItems,
     EmptyMessage,
     ButtonContainer,
-    TotalText,
-    AmountNumber,
 } from './CartDropdown.styled'
 
 export const CartDropdown = () => {
     const { t } = useTranslation(['components'])
-    const navigate = useNavigate()
-    const { isCartOpen, cartItems, cartTotal } = useCartContext()
+    const { isCartOpen, cartItems } = useCartContext()
     const { status } = useAuthContext()
+    const navigate = useNavigate()
 
     const checkAuth = () => {
         if (status === TAuthorizationStage.UNAUTHORIZED) {
@@ -43,15 +40,13 @@ export const CartDropdown = () => {
                 )}
             </CartItems>
             <ButtonContainer>
-                <Button mode='secondary' onClick={checkAuth}>
+                <Button
+                    mode='secondary'
+                    onClick={checkAuth}
+                    className='rounded'
+                >
                     {t('checkout')}
                 </Button>
-                <TotalText>
-                    {t('total')}:
-                    <AmountNumber>
-                        {formatCurrency(cartTotal, t('currency'))}
-                    </AmountNumber>
-                </TotalText>
             </ButtonContainer>
         </CartDropdownContainer>
     )

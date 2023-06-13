@@ -1,17 +1,17 @@
 import { CheckoutContent, CheckoutForm } from './components'
 
-type CheckoutProps = {}
+import { MainLayout, ContentDiv, FormDiv } from './Checkout.styled'
 
-function Checkout(props: CheckoutProps) {
+function Checkout() {
     return (
-        <div className='flex flex-col lg:flex-row  justify-evenly items-center w-full my-8'>
-            <div className='w-[80%] lg:w-[30%]'>
+        <MainLayout>
+            <FormDiv>
                 <CheckoutForm />
-            </div>
-            <div className='w-[80%] lg:w-[60%]'>
+            </FormDiv>
+            <ContentDiv>
                 <CheckoutContent />
-            </div>
-        </div>
+            </ContentDiv>
+        </MainLayout>
     )
 }
 
