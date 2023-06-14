@@ -1,3 +1,5 @@
+import { NavLink } from 'react-router-dom'
+
 import styled, { keyframes } from 'styled-components'
 import tw from 'twin.macro'
 
@@ -42,4 +44,8 @@ export const EmptyMessage = styled.h1`
 
 export const ButtonContainer = styled.div`
     ${tw`flex flex-col w-[80%] mt-2 border-gray-700`}
+`
+export const SLink = styled(NavLink)`
+    ${tw`rounded  text-white bg-orange hover:bg-orange-light focus:ring-2 focus:outline-none focus:ring-orange-light font-medium rounded-tl rounded-tr text-sm px-1.5 py-2 text-center dark:bg-orange-dark dark:hover:bg-orange dark:focus:ring-orange-light
+                disabled:bg-orange-light disabled:cursor-not-allowed`}
 `

@@ -1,14 +1,16 @@
+import { useState } from 'react'
 import { useCartContext } from 'context'
 import { useTranslation } from 'react-i18next'
-import { Form, Field, Formik } from 'formik'
+import { Form, Field, Formik, FormikHelpers } from 'formik'
 import { OrderValidationSchema } from './schema/OrderValidationSchema'
+import { Spin, message } from 'antd'
+
 import { Button } from 'components'
 
 import {
     Container,
     WFull,
     Label,
-    CardInput,
     SecurityInput,
     ExpYearInput,
     ExpMonthInput,
@@ -16,9 +18,10 @@ import {
     FullNameInput,
     CardNumInput,
     ErrorMsg,
+    CardInput,
 } from './CheckoutForm.styled'
 
-type TOrderInformation = {
+type TOrderInfo = {
     fullName: string
     email: string
     cardNumber: string
@@ -38,25 +41,36 @@ const initialValues = {
     cardName: '',
 }
 
-const submitHandler = (values: TOrderInformation) => {
-    console.log(values)
-}
-
 export const CheckoutForm = () => {
     const { t } = useTranslation(['Checkout'])
-    const { cartItems } = useCartContext()
+    const { cartTotal, setCartItems } = useCartContext()
+    const [loading, setLoading] = useState(false)
+
+    const submitHandler = async (
+        _values: TOrderInfo,
+        { resetForm }: FormikHelpers<TOrderInfo>,
+    ) => {
+        if (!cartTotal) {
+            setLoading(false)
+            message.warning(`${t('warrning')}`)
+        } else {
+            setLoading(true)
+            await new Promise((resolve) => setTimeout(resolve, 3000))
+            message.success(`${t('payment')}`)
+            setLoading(false)
+            resetForm()
+            setCartItems([])
+        }
+    }
 
     return (
         <Container>
             <WFull>
-                <h1>
-                    Secure Checkout
-                    <span />
-                </h1>
+                <h1>{t('secure_checkout')}</h1>
                 <Formik
                     initialValues={initialValues}
                     onSubmit={submitHandler}
-                    validationSchema={OrderValidationSchema(t)}
+                    validationSchema={cartTotal && OrderValidationSchema(t)}
                 >
                     {({ errors, touched }) => (
                         <Form className='mt-2 flex flex-col space-y-4'>
@@ -189,12 +203,12 @@ export const CheckoutForm = () => {
                                     as={CardInput}
                                 />
                             </div>
-                            <Button
-                                mode='order'
-                                type='submit'
-                                // disabled={cartItems.length === 0}
-                            >
-                                {t('order')}
+                            <Button mode='order' type='submit'>
+                                {loading ? (
+                                    <Spin className='py-1' />
+                                ) : (
+                                    `${t('order')}`
+                                )}
                             </Button>
                         </Form>
                     )}

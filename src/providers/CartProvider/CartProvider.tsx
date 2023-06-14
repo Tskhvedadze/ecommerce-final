@@ -48,6 +48,7 @@ export const CartProvider: React.FC<PropsWithChildren> = ({ children }) => {
     return (
         <CartContext.Provider
             value={{
+                setCartItems,
                 isCartOpen,
                 setIsCartOpen,
                 addItemToCart,

@@ -3,9 +3,16 @@
     "moneyback": "Money Back Guarantee",
     "within": " within 30 days of purchase",
     "total": "Total price",
+    "empty_msg": " To place an order, please go to the products page and add the desired product to the cart",
 
     "name_on_card": "Name on the card",
 
+    "payment": "The payment was made successfully",
+    "warrning": "Your Cart is Empty !",
+
+    "products": "products page",
+
+    "secure_checkout": "Secure Checkout",
     "full_name": "Full Name",
     "email": "Email",
     "card_number": "Card number",

@@ -7,11 +7,7 @@ export const Container = styled.div`
     ${tw`w-full justify-center items-center lg:col-span-4 pb-4 lg:py-20`}
 
     h1 {
-        ${tw` text-2xl font-medium text-gray-700 sm:text-3xl`}
-
-        span {
-            ${tw`block h-0.5  bg-teal-600  lg:w-[227px]`}
-        }
+        ${tw` text-2xl font-medium text-gray-700 sm:text-3xl border-b-2 border-teal-600 pb-1 inline-block`}
     }
 `
 
