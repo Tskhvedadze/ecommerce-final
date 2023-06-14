@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react'
+import { Dispatch, SetStateAction, createContext, useContext } from 'react'
 import { TShoppingCart } from 'types/shoppingCart.types'
 
 type TCartContext = {
@@ -6,6 +6,7 @@ type TCartContext = {
     cartItems: TShoppingCart[]
     cartCount: number
     cartTotal: number
+    setCartItems: Dispatch<SetStateAction<TShoppingCart[]>>
     setIsCartOpen: (open: boolean) => void
     addItemToCart: (cartItemToAdd: TShoppingCart) => void
     removeItemFromCart: (productToRemove: TShoppingCart) => void

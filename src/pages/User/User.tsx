@@ -8,20 +8,18 @@ import { UserForm } from './components/UserForm/UserForm'
 import { MainContainer, Section } from './User.styled'
 
 function User() {
-    const { data } = useQuery(
-        ['userProfile'],
-        async () => {
+    const { data } = useQuery({
+        queryKey: ['userProfile'],
+        queryFn: async () => {
             const res = await private_axios.get('/me')
             return res?.data
         },
-        {
-            suspense: true,
-            refetchOnWindowFocus: false,
-            onError: (error: any) => {
-                message.error(error?.message)
-            },
+        suspense: true,
+        refetchOnWindowFocus: false,
+        onError: (error: any) => {
+            message.error(error?.message)
         },
-    )
+    })
 
     return (
         <MainContainer>

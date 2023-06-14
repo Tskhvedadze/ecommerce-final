@@ -16,6 +16,7 @@ const Contact = lazy(() => import('pages/Contact'))
 const Search = lazy(() => import('pages/Search'))
 const SignUp = lazy(() => import('pages/SignUp'))
 const SignIn = lazy(() => import('pages/SignIn'))
+const Checkout = lazy(() => import('pages/Checkout'))
 
 const App = () => {
     return (
@@ -45,6 +46,7 @@ const App = () => {
                 <Route element={<PrivateRoutes />}>
                     <Route element={<SecondaryLayout />}>
                         <Route path='profile' element={<Profile />} />
+                        <Route path='checkout' element={<Checkout />} />
                     </Route>
                 </Route>
 

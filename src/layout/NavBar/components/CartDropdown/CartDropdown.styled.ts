@@ -1,3 +1,5 @@
+import { NavLink } from 'react-router-dom'
+
 import styled, { keyframes } from 'styled-components'
 import tw from 'twin.macro'
 
@@ -28,12 +30,12 @@ const fadeOut = keyframes`
 `
 
 export const CartDropdownContainer = styled.div<CartDropdownContainerProps>`
-    ${tw`absolute w-[320px] h-[420px] flex flex-col items-center p-0.5 pt-2 border border-gray-300 rounded-lg bg-amazonclone-background top-[4.2rem] right-4 z-10`}
+    ${tw`absolute w-[270px] h-[370px] flex flex-col items-center p-0.5 pt-2 border border-gray-300 rounded-lg bg-amazonclone-background top-[4rem] right-4 z-10`}
     animation: ${({ isOpen }) => (isOpen ? fadeIn : fadeOut)} 0.3s linear;
 `
 
 export const CartItems = styled.div`
-    ${tw`h-[320px] w-[100%] flex flex-col overflow-auto text-amazonclone px-2 `}
+    ${tw`h-[300px] w-[100%] flex flex-col overflow-auto text-amazonclone px-2 `}
 `
 
 export const EmptyMessage = styled.h1`
@@ -41,13 +43,9 @@ export const EmptyMessage = styled.h1`
 `
 
 export const ButtonContainer = styled.div`
-    ${tw`flex flex-col w-[85%] mt-4 border-b border-gray-700`}
+    ${tw`flex flex-col w-[80%] mt-2 border-gray-700`}
 `
-
-export const TotalText = styled.h2`
-    ${tw`text-amazonclone text-[18px] mt-[0.2rem] flex font-semibold `}
-`
-
-export const AmountNumber = styled.p`
-    ${tw`text-green-500 ml-1`}
+export const SLink = styled(NavLink)`
+    ${tw`rounded  text-white bg-orange hover:bg-orange-light focus:ring-2 focus:outline-none focus:ring-orange-light font-medium rounded-tl rounded-tr text-sm px-1.5 py-2 text-center dark:bg-orange-dark dark:hover:bg-orange dark:focus:ring-orange-light
+                disabled:bg-orange-light disabled:cursor-not-allowed`}
 `

@@ -1,4 +1,5 @@
 import { useState, useEffect, PropsWithChildren } from 'react'
+import { useLocation } from 'react-router-dom'
 import { CartContext } from 'context'
 
 import { TShoppingCart } from 'types/shoppingCart.types'
@@ -9,6 +10,11 @@ export const CartProvider: React.FC<PropsWithChildren> = ({ children }) => {
     const [cartItems, setCartItems] = useState<TShoppingCart[]>([])
     const [cartCount, setCartCount] = useState<number>(0)
     const [cartTotal, setCartTotal] = useState<number>(0)
+    const location = useLocation()
+
+    useEffect(() => {
+        setIsCartOpen(false)
+    }, [location])
 
     useEffect(() => {
         const cartCount = cartItems.reduce(
@@ -42,6 +48,7 @@ export const CartProvider: React.FC<PropsWithChildren> = ({ children }) => {
     return (
         <CartContext.Provider
             value={{
+                setCartItems,
                 isCartOpen,
                 setIsCartOpen,
                 addItemToCart,

@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useInfiniteQuery } from 'react-query'
 import InfiniteScroll from 'react-infinite-scroll-component'
@@ -24,6 +25,7 @@ import {
 function Search() {
     const { t } = useTranslation(['search'])
     const { keyword } = useParams()
+    const [totalFound, setTotalFound] = useState<string | undefined>(undefined)
 
     const {
         data,
@@ -56,6 +58,12 @@ function Search() {
         return [...acc, page.products]
     }, [])
 
+    useEffect(() => {
+        const totalFound = data?.pages.map((items) => items.total_found).join()
+        setTotalFound(totalFound)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
     const breadcrumbItems = [
         {
             className: 'text-gray-700 font-semibold',
@@ -78,7 +86,7 @@ function Search() {
                 <div>
                     <SearchResultTitle>{t('search')}</SearchResultTitle>
                     <SearchResultParagraph>
-                        {t('found')} {products[0].length} {t('product')}
+                        {t('found')} {totalFound} {t('product')}
                         <span>{keyword}</span>
                     </SearchResultParagraph>
                 </div>

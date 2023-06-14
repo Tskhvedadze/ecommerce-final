@@ -33,7 +33,7 @@ export const Cart: React.FC = () => {
 
     return (
         <ShoppingCartContainer>
-            <ShoppingIcon onClick={toggleDropdown} />
+            <ShoppingIcon onMouseDown={toggleDropdown} />
             <div>
                 <span className={`${itemClassName}`} ref={spanRef}>
                     {cartCount}

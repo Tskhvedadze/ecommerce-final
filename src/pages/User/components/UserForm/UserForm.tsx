@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { useTranslation } from 'react-i18next'
 import { Formik, Field, Form, FormikHelpers } from 'formik'
-// import { userValidationSchema } from './schema/userSettings.shcema'
+import { userValidationSchema } from './schema/userSettings.shcema'
 import { private_axios } from 'utils/axios/private_axios'
 
 import { Spin, message } from 'antd'
@@ -53,22 +53,9 @@ export const UserForm = (data: TChangeUserInfo) => {
         values: TChangeUserInfo,
         { resetForm }: FormikHelpers<TChangeUserInfo>,
     ) {
-        const isEmpty = Object.values(values).every((value) => !value)
-        if (isEmpty) {
-            return message.warning(`${t('Make_changes')}`)
-        }
-
         setIsLoading(true)
         // Delay the execution using setTimeout
         await new Promise((resolve) => setTimeout(resolve, 3000))
-
-        // Update the fields in values with data values if they are empty
-        if (!values.firstName && data.firstName)
-            values.firstName = data.firstName
-        if (!values.lastName && data.lastName) values.lastName = data.lastName
-        if (!values.phoneNumber && data.phoneNumber)
-            values.phoneNumber = data.phoneNumber
-        if (!values.email && data.email) values.email = data.email
 
         resetForm()
 
@@ -84,7 +71,7 @@ export const UserForm = (data: TChangeUserInfo) => {
             <Formik
                 initialValues={initialValues}
                 onSubmit={submitHandler}
-                // validationSchema={userValidationSchema(t)}
+                validationSchema={userValidationSchema(t)}
             >
                 {({ errors, touched }) => (
                     <Form>
