@@ -2,5 +2,25 @@
     "currency": "GEL",
     "moneyback": "ფულის დაბრუნების გარანტია",
     "within": "შეძენიდან 30 დღის განმავლობაში",
-    "total": "მთლიანი ღირებულება"
+    "total": "მთლიანი ღირებულება",
+
+    "name_on_card": "Სახელი ბარათზე",
+
+    "full_name": "Სრული სახელი",
+    "email": "ელ.ფოსტა",
+    "card_number": "Ბარათის ნომერი",
+    "year": "წელი",
+    "month": "თვე",
+    "security": "უსაფრთხოების კოდი(CVV)",
+    "card_name": "ბარათის სახელი",
+    "order": "Შეკვეთის განთავსება",
+
+    "fullName_required": "სახელი და გვარი აუცილებელია",
+    "email_required": "აუცილებელი",
+    "email_invalid": "არასწორი ელ. ფოსტა",
+    "cardNumber_required": "ბარათის ნომერი აუცილებელია",
+    "year_required": "სავალდებულო",
+    "month_required": "სავალდებულო",
+    "CVV_required": "CVV აუცილებელია",
+    "cardName_required": "ბარათის დასახელება აუცილებელია"
 }

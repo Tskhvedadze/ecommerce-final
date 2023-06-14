@@ -2,5 +2,25 @@
     "currency": "USD",
     "moneyback": "Money Back Guarantee",
     "within": " within 30 days of purchase",
-    "total": "Total price"
+    "total": "Total price",
+
+    "name_on_card": "Name on the card",
+
+    "full_name": "Full Name",
+    "email": "Email",
+    "card_number": "Card number",
+    "year": "Year",
+    "month": "Month",
+    "security": "Security code(CVV)",
+    "card_name": "Card name",
+    "order": "Place Order",
+
+    "fullName_required": "Name and Last Name is Required",
+    "email_required": "Required",
+    "email_invalid": "Invalid email",
+    "cardNumber_required": "Card Number Required",
+    "year_required": "Required",
+    "month_required": "Required",
+    "CVV_required": "CVV is Required",
+    "cardName_required": "Card Name is Required"
 }

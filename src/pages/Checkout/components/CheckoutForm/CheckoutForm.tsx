@@ -1,4 +1,5 @@
 import { useCartContext } from 'context'
+import { useTranslation } from 'react-i18next'
 import { Form, Field, Formik } from 'formik'
 import { OrderValidationSchema } from './schema/OrderValidationSchema'
 import { Button } from 'components'
@@ -23,7 +24,7 @@ type TOrderInformation = {
     cardNumber: string
     year: string
     month: string
-    securityCode: string
+    CVV: string
     cardName: string
 }
 
@@ -33,7 +34,7 @@ const initialValues = {
     cardNumber: '',
     year: '',
     month: '',
-    securityCode: '',
+    CVV: '',
     cardName: '',
 }
 
@@ -42,7 +43,9 @@ const submitHandler = (values: TOrderInformation) => {
 }
 
 export const CheckoutForm = () => {
+    const { t } = useTranslation(['Checkout'])
     const { cartItems } = useCartContext()
+
     return (
         <Container>
             <WFull>
@@ -53,7 +56,7 @@ export const CheckoutForm = () => {
                 <Formik
                     initialValues={initialValues}
                     onSubmit={submitHandler}
-                    validationSchema={OrderValidationSchema}
+                    validationSchema={OrderValidationSchema(t)}
                 >
                     {({ errors, touched }) => (
                         <Form className='mt-2 flex flex-col space-y-4'>
@@ -64,7 +67,9 @@ export const CheckoutForm = () => {
                                         component='span'
                                     />
                                 ) : (
-                                    <Label htmlFor='fullName'>Full Name</Label>
+                                    <Label htmlFor='fullName'>
+                                        {t('full_name')}
+                                    </Label>
                                 )}
                                 <Field
                                     type='text'
@@ -78,7 +83,7 @@ export const CheckoutForm = () => {
                                 {errors.email && touched.email ? (
                                     <ErrorMsg name='email' component='span' />
                                 ) : (
-                                    <Label htmlFor='email'>Email</Label>
+                                    <Label htmlFor='email'>{t('email')}</Label>
                                 )}
                                 <Field
                                     type='email'
@@ -96,7 +101,7 @@ export const CheckoutForm = () => {
                                     />
                                 ) : (
                                     <Label htmlFor='cardNumber'>
-                                        Card number
+                                        {t('card_number')}
                                     </Label>
                                 )}
                                 <Field
@@ -116,13 +121,15 @@ export const CheckoutForm = () => {
                                                 component='span'
                                             />
                                         ) : (
-                                            <Label htmlFor='year'>Year</Label>
+                                            <Label htmlFor='year'>
+                                                {t('year')}
+                                            </Label>
                                         )}
                                         <Field
                                             type='number'
                                             id='year'
                                             name='year'
-                                            placeholder='Year'
+                                            placeholder={`${t('year')}`}
                                             as={ExpYearInput}
                                         />
                                     </div>
@@ -133,34 +140,32 @@ export const CheckoutForm = () => {
                                                 component='span'
                                             />
                                         ) : (
-                                            <Label htmlFor='month'>Month</Label>
+                                            <Label htmlFor='month'>
+                                                {t('month')}
+                                            </Label>
                                         )}
                                         <Field
                                             type='number'
                                             id='month'
                                             name='month'
-                                            placeholder='Month'
+                                            placeholder={`${t('month')}`}
                                             as={ExpMonthInput}
                                         />
                                     </div>
                                 </div>
                                 <div>
-                                    {errors.securityCode &&
-                                    touched.securityCode ? (
-                                        <ErrorMsg
-                                            name='securityCode'
-                                            component='span'
-                                        />
+                                    {errors.CVV && touched.CVV ? (
+                                        <ErrorMsg name='CVV' component='span' />
                                     ) : (
-                                        <Label htmlFor='securityCode'>
-                                            Security code
+                                        <Label htmlFor='CVV'>
+                                            {t('security')}
                                         </Label>
                                     )}
                                     <Field
                                         type='number'
-                                        id='securityCode'
-                                        name='securityCode'
-                                        placeholder='Security code'
+                                        id='CVV'
+                                        name='CVV'
+                                        placeholder='CVV'
                                         as={SecurityInput}
                                     />
                                 </div>
@@ -172,13 +177,15 @@ export const CheckoutForm = () => {
                                         component='span'
                                     />
                                 ) : (
-                                    <Label htmlFor='cardName'>Card name</Label>
+                                    <Label htmlFor='cardName'>
+                                        {t('card_name')}
+                                    </Label>
                                 )}
                                 <Field
                                     type='text'
                                     id='cardName'
                                     name='cardName'
-                                    placeholder='Name on the card'
+                                    placeholder={`${t('name_on_card')}`}
                                     as={CardInput}
                                 />
                             </div>
@@ -187,7 +194,7 @@ export const CheckoutForm = () => {
                                 type='submit'
                                 // disabled={cartItems.length === 0}
                             >
-                                Place Order
+                                {t('order')}
                             </Button>
                         </Form>
                     )}

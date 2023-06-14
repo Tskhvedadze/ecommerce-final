@@ -1,11 +1,14 @@
 import * as Yup from 'yup'
 
-export const OrderValidationSchema = Yup.object().shape({
-    fullName: Yup.string().required('Required'),
-    email: Yup.string().email('Invalid email').required('Required'),
-    cardNumber: Yup.string().required('Required'),
-    year: Yup.string().required('Required'),
-    month: Yup.string().required('Required'),
-    securityCode: Yup.string().required('Required'),
-    cardName: Yup.string().required('Required'),
-})
+export const OrderValidationSchema = (t: any) =>
+    Yup.object().shape({
+        fullName: Yup.string().required(`${t('fullName_required')}`),
+        email: Yup.string()
+            .email(`${t(`email_invalid`)}`)
+            .required(`${t('email_required')}`),
+        cardNumber: Yup.string().required(`${t('cardNumber_required')}`),
+        year: Yup.string().required(`${t('year_required')}`),
+        month: Yup.string().required(`${t('month_required')}`),
+        CVV: Yup.string().required(`${t('CVV_required')}`),
+        cardName: Yup.string().required(`${t('cardName_required')}`),
+    })
