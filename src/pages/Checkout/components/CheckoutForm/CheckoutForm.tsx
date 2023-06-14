@@ -1,4 +1,6 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
+import { useCartContext } from 'context'
+import { Form, Field, Formik } from 'formik'
+import { OrderValidationSchema } from './schema/OrderValidationSchema'
 import { Button } from 'components'
 
 import {
@@ -12,11 +14,35 @@ import {
     ExpSecuContainer,
     FullNameInput,
     CardNumInput,
+    ErrorMsg,
 } from './CheckoutForm.styled'
 
-type Props = {}
+type TOrderInformation = {
+    fullName: string
+    email: string
+    cardNumber: string
+    year: string
+    month: string
+    securityCode: string
+    cardName: string
+}
 
-export const CheckoutForm = (props: Props) => {
+const initialValues = {
+    fullName: '',
+    email: '',
+    cardNumber: '',
+    year: '',
+    month: '',
+    securityCode: '',
+    cardName: '',
+}
+
+const submitHandler = (values: TOrderInformation) => {
+    console.log(values)
+}
+
+export const CheckoutForm = () => {
+    const { cartItems } = useCartContext()
     return (
         <Container>
             <WFull>
@@ -24,75 +50,148 @@ export const CheckoutForm = (props: Props) => {
                     Secure Checkout
                     <span />
                 </h1>
-                <form className='mt-2 flex flex-col space-y-4'>
-                    <WFull>
-                        <Label htmlFor='fullName'>Full Name</Label>
-                        <FullNameInput
-                            type='text'
-                            id='fullName'
-                            name='fullName'
-                            placeholder='John Doe'
-                        />
-                    </WFull>
-                    <WFull>
-                        <Label htmlFor='email'>Email</Label>
-                        <FullNameInput
-                            type='email'
-                            id='email'
-                            name='email'
-                            placeholder='example@gmail.com'
-                        />
-                    </WFull>
-                    <WFull>
-                        <Label htmlFor='card-number'>Card number</Label>
-                        <CardNumInput
-                            type='text'
-                            id='card-number'
-                            name='card-number'
-                            placeholder='1234-5678-XXXX-XXXX'
-                        />
-                    </WFull>
-                    <ExpSecuContainer>
-                        <div>
-                            <Label htmlFor='month'>Expiration date</Label>
-                            <div>
-                                <ExpYearInput
+                <Formik
+                    initialValues={initialValues}
+                    onSubmit={submitHandler}
+                    validationSchema={OrderValidationSchema}
+                >
+                    {({ errors, touched }) => (
+                        <Form className='mt-2 flex flex-col space-y-4'>
+                            <WFull>
+                                {errors.fullName && touched.fullName ? (
+                                    <ErrorMsg
+                                        name='fullName'
+                                        component='span'
+                                    />
+                                ) : (
+                                    <Label htmlFor='fullName'>Full Name</Label>
+                                )}
+                                <Field
                                     type='text'
-                                    id='security-code'
-                                    name='security-code'
-                                    placeholder='Year'
+                                    id='fullName'
+                                    name='fullName'
+                                    placeholder='John Doe'
+                                    as={FullNameInput}
                                 />
-                                <ExpMonthInput
+                            </WFull>
+                            <WFull>
+                                {errors.email && touched.email ? (
+                                    <ErrorMsg name='email' component='span' />
+                                ) : (
+                                    <Label htmlFor='email'>Email</Label>
+                                )}
+                                <Field
+                                    type='email'
+                                    id='email'
+                                    name='email'
+                                    placeholder='example@gmail.com'
+                                    as={FullNameInput}
+                                />
+                            </WFull>
+                            <WFull>
+                                {errors.cardNumber && touched.cardNumber ? (
+                                    <ErrorMsg
+                                        name='cardNumber'
+                                        component='span'
+                                    />
+                                ) : (
+                                    <Label htmlFor='cardNumber'>
+                                        Card number
+                                    </Label>
+                                )}
+                                <Field
+                                    type='number'
+                                    id='cardNumber'
+                                    name='cardNumber'
+                                    placeholder='1234-5678-XXXX-XXXX'
+                                    as={CardNumInput}
+                                />
+                            </WFull>
+                            <ExpSecuContainer>
+                                <div>
+                                    <div>
+                                        {errors.year && touched.year ? (
+                                            <ErrorMsg
+                                                name='year'
+                                                component='span'
+                                            />
+                                        ) : (
+                                            <Label htmlFor='year'>Year</Label>
+                                        )}
+                                        <Field
+                                            type='number'
+                                            id='year'
+                                            name='year'
+                                            placeholder='Year'
+                                            as={ExpYearInput}
+                                        />
+                                    </div>
+                                    <div>
+                                        {errors.month && touched.month ? (
+                                            <ErrorMsg
+                                                name='month'
+                                                component='span'
+                                            />
+                                        ) : (
+                                            <Label htmlFor='month'>Month</Label>
+                                        )}
+                                        <Field
+                                            type='number'
+                                            id='month'
+                                            name='month'
+                                            placeholder='Month'
+                                            as={ExpMonthInput}
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+                                    {errors.securityCode &&
+                                    touched.securityCode ? (
+                                        <ErrorMsg
+                                            name='securityCode'
+                                            component='span'
+                                        />
+                                    ) : (
+                                        <Label htmlFor='securityCode'>
+                                            Security code
+                                        </Label>
+                                    )}
+                                    <Field
+                                        type='number'
+                                        id='securityCode'
+                                        name='securityCode'
+                                        placeholder='Security code'
+                                        as={SecurityInput}
+                                    />
+                                </div>
+                            </ExpSecuContainer>
+                            <div>
+                                {errors.cardName && touched.cardName ? (
+                                    <ErrorMsg
+                                        name='cardName'
+                                        component='span'
+                                    />
+                                ) : (
+                                    <Label htmlFor='cardName'>Card name</Label>
+                                )}
+                                <Field
                                     type='text'
-                                    id='security-code'
-                                    name='security-code'
-                                    placeholder='Month'
+                                    id='cardName'
+                                    name='cardName'
+                                    placeholder='Name on the card'
+                                    as={CardInput}
                                 />
                             </div>
-                        </div>
-                        <div>
-                            <Label htmlFor='security-code'>Security code</Label>
-                            <SecurityInput
-                                type='text'
-                                id='security-code'
-                                name='security-code'
-                                placeholder='Security code'
-                            />
-                        </div>
-                    </ExpSecuContainer>
-                    <div>
-                        <Label htmlFor='card-name'>Card name</Label>
-                        <CardInput
-                            type='text'
-                            id='card-name'
-                            name='card-name'
-                            placeholder='Name on the card'
-                        />
-                    </div>
-                </form>
-                <Button mode='order' type='submit'>
-                    Place Order
-                </Button>
+                            <Button
+                                mode='order'
+                                type='submit'
+                                // disabled={cartItems.length === 0}
+                            >
+                                Place Order
+                            </Button>
+                        </Form>
+                    )}
+                </Formik>
             </WFull>
         </Container>
     )
