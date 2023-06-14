@@ -1,155 +1,99 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react'
+import { Button } from 'components'
+
+import {
+    Container,
+    WFull,
+    Label,
+    CardInput,
+    SecurityInput,
+    ExpYearInput,
+    ExpMonthInput,
+    ExpSecuContainer,
+    FullNameInput,
+    CardNumInput,
+} from './CheckoutForm.styled'
 
 type Props = {}
 
 export const CheckoutForm = (props: Props) => {
     return (
-        <div className='w-full justify-center items-center lg:col-span-4 pb-4 lg:py-20'>
-            <div className=' w-full '>
-                <h1 className=' text-2xl font-medium text-gray-700 sm:text-3xl'>
+        <Container>
+            <WFull>
+                <h1>
                     Secure Checkout
-                    <span className=' block h-0.5  bg-teal-600 w-56' />
+                    <span />
                 </h1>
-                <form action='' className='mt-4 flex flex-col space-y-4'>
-                    <div className=' w-full'>
-                        <label
-                            htmlFor='fullName'
-                            className='text-sm font-semibold text-gray-700'
-                        >
-                            Full Name
-                        </label>
-                        <input
+                <form className='mt-2 flex flex-col space-y-4'>
+                    <WFull>
+                        <Label htmlFor='fullName'>Full Name</Label>
+                        <FullNameInput
                             type='text'
                             id='fullName'
                             name='fullName'
                             placeholder='John Doe'
-                            className='mt-1 block w-full rounded border-gray-300 bg-gray-200 py-3 px-4 text-sm placeholder-gray-500 shadow-sm outline-none transition focus:ring-1 focus:ring-teal-500'
                         />
-                    </div>
-                    <div className=' w-full'>
-                        <label
-                            htmlFor='email'
-                            className='text-sm font-semibold text-gray-700'
-                        >
-                            Email
-                        </label>
-                        <input
+                    </WFull>
+                    <WFull>
+                        <Label htmlFor='email'>Email</Label>
+                        <FullNameInput
                             type='email'
                             id='email'
                             name='email'
                             placeholder='example@gmail.com'
-                            className='mt-1 block w-full rounded border-gray-300 bg-gray-200 py-3 px-4 text-sm placeholder-gray-500 shadow-sm outline-none transition focus:ring-1 focus:ring-teal-500'
                         />
-                    </div>
-                    <div className=' w-full'>
-                        <label
-                            htmlFor='card-number'
-                            className='text-sm font-semibold text-gray-700'
-                        >
-                            Card number
-                        </label>
-                        <input
+                    </WFull>
+                    <WFull>
+                        <Label htmlFor='card-number'>Card number</Label>
+                        <CardNumInput
                             type='text'
                             id='card-number'
                             name='card-number'
                             placeholder='1234-5678-XXXX-XXXX'
-                            className='block w-full rounded border-gray-300 bg-gray-200 py-3 px-4 pr-10 text-sm placeholder-gray-500 shadow-sm outline-none transition focus:ring-1 focus:ring-teal-500'
                         />
-                        <img
-                            src='/images/uQUFIfCYVYcLK0qVJF5Yw.png'
-                            alt=''
-                            className='absolute bottom-3 right-3 max-h-4'
-                        />
-                    </div>
-                    <div>
-                        <p className='text-sm font-semibold text-gray-700'>
-                            Expiration date
-                        </p>
-                        <div className='mr-6 flex flex-wrap'>
-                            <div className='my-1'>
-                                <label htmlFor='month' className='sr-only'>
-                                    Select expiration month
-                                </label>
-                                <select
-                                    name='month'
-                                    id='month'
-                                    className='cursor-pointer rounded border-gray-300 bg-gray-50 py-3 px-2 text-sm shadow-sm outline-none transition focus:ring-1 focus:ring-teal-500'
-                                >
-                                    <option value=''>Month</option>
-                                </select>
-                            </div>
-                            <div className='my-1 ml-3 mr-6'>
-                                <label htmlFor='year' className='sr-only'>
-                                    Select expiration year
-                                </label>
-                                <select
-                                    name='year'
-                                    id='year'
-                                    className='cursor-pointer rounded border-gray-300 bg-gray-50 py-3 px-2 text-sm shadow-sm outline-none transition focus:ring-1 focus:ring-teal-500'
-                                >
-                                    <option value=''>Year</option>
-                                    <option>2010</option>
-                                    <option>2011</option>
-                                    <option>2012</option>
-                                    <option>2013</option>
-                                    <option>2014</option>
-                                    <option>2015</option>
-                                    <option>2016</option>
-                                    <option>2017</option>
-                                    <option>2018</option>
-                                    <option>2019</option>
-                                    <option>2020</option>
-                                    <option>2021</option>
-                                    <option>2022</option>
-                                </select>
-                            </div>
-                            <div className='relative my-1'>
-                                <label
-                                    htmlFor='security-code'
-                                    className='sr-only'
-                                >
-                                    Security code
-                                </label>
-                                <input
+                    </WFull>
+                    <ExpSecuContainer>
+                        <div>
+                            <Label htmlFor='month'>Expiration date</Label>
+                            <div>
+                                <ExpYearInput
                                     type='text'
                                     id='security-code'
                                     name='security-code'
-                                    placeholder='Security code'
-                                    className='block w-36 rounded border-gray-300 bg-gray-200 py-3 px-4 text-sm placeholder-gray-500 shadow-sm outline-none transition focus:ring-1 focus:ring-teal-500'
+                                    placeholder='Year'
+                                />
+                                <ExpMonthInput
+                                    type='text'
+                                    id='security-code'
+                                    name='security-code'
+                                    placeholder='Month'
                                 />
                             </div>
                         </div>
-                    </div>
+                        <div>
+                            <Label htmlFor='security-code'>Security code</Label>
+                            <SecurityInput
+                                type='text'
+                                id='security-code'
+                                name='security-code'
+                                placeholder='Security code'
+                            />
+                        </div>
+                    </ExpSecuContainer>
                     <div>
-                        <label htmlFor='card-name' className='sr-only'>
-                            Card name
-                        </label>
-                        <input
+                        <Label htmlFor='card-name'>Card name</Label>
+                        <CardInput
                             type='text'
                             id='card-name'
                             name='card-name'
                             placeholder='Name on the card'
-                            className=' block w-full rounded border-gray-300 bg-gray-200 py-3 px-4 text-sm placeholder-gray-500 shadow-sm outline-none transition focus:ring-1 focus:ring-teal-500'
                         />
                     </div>
                 </form>
-                <p className='mt-2 text-center text-sm font-semibold text-gray-500'>
-                    By placing this order you agree to the
-                    <a
-                        href='#'
-                        className='whitespace-nowrap text-teal-400 underline hover:text-teal-600'
-                    >
-                        Terms and Conditions
-                    </a>
-                </p>
-                <button
-                    type='submit'
-                    className='mt-4 inline-flex w-full items-center justify-center rounded bg-teal-600 py-2 px-4 text-base font-semibold tracking-wide text-white text-opacity-80 outline-none ring-offset-2 transition hover:text-opacity-100 focus:ring-1 focus:ring-teal-500 sm:text-lg'
-                >
+                <Button mode='order' type='submit'>
                     Place Order
-                </button>
-            </div>
-        </div>
+                </Button>
+            </WFull>
+        </Container>
     )
 }
