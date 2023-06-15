@@ -2,11 +2,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useCartContext } from 'context'
 import { TAuthorizationStage, useAuthContext } from 'context'
-import {
-    useHandleLogout,
-    getGreeting,
-    useUserDataQuery,
-} from './helper/NavBarHelpers'
+import { useHandleLogout, getGreeting } from './helper/NavBarHelpers'
 
 import { Cart, CartDropdown, UserDropdown, SearchBar } from './components'
 import { LanguageSwitcher } from 'components'
@@ -25,8 +21,7 @@ import amazon from 'assets/images/amazon.png'
 function NavBar() {
     const { t } = useTranslation(['navbar'])
     const { isCartOpen } = useCartContext()
-    const { status, setStatus } = useAuthContext()
-    const { data } = useUserDataQuery(status)
+    const { status, setStatus, data } = useAuthContext()
     const handleLogout = useHandleLogout(setStatus)
     const greeting = getGreeting(data)
 

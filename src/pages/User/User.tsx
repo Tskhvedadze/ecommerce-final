@@ -1,25 +1,10 @@
-import { useQuery } from 'react-query'
-import { private_axios } from 'utils/axios/private_axios'
-
-import { message } from 'antd'
-
+import { useAuthContext } from 'context'
 import { About } from './components/About/About'
 import { UserForm } from './components/UserForm/UserForm'
 import { MainContainer, Section } from './User.styled'
 
 function User() {
-    const { data } = useQuery({
-        queryKey: ['userProfile'],
-        queryFn: async () => {
-            const res = await private_axios.get('/me')
-            return res?.data
-        },
-        suspense: true,
-        refetchOnWindowFocus: false,
-        onError: (error: any) => {
-            message.error(error?.message)
-        },
-    })
+    const { data } = useAuthContext()
 
     return (
         <MainContainer>
@@ -27,7 +12,7 @@ function User() {
                 <About {...data} />
             </Section>
             <Section>
-                <UserForm {...data} />
+                <UserForm />
             </Section>
         </MainContainer>
     )

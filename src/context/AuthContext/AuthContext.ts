@@ -8,11 +8,13 @@ export enum TAuthorizationStage {
 type AuthContextValue = {
     status: TAuthorizationStage
     setStatus: React.Dispatch<React.SetStateAction<TAuthorizationStage>>
+    data: any
 }
 
 export const AuthContext = createContext<AuthContextValue>({
-    status: TAuthorizationStage.UNAUTHORIZED,
     setStatus: () => {},
+    status: TAuthorizationStage.UNAUTHORIZED,
+    data: undefined,
 })
 
 export const useAuthContext = () => {
