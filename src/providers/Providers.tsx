@@ -8,30 +8,29 @@ import { SearchBarProvider } from './SearchBarProvider/SearchBarProvider'
 import { AuthProvider } from './authProvider/authProvider'
 
 const queryClient = new QueryClient({
-    defaultOptions: {
-        queries: {
-            suspense: true,
-            refetchOnWindowFocus: false,
-            refetchOnMount: true,
-            retry: false,
-            staleTime: 6000,
-            useErrorBoundary: (error: any) => error.response?.status >= 500,
-        },
+  defaultOptions: {
+    queries: {
+      suspense: true,
+      refetchOnWindowFocus: false,
+      retry: false,
+      staleTime: 600000,
+      useErrorBoundary: (error: any) => error.response?.status >= 500,
     },
+  },
 })
 
 const Providers = ({ children }: PropsWithChildren) => {
-    return (
-        <QueryClientProvider client={queryClient}>
-            <AuthProvider>
-                <ContactFormProvider>
-                    <CartProvider>
-                        <SearchBarProvider>{children}</SearchBarProvider>
-                    </CartProvider>
-                </ContactFormProvider>
-            </AuthProvider>
-        </QueryClientProvider>
-    )
+  return (
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <ContactFormProvider>
+          <CartProvider>
+            <SearchBarProvider>{children}</SearchBarProvider>
+          </CartProvider>
+        </ContactFormProvider>
+      </AuthProvider>
+    </QueryClientProvider>
+  )
 }
 
 export default Providers

@@ -30,7 +30,7 @@ const initialValues = {
     email: '',
 }
 
-export const UserForm = (data: TChangeUserInfo) => {
+export const UserForm = () => {
     const { t } = useTranslation(['userSettings'])
     const queryClient = useQueryClient()
     const [isLoading, setIsLoading] = useState(false)

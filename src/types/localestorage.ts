@@ -1,4 +1,4 @@
 export enum TLocalStorage {
-    ACCESSTOKEN = 'accesstoken',
-    REFRESHTOKEN = 'refreshtoken',
+  ACCESSTOKEN = 'accesstoken',
+  REFRESHTOKEN = 'refreshtoken',
 }
