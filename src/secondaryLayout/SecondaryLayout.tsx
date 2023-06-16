@@ -5,12 +5,12 @@ import Header from './Header/Header'
 import { SecondaryContentLayout } from './SecondaryLayout.styled'
 
 function SecondaryLayout() {
-    return (
-        <SecondaryContentLayout>
-            <Header />
-            <Outlet />
-        </SecondaryContentLayout>
-    )
+  return (
+    <SecondaryContentLayout>
+      <Header />
+      <Outlet />
+    </SecondaryContentLayout>
+  )
 }
 
 export default SecondaryLayout

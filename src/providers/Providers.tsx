@@ -1,6 +1,7 @@
 import { PropsWithChildren } from 'react'
 import { QueryClient } from 'react-query'
 import { QueryClientProvider } from 'react-query'
+import { ThemeProvider } from '@material-tailwind/react'
 
 import { ContactFormProvider } from './ContactFormProvider/ContactFormProvider'
 import { CartProvider } from './CartProvider/CartProvider'
@@ -25,7 +26,9 @@ const Providers = ({ children }: PropsWithChildren) => {
       <AuthProvider>
         <ContactFormProvider>
           <CartProvider>
-            <SearchBarProvider>{children}</SearchBarProvider>
+            <SearchBarProvider>
+              <ThemeProvider>{children}</ThemeProvider>
+            </SearchBarProvider>
           </CartProvider>
         </ContactFormProvider>
       </AuthProvider>
