@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { PropsWithChildren, useEffect, useState } from 'react'
 import jwt_decode from 'jwt-decode'
-import { PrivateContext } from 'context'
+import { RoleContext } from 'context'
 import { TUser_Roles } from 'types/user.types'
 import { TLocalStorage } from 'types/localestorage'
 
-export const PrivateProvider = ({ children }: PropsWithChildren) => {
+export const RoleProvider = ({ children }: PropsWithChildren) => {
   const [pending, setPending] = useState<boolean>(true)
   const [currentRole, setCurrentRole] = useState<TUser_Roles>(TUser_Roles.GUEST)
 
@@ -26,8 +26,8 @@ export const PrivateProvider = ({ children }: PropsWithChildren) => {
   }, [])
 
   return (
-    <PrivateContext.Provider value={{ pending, currentRole }}>
+    <RoleContext.Provider value={{ pending, currentRole, setCurrentRole }}>
       {children}
-    </PrivateContext.Provider>
+    </RoleContext.Provider>
   )
 }

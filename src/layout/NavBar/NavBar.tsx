@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { TAuthorizationStage, useAuthContext } from 'context'
-import { useHandleLogout, getGreeting } from './helper/NavBarHelpers'
 
-import { Cart, CartDrawer, UserDropdown, SearchBar } from './components'
+import { Cart, CartDrawer, Dropdown, SearchBar } from './components'
 import { LanguageSelect } from 'components'
 
 import {
@@ -13,21 +12,21 @@ import {
   StyledLink,
   Greeting,
   AuthContainer,
+  User,
+  Guest,
 } from './NavBar.styled'
 
 import amazon from 'assets/images/amazon.png'
 
 function NavBar() {
   const { t } = useTranslation(['navbar'])
-  const { status, setStatus, data } = useAuthContext()
-  const handleLogout = useHandleLogout(setStatus)
-  const greeting = getGreeting(data)
+  const { status, data } = useAuthContext()
 
   return (
     <FlexLayout>
       <ContentLayout>
         <Link to={'/'}>
-          <img width={90} height={35} src={amazon} alt='eshop' />
+          <img width={90} height={35} src={amazon} alt='amazon_logo' />
         </Link>
       </ContentLayout>
 
@@ -35,7 +34,7 @@ function NavBar() {
         <DivLayout>
           <Greeting>
             {t('hello')}
-            {greeting}
+            {data ? <User>{data?.firstName}</User> : <Guest>Guest</Guest>}
           </Greeting>
         </DivLayout>
         <DivLayout>
@@ -50,7 +49,7 @@ function NavBar() {
         <DivLayout>
           <AuthContainer>
             {status === TAuthorizationStage.AUTHORIZED ? (
-              <UserDropdown handleLogout={handleLogout} />
+              <Dropdown />
             ) : (
               <>
                 <StyledLink to='SignIn'>{t('in')}</StyledLink>

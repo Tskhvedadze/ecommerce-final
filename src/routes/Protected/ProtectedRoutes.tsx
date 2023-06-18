@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
-import { usePrivateContext } from 'context'
+import { useRoleContext } from 'context'
 import { TUser_Roles } from 'types/user.types'
 import { LoadingSpiner } from 'components'
 
@@ -9,7 +9,7 @@ type ProtectedRoutesProps = {
 }
 
 function ProtectedRoutes({ roles }: PropsWithChildren<ProtectedRoutesProps>) {
-  const { pending, currentRole } = usePrivateContext()
+  const { pending, currentRole } = useRoleContext()
 
   if (pending) return <LoadingSpiner />
 

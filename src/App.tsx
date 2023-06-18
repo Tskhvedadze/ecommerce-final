@@ -1,6 +1,5 @@
 import { lazy, Suspense } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
-import { PrivateProvider } from 'providers'
 import { LoadingSpiner } from 'components'
 import { TUser_Roles } from 'types/user.types'
 
@@ -18,6 +17,8 @@ const SignUp = lazy(() => import('pages/SignUp'))
 const SignIn = lazy(() => import('pages/SignIn'))
 const Checkout = lazy(() => import('pages/Checkout'))
 
+const Admin = lazy(() => import('pages/Admin'))
+
 const App = () => {
   return (
     <Suspense fallback={<LoadingSpiner />}>
@@ -34,29 +35,29 @@ const App = () => {
         </Route>
 
         {/* Protected Routes */}
-        <Route
-          element={
-            <PrivateProvider>
-              <ProtectedRoutes roles={[TUser_Roles.GUEST]} />
-            </PrivateProvider>
-          }
-        >
+        <Route element={<ProtectedRoutes roles={[TUser_Roles.GUEST]} />}>
           <Route element={<SecondaryLayout />}>
             <Route path='SignUp' element={<SignUp />} />
             <Route path='SignIn' element={<SignIn />} />
           </Route>
         </Route>
 
+        {/* User Pages */}
         <Route
           element={
-            <PrivateProvider>
-              <ProtectedRoutes roles={[TUser_Roles.USER]} />
-            </PrivateProvider>
+            <ProtectedRoutes roles={[TUser_Roles.USER, TUser_Roles.ADMIN]} />
           }
         >
           <Route element={<SecondaryLayout />}>
             <Route path='profile' element={<Profile />} />
             <Route path='checkout' element={<Checkout />} />
+          </Route>
+        </Route>
+
+        {/* Admin Panel */}
+        <Route element={<ProtectedRoutes roles={[TUser_Roles.ADMIN]} />}>
+          <Route element={<SecondaryLayout />}>
+            <Route path='admin-panel' element={<Admin />} />
           </Route>
         </Route>
 

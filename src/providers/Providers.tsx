@@ -7,6 +7,7 @@ import { ContactFormProvider } from './ContactFormProvider/ContactFormProvider'
 import { CartProvider } from './CartProvider/CartProvider'
 import { SearchBarProvider } from './SearchBarProvider/SearchBarProvider'
 import { AuthProvider } from './authProvider/authProvider'
+import { RoleProvider } from './RoleProvider/RoleProvider'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,7 +28,9 @@ const Providers = ({ children }: PropsWithChildren) => {
         <ContactFormProvider>
           <CartProvider>
             <SearchBarProvider>
-              <ThemeProvider>{children}</ThemeProvider>
+              <RoleProvider>
+                <ThemeProvider>{children}</ThemeProvider>
+              </RoleProvider>
             </SearchBarProvider>
           </CartProvider>
         </ContactFormProvider>
