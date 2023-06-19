@@ -1,4 +1,3 @@
-import { ChangeEvent } from 'react'
 import { useAdminPanelServiceContext } from './context'
 import { TProducts } from 'types/productsAPI.types'
 import { ProductsList } from './components'
@@ -24,14 +23,8 @@ function Admin() {
     currentPage,
     itemsPerPage,
     handlePageClick,
-    setSearchKeyword,
-    setCurrentPage,
+    handleOnChange,
   } = useAdminPanelServiceContext()
-
-  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchKeyword(e.target.value)
-    setCurrentPage(1)
-  }
 
   if (status === 'error' && isError)
     return <ErrorMsg>{error?.message}</ErrorMsg>

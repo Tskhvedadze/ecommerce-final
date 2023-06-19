@@ -1,28 +1,26 @@
-import { Dispatch, SetStateAction, createContext, useContext } from 'react'
+import { ChangeEvent, createContext, useContext } from 'react'
 
 type TAdminPanelService = {
   data: any
+  error: any
   isLoading: boolean
   status: string
   isError: boolean
-  error: any
-  setSearchKeyword: Dispatch<SetStateAction<string>>
-  setCurrentPage: Dispatch<SetStateAction<number>>
   currentPage: number
   itemsPerPage: number
+  handleOnChange: (e: ChangeEvent<HTMLInputElement>) => void
   handlePageClick: (page: number) => void
 }
 
 export const AdminPanelServiceContext = createContext<TAdminPanelService>({
   data: undefined,
+  error: null,
   isLoading: false,
   status: '',
   isError: false,
-  error: null,
-  setSearchKeyword: () => {},
-  setCurrentPage: () => {},
   currentPage: 0,
   itemsPerPage: 0,
+  handleOnChange: () => {},
   handlePageClick: () => {},
 })
 
