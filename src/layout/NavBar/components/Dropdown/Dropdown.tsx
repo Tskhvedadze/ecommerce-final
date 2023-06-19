@@ -28,7 +28,7 @@ export const Dropdown = () => {
   }
 
   return (
-    <div className=' relative'>
+    <div className='relative'>
       <Button
         id='dropdownInformationButton'
         data-dropdown-toggle='dropdownInformation'

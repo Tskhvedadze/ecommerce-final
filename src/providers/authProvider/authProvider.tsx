@@ -24,8 +24,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     },
   })
 
-  console.log(data?.firstName)
-
   useEffect(() => {
     if (localStorage.getItem(TLocalStorage.ACCESSTOKEN)) {
       setStatus(TAuthorizationStage.AUTHORIZED)
