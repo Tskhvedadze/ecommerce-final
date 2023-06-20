@@ -9,6 +9,7 @@ type ProductsListProps = {
 }
 
 export const ProductsList = ({
+  id,
   title,
   brand,
   price,
@@ -30,7 +31,7 @@ export const ProductsList = ({
       </div>
       <div>
         <div className='mr-2'>
-          <EditBtn>Edit</EditBtn>
+          <EditBtn to={`edit/${id}`}>Edit</EditBtn>
         </div>
         <div>
           <DeleteBtn>Remove</DeleteBtn>

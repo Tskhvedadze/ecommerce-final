@@ -2,7 +2,6 @@ import { lazy, Suspense } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { LoadingSpiner } from 'components'
 import { TUser_Roles } from 'types/user.types'
-import { AdminProviders } from 'pages/Admin/provider'
 
 import ProtectedRoutes from 'routes'
 import MainLayout from 'layout'
@@ -18,7 +17,8 @@ const SignUp = lazy(() => import('pages/SignUp'))
 const SignIn = lazy(() => import('pages/SignIn'))
 const Checkout = lazy(() => import('pages/Checkout'))
 
-const Admin = lazy(() => import('pages/Admin'))
+const AdminPanel = lazy(() => import('pages/Admin/AdminPanel'))
+const EditProducts = lazy(() => import('pages/Admin/EditProducts'))
 
 const App = () => {
   return (
@@ -58,14 +58,8 @@ const App = () => {
         {/* Admin Panel */}
         <Route element={<ProtectedRoutes roles={[TUser_Roles.ADMIN]} />}>
           <Route element={<SecondaryLayout />}>
-            <Route
-              path='admin-panel'
-              element={
-                <AdminProviders>
-                  <Admin />
-                </AdminProviders>
-              }
-            />
+            <Route path='admin-panel' element={<AdminPanel />} />
+            <Route path='admin-panel/edit/:editID' element={<EditProducts />} />
           </Route>
         </Route>
 

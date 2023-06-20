@@ -1,1 +1,0 @@
-export { AdminProviders } from './AdminProviders'

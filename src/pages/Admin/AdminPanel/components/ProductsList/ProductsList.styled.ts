@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import tw from 'twin.macro'
 
@@ -21,10 +22,10 @@ export const Content = styled.div`
   ${tw`text-sm text-gray-800`}
 `
 
-export const EditBtn = styled.button`
-  ${tw`border py-1.5 px-3 border-green-400 rounded-lg hover:bg-green-100 focus:ring-2 ring-green-200 text-gray-800 transition-all duration-300 ease-in-out`}
+export const EditBtn = styled(NavLink)`
+  ${tw`py-1 px-2  rounded-lg hover:bg-gray-200 focus:ring-2 ring-gray-300 text-blue-gray-400 transition-all duration-300 ease-in-out`}
 `
 
 export const DeleteBtn = styled.button`
-  ${tw`border py-1.5 px-3 border-red-400 rounded-lg hover:bg-red-100 focus:ring-2 ring-red-200 text-gray-800 transition-all duration-300 ease-in-out`}
+  ${tw`border py-1 px-2 border-red-400 rounded-lg hover:bg-red-100 focus:ring-2 ring-red-200 text-gray-800 transition-all duration-300 ease-in-out`}
 `
