@@ -1,0 +1,9 @@
+{
+  "create": "Create product",
+  "search": "Search products...",
+  "brand": "Brand",
+  "price": "Price",
+  "edit": "Edit",
+  "remove": "Remove",
+  "currency": "USD"
+}

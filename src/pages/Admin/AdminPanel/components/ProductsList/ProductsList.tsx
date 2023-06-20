@@ -1,4 +1,7 @@
 import { NavLink } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { formatCurrency } from 'utils'
+
 import {
   List,
   Img,
@@ -6,6 +9,8 @@ import {
   EditBtn,
   DeleteBtn,
   Eye,
+  Price,
+  Brand,
 } from './ProductsList.styled'
 
 type ProductsListProps = {
@@ -23,6 +28,8 @@ export const ProductsList = ({
   price,
   images,
 }: ProductsListProps) => {
+  const { t } = useTranslation(['Admin'])
+
   return (
     <List>
       <div>
@@ -30,10 +37,10 @@ export const ProductsList = ({
         <Content>
           <p>{title}</p>
           <p>
-            Brand: <span className=' text-gray-900'>{brand}</span>
+            {t('brand')}: <Brand>{brand}</Brand>
           </p>
           <p>
-            Price: <span>{price}</span>
+            {t('price')}: <Price>{formatCurrency(price, t('currency'))}</Price>
           </p>
         </Content>
       </div>
@@ -44,10 +51,10 @@ export const ProductsList = ({
           </NavLink>
         </div>
         <div className='mx-1.5'>
-          <EditBtn to={`edit/${id}`}>Edit</EditBtn>
+          <EditBtn to={`edit/${id}`}>{t('edit')}</EditBtn>
         </div>
         <div>
-          <DeleteBtn>Remove</DeleteBtn>
+          <DeleteBtn>{t('remove')}</DeleteBtn>
         </div>
       </div>
     </List>

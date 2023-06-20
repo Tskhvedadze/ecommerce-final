@@ -35,3 +35,11 @@ export const DeleteBtn = styled.button`
 export const Eye = styled(EyeIcon)`
   ${tw` w-5 h-5 cursor-pointer text-green-300 transition-all duration-300 transform hover:text-green-400 hover:scale-[1.50] hover:duration-300`}
 `
+
+export const Price = styled.span`
+  ${tw`text-green-600`}
+`
+
+export const Brand = styled.span`
+  ${tw`text-amazonclone-light_blue uppercase`}
+`

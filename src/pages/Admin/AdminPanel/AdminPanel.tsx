@@ -1,5 +1,6 @@
 import { ChangeEvent, useCallback, useState } from 'react'
 import { useQuery } from 'react-query'
+import { useTranslation } from 'react-i18next'
 import { public_axios } from 'utils'
 import { TProducts } from 'types/productsAPI.types'
 import { ProductsList } from './components'
@@ -16,6 +17,7 @@ import {
 } from './AdminPanel.styled'
 
 function AdminPanel() {
+  const { t } = useTranslation(['Admin'])
   const [currentPage, setCurrentPage] = useState(1)
   const [searchKeyword, setSearchKeyword] = useState('')
   const itemsPerPage = 25
@@ -53,11 +55,11 @@ function AdminPanel() {
         <div>
           <Input
             type='text'
-            placeholder='Search products...'
+            placeholder={`${t('search')}`}
             onChange={handleOnChange}
           />
         </div>
-        <CreateBtn>Create product</CreateBtn>
+        <CreateBtn>{t('create')}</CreateBtn>
       </Header>
       <UL>
         {isLoading ? (
