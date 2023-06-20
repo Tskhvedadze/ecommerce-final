@@ -2,7 +2,7 @@ import { lazy, Suspense } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { LoadingSpiner } from 'components'
 import { TUser_Roles } from 'types/user.types'
-import { AdminPanelServiceProvider } from 'pages/Admin/provider'
+import { AdminProviders } from 'pages/Admin/provider'
 
 import ProtectedRoutes from 'routes'
 import MainLayout from 'layout'
@@ -61,9 +61,9 @@ const App = () => {
             <Route
               path='admin-panel'
               element={
-                <AdminPanelServiceProvider>
+                <AdminProviders>
                   <Admin />
-                </AdminPanelServiceProvider>
+                </AdminProviders>
               }
             />
           </Route>

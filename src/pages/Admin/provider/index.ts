@@ -1,1 +1,1 @@
-export { AdminPanelServiceProvider } from './AdminPanelService/AdminPanelServiceProvider'
+export { AdminProviders } from './AdminProviders'

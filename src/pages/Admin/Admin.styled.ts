@@ -24,7 +24,7 @@ export const CreateBtn = styled.button`
 `
 
 export const UL = styled.ul`
-  ${tw`w-[95%]  flex flex-col items-center max-h-[77vh] overflow-y-auto`}
+  ${tw`w-[95%] flex flex-col items-center max-h-[77vh] overflow-y-auto`}
 `
 
 export const ErrorMsg = styled.h1`
@@ -36,5 +36,5 @@ export const Spinner = styled(Spin)`
 `
 
 export const StyledPagination = styled(Pagination)`
-  ${tw`mt-2 mb-1 `}
+  ${tw`mt-2 mb-1`}
 `
