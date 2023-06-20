@@ -51,7 +51,7 @@ export const Dropdown = () => {
                 </li>
               )}
               <li>
-                <StyledLink to={'/profile'}>{t('settings')}</StyledLink>
+                <StyledLink to={'/settings'}>{t('settings')}</StyledLink>
               </li>
             </StyledUl>
             <div className='py-2'>

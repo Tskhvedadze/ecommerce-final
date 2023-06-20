@@ -1,4 +1,6 @@
 import { NavLink } from 'react-router-dom'
+import { EyeIcon } from '@heroicons/react/24/outline'
+
 import styled from 'styled-components'
 import tw from 'twin.macro'
 
@@ -28,4 +30,8 @@ export const EditBtn = styled(NavLink)`
 
 export const DeleteBtn = styled.button`
   ${tw`border py-1 px-2 border-red-400 rounded-lg hover:bg-red-100 focus:ring-2 ring-red-200 text-gray-800 transition-all duration-300 ease-in-out`}
+`
+
+export const Eye = styled(EyeIcon)`
+  ${tw` w-5 h-5 cursor-pointer text-green-300 transition-all duration-300 transform hover:text-green-400 hover:scale-[1.50] hover:duration-300`}
 `

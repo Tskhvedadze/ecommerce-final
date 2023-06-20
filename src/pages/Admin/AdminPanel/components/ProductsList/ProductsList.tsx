@@ -1,4 +1,12 @@
-import { List, Img, Content, EditBtn, DeleteBtn } from './ProductsList.styled'
+import { NavLink } from 'react-router-dom'
+import {
+  List,
+  Img,
+  Content,
+  EditBtn,
+  DeleteBtn,
+  Eye,
+} from './ProductsList.styled'
 
 type ProductsListProps = {
   id: number
@@ -30,7 +38,12 @@ export const ProductsList = ({
         </Content>
       </div>
       <div>
-        <div className='mr-2'>
+        <div>
+          <NavLink to={`/products/${id}`} target='blank'>
+            <Eye />
+          </NavLink>
+        </div>
+        <div className='mx-1.5'>
           <EditBtn to={`edit/${id}`}>Edit</EditBtn>
         </div>
         <div>

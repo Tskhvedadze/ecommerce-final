@@ -8,7 +8,7 @@ type ProtectedRoutesProps = {
   roles: TUser_Roles[]
 }
 
-function ProtectedRoutes({ roles }: PropsWithChildren<ProtectedRoutesProps>) {
+function Protected({ roles }: PropsWithChildren<ProtectedRoutesProps>) {
   const { pending, currentRole } = useRoleContext()
 
   if (pending) return <LoadingSpiner />
@@ -20,4 +20,4 @@ function ProtectedRoutes({ roles }: PropsWithChildren<ProtectedRoutesProps>) {
   )
 }
 
-export default ProtectedRoutes
+export default Protected

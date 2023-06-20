@@ -18,7 +18,7 @@ import {
 function AdminPanel() {
   const [currentPage, setCurrentPage] = useState(1)
   const [searchKeyword, setSearchKeyword] = useState('')
-  const itemsPerPage = 20
+  const itemsPerPage = 25
   const skip = (currentPage - 1) * itemsPerPage
 
   const handlePageClick = useCallback((page: number) => {
