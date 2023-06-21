@@ -1,20 +1,47 @@
-import styled from 'styled-components'
+import { ErrorMessage } from 'formik'
+
+import styled, { css } from 'styled-components'
 import tw from 'twin.macro'
 
-export const Input = styled.input`
-  ${tw`bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg focus:ring-primary-100 focus:border-primary-100 block w-full outline-blue-100 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white  `}
+type InputProps = {
+  errors: boolean
+  touched: boolean
+}
+
+export const Input = styled.input<InputProps>`
+  ${tw`bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg hover:border-blue-200 focus:border-blue-200 block w-full outline-none p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white  `}
+
+  ${({ errors, touched }) =>
+    errors &&
+    touched &&
+    css`
+      ${tw`border-red-300 hover:border-red-300 focus:border-red-300`};
+    `}
 `
 
 export const Label = styled.label`
-  ${tw`my-2 font-medium text-gray-900 dark:text-white`}
+  ${tw`my-2 text-sm font-medium text-gray-900 dark:text-white`}
+`
+export const ErrorMsg = styled(ErrorMessage)`
+  ${tw`my-2 text-sm font-medium text-red-400`}
 `
 
 export const BrandLable = styled.label`
-  ${tw`mb-2 font-medium text-gray-900 dark:text-white`}
+  ${tw`mb-2 text-sm font-medium text-gray-900 dark:text-white`}
+`
+export const BrandError = styled(ErrorMessage)`
+  ${tw`mb-2  text-sm font-medium text-red-400`}
 `
 
-export const TextArea = styled.textarea`
-  ${tw` p-2.5 w-full  h-56 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 outline-blue-100 `}
+export const TextArea = styled.textarea<InputProps>`
+  ${tw` p-2.5 w-full  h-56 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 hover:border-blue-200 focus:border-blue-200  dark:bg-gray-700 dark:border-gray-600 outline-none `}
+
+  ${({ errors, touched }) =>
+    errors &&
+    touched &&
+    css`
+      ${tw`border-red-300 hover:border-red-300 focus:border-red-300`};
+    `}
 `
 
 export const Btn = styled.button`
@@ -26,5 +53,5 @@ export const FlexCol = styled.div`
 `
 
 export const FlexJustify = styled.div`
-  ${tw`flex justify-between`}
+  ${tw`flex flex-col justify-between md:flex-row`}
 `

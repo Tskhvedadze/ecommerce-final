@@ -1,14 +1,19 @@
 import { useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
+import { useTranslation } from 'react-i18next'
 import { Formik, Field, Form } from 'formik'
 import { Spin, message } from 'antd'
 import { private_axios } from 'utils/axios/private_axios'
+
+import { validationSchema } from '../../../Schema/CRUDValidationSchema'
 import { TImages } from '../../../types/images.type'
 import { TFormInitial } from '../../../types/form.types'
 
 import {
+  BrandError,
   BrandLable,
   Btn,
+  ErrorMsg,
   FlexCol,
   FlexJustify,
   Input,
@@ -21,19 +26,20 @@ type EditFormProps = {
 } & TFormInitial
 
 export const EditForm = ({ imageList, ...formInitial }: EditFormProps) => {
+  const { t } = useTranslation(['Admin'])
   const queryClient = useQueryClient()
-  const [isLoading, setIsLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
 
-  const { mutateAsync } = useMutation(signUp)
+  const { mutateAsync } = useMutation(updateProduct)
 
-  async function signUp(values: TFormInitial) {
+  async function updateProduct(values: TFormInitial) {
     try {
       await private_axios.put(`/product/${formInitial.id}`, values)
-      message.success(`${'successfully'}`)
+      message.success(`${t('successfully')}`)
 
       queryClient.invalidateQueries()
     } catch (error: any) {
-      message.error(`${'error_occurred'}`)
+      message.error(`${t('error_occurred')}`)
     }
   }
 
@@ -42,52 +48,131 @@ export const EditForm = ({ imageList, ...formInitial }: EditFormProps) => {
       ...values,
       images: imageList?.flatMap((item: TImages) => item.images),
     }
-    setIsLoading(true)
-    // Delay the execution using setTimeout
+    setLoading(true)
     await new Promise((resolve) => setTimeout(resolve, 3000))
-
     await mutateAsync(updatedValues)
-
-    setIsLoading(false)
+    setLoading(false)
   }
 
   return (
-    <Formik initialValues={formInitial} onSubmit={handleSubmit}>
-      <Form>
-        <FlexCol>
-          <BrandLable htmlFor='brand'>Brand</BrandLable>
-          <Field type='text' id='brand' name='brand' as={Input} />
-        </FlexCol>
-        <FlexCol>
-          <Label htmlFor='title'>Model</Label>
-          <Field type='text' id='title' name='title' as={Input} />
-        </FlexCol>
-        <FlexJustify>
-          <FlexCol className='mr-2'>
-            <Label htmlFor='amount'>Amount</Label>
-            <Field type='text' id='amount' name='amount' as={Input} />
-          </FlexCol>
-          <FlexCol className='mr-2'>
-            <Label htmlFor='rating'>Rating</Label>
-            <Field type='text' id='rating' name='rating' as={Input} />
+    <Formik
+      initialValues={formInitial}
+      onSubmit={handleSubmit}
+      validationSchema={validationSchema(t)}
+    >
+      {({ errors, touched }) => (
+        <Form>
+          <FlexCol>
+            {errors.brand && touched.brand ? (
+              <BrandError name='brand' component='span' />
+            ) : (
+              <BrandLable htmlFor='brand'>{t('brand')}</BrandLable>
+            )}
+            <Field
+              type='text'
+              id='brand'
+              name='brand'
+              as={Input}
+              errors={errors.brand}
+              touched={touched.brand}
+            />
           </FlexCol>
           <FlexCol>
-            <Label htmlFor='price'>Price</Label>
-            <Field type='text' id='price' name='price' as={Input} />
+            {errors.title && touched.title ? (
+              <ErrorMsg name='title' component='span' />
+            ) : (
+              <Label htmlFor='title'>{t('model')}</Label>
+            )}
+            <Field
+              type='text'
+              id='title'
+              name='title'
+              as={Input}
+              errors={errors.title}
+              touched={touched.title}
+            />
           </FlexCol>
-        </FlexJustify>
-        <FlexCol>
-          <Label htmlFor='category'>Category</Label>
-          <Field type='text' id='category' name='category' as={Input} />
-        </FlexCol>
-        <FlexCol>
-          <Label htmlFor='description'>Description</Label>
-          <Field as={TextArea} id='description' name='description' />
-        </FlexCol>
-        <Btn type='submit'>
-          {isLoading ? <Spin size='default' /> : `${'Submit'}`}
-        </Btn>
-      </Form>
+          <FlexJustify>
+            <FlexCol className='mr-0 md:mr-2'>
+              {errors.amount && touched.amount ? (
+                <ErrorMsg name='amount' component='span' />
+              ) : (
+                <Label htmlFor='amount'>{t('amount')}</Label>
+              )}
+              <Field
+                type='text'
+                id='amount'
+                name='amount'
+                as={Input}
+                errors={errors.amount}
+                touched={touched.amount}
+              />
+            </FlexCol>
+            <FlexCol className='mr-0 md:mr-2'>
+              {errors.rating && touched.rating ? (
+                <ErrorMsg name='rating' component='span' />
+              ) : (
+                <Label htmlFor='rating'>{t('rating')}</Label>
+              )}
+              <Field
+                type='text'
+                id='rating'
+                name='rating'
+                as={Input}
+                errors={errors.rating}
+                touched={touched.rating}
+              />
+            </FlexCol>
+            <FlexCol>
+              {errors.price && touched.price ? (
+                <ErrorMsg name='price' component='span' />
+              ) : (
+                <Label htmlFor='price'>{t('price')}</Label>
+              )}
+              <Field
+                type='text'
+                id='price'
+                name='price'
+                as={Input}
+                errors={errors.price}
+                touched={touched.price}
+              />
+            </FlexCol>
+          </FlexJustify>
+          <FlexCol>
+            {errors.category && touched.category ? (
+              <ErrorMsg name='category' component='span' />
+            ) : (
+              <Label htmlFor='category'>{t('category')}</Label>
+            )}
+            <Field
+              type='text'
+              id='category'
+              name='category'
+              as={Input}
+              errors={errors.category}
+              touched={touched.category}
+            />
+          </FlexCol>
+          <FlexCol>
+            {errors.description && touched.description ? (
+              <ErrorMsg name='description' component='span' />
+            ) : (
+              <Label htmlFor='description'>{t('description')}</Label>
+            )}
+            <Field
+              id='description'
+              name='description'
+              as={TextArea}
+              errors={errors.description}
+              touched={touched.description}
+            />
+          </FlexCol>
+          <Btn type='submit'>
+            {loading ? <Spin size='default' /> : `${t('save')}`}
+          </Btn>
+        </Form>
+      )}
     </Formik>
   )
 }

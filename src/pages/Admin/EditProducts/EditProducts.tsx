@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
+import { useTranslation } from 'react-i18next'
 import { v4 as uuidv4 } from 'uuid'
-import { Button, Upload } from 'antd'
+import { Upload } from 'antd'
 import { UploadOutlined } from '@ant-design/icons'
 
 import { ErrorMsg } from 'components'
@@ -18,9 +19,11 @@ import {
   ImagesGridContainer,
   MainContainer,
   UploadContainer,
+  AntdBtn,
 } from './EditProducts.styled'
 
 function EditProducts() {
+  const { t } = useTranslation(['Admin'])
   const { editID } = useParams()
 
   const { status, data, error, isError } = useQuery({
@@ -76,7 +79,7 @@ function EditProducts() {
         </ImagesGridContainer>
 
         <Upload beforeUpload={handleFileChange} showUploadList={false}>
-          <Button icon={<UploadOutlined />}>Select Image</Button>
+          <AntdBtn icon={<UploadOutlined />}>{t('select')}</AntdBtn>
         </Upload>
       </UploadContainer>
     </MainContainer>

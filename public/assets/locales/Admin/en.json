@@ -3,7 +3,36 @@
   "search": "Search products...",
   "brand": "Brand",
   "price": "Price",
+  "model": "Model",
+  "amount": "Amount",
+  "rating": "Rating",
+  "category": "Category",
+  "description": "Description",
   "edit": "Edit",
   "remove": "Remove",
-  "currency": "USD"
+  "currency": "USD",
+
+  "select": "Select Image",
+  "save": "Save and update",
+
+  "successfully": "The product has been updated successfully",
+  "error_occurred": "Product update failed, please try again",
+
+  "brand_required": "Brand is required",
+  "model_required": "Model is required",
+  "amount_must_be": "Amount must be a number",
+  "amount_must_positive": "Amount must be a positive number",
+  "amount_required": "Amount is required",
+
+  "rating_must_be": "Rating must be a number",
+  "rating_at_least": "Rating must be at least 0",
+  "rating_at_most": "Rating must be at most 5",
+  "rating_required": "Rating is required",
+
+  "price_must_be": "Price must be a number",
+  "price_must_be_positive": "Price must be a positive number",
+  "price_required": "Price is required",
+
+  "category_required": "Category is required",
+  "description_required": "Description is required"
 }

@@ -1,4 +1,4 @@
-import { Image } from 'antd'
+import { Image, Button } from 'antd'
 import { TrashIcon } from '@heroicons/react/24/solid'
 
 import styled from 'styled-components'
@@ -26,4 +26,8 @@ export const DeleteIcon = styled(TrashIcon)`
 `
 export const AntdImg = styled(Image)`
   ${tw`border rounded border-gray-300 `}
+`
+
+export const AntdBtn = styled(Button)`
+  ${tw`flex items-center`}
 `
