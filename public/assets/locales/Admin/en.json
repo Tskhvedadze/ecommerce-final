@@ -34,5 +34,11 @@
   "price_required": "Price is required",
 
   "category_required": "Category is required",
-  "description_required": "Description is required"
+  "description_required": "Description is required",
+
+  "you_want": "Do you want to delete these items?",
+  "yes": "Yes",
+  "no": "No",
+  "success": "Product Deleted Successfully",
+  "could_not": "Could not delete product, please try again"
 }
