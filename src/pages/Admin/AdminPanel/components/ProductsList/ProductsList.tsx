@@ -46,7 +46,7 @@ export const ProductsList = ({
       </div>
       <div>
         <div>
-          <NavLink to={`/products/${id}`} target='blank'>
+          <NavLink to={`/products/${id}`} target='_blank'>
             <Eye />
           </NavLink>
         </div>
