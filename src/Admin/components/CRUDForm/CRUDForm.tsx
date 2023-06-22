@@ -1,10 +1,10 @@
-import { Dispatch, SetStateAction, useState } from 'react'
+import { SetStateAction, useState } from 'react'
 import { useMutation } from 'react-query'
 import { useTranslation } from 'react-i18next'
 import { Formik, Field, Form, FormikHelpers } from 'formik'
 import { Spin } from 'antd'
 
-import { validationSchema } from '../../Schema/CRUDValidationSchema'
+import { validationSchema } from 'Admin/schema/CRUDValidationSchema'
 import { TImages } from '../../types/images.type'
 import { TFormInitial } from '../../types/form.types'
 

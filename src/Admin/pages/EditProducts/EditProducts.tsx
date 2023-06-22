@@ -6,11 +6,11 @@ import { v4 as uuidv4 } from 'uuid'
 import { message } from 'antd'
 
 import { ErrorMsg } from 'components'
-import { CRUDForm, ImageUploader } from '../components'
+import { CRUDForm, ImageUploader } from '../../components'
 import { private_axios } from 'utils/axios/private_axios'
-import { TFormInitial } from '../types/form.types'
+import { TFormInitial } from '../../types/form.types'
 import { public_axios } from 'utils'
-import { TImages } from '../types/images.type'
+import { TImages } from '../../types/images.type'
 
 import {
   EditFormContainer,

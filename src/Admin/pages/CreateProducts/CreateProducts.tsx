@@ -2,10 +2,10 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useQueryClient } from 'react-query'
 import { message } from 'antd'
-import { CRUDForm, ImageUploader } from '../components'
+import { CRUDForm, ImageUploader } from '../../components'
 import { private_axios } from 'utils/axios/private_axios'
-import { TFormInitial } from '../types/form.types'
-import { TImages } from '../types/images.type'
+import { TFormInitial } from '../../types/form.types'
+import { TImages } from '../../types/images.type'
 
 import {
   MainContainer,
@@ -22,7 +22,6 @@ function CreateProducts() {
     try {
       await private_axios.post('/product', values)
       message.success(`${t('successfully_create')}`)
-
       queryClient.invalidateQueries()
     } catch (error: any) {
       message.error(`${t('error_occurred_create')}`)

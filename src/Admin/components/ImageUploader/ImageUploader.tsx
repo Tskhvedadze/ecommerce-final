@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { v4 as uuidv4 } from 'uuid'
 import { Upload } from 'antd'
 import { UploadOutlined } from '@ant-design/icons'
-import { TImages } from 'pages/Admin/types/images.type'
+import { TImages } from 'Admin/types/images.type'
 
 import {
   ImagesGridContainer,

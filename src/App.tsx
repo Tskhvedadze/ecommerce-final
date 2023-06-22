@@ -19,9 +19,9 @@ const SignIn = lazy(() => import('pages/SignIn'))
 const Settings = lazy(() => import('pages/User'))
 const Checkout = lazy(() => import('pages/Checkout'))
 
-const AdminPanel = lazy(() => import('pages/Admin/AdminPanel'))
-const EditProducts = lazy(() => import('pages/Admin/EditProducts'))
-const CreateProducts = lazy(() => import('pages/Admin/CreateProducts'))
+const AdminPanel = lazy(() => import('Admin/pages/AdminPanel'))
+const EditProducts = lazy(() => import('Admin/pages/EditProducts'))
+const CreateProducts = lazy(() => import('Admin/pages/CreateProducts'))
 
 const App = () => {
   return (
