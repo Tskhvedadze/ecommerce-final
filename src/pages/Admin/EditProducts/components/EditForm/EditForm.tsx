@@ -49,7 +49,7 @@ export const EditForm = ({ imageList, ...formInitial }: EditFormProps) => {
       images: imageList?.flatMap((item: TImages) => item.images),
     }
     setLoading(true)
-    await new Promise((resolve) => setTimeout(resolve, 3000))
+    await new Promise((resolve) => setTimeout(resolve, 2000))
     await mutateAsync(updatedValues)
     setLoading(false)
   }

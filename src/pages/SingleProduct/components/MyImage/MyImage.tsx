@@ -23,6 +23,8 @@ export const MyImage = ({ images, brand }: MyImageProps) => {
       <StyledPrimaryImage
         src={mainImage}
         alt={brand}
+        width={345}
+        height={345}
         suppressHydrationWarning
       />
       <InnerFlexContainer>
