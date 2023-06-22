@@ -1,11 +1,13 @@
 import { PropsWithChildren } from 'react'
 import { QueryClient } from 'react-query'
 import { QueryClientProvider } from 'react-query'
+import { ThemeProvider } from '@material-tailwind/react'
 
 import { ContactFormProvider } from './ContactFormProvider/ContactFormProvider'
 import { CartProvider } from './CartProvider/CartProvider'
 import { SearchBarProvider } from './SearchBarProvider/SearchBarProvider'
 import { AuthProvider } from './authProvider/authProvider'
+import { RoleProvider } from './RoleProvider/RoleProvider'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,7 +27,11 @@ const Providers = ({ children }: PropsWithChildren) => {
       <AuthProvider>
         <ContactFormProvider>
           <CartProvider>
-            <SearchBarProvider>{children}</SearchBarProvider>
+            <SearchBarProvider>
+              <RoleProvider>
+                <ThemeProvider>{children}</ThemeProvider>
+              </RoleProvider>
+            </SearchBarProvider>
           </CartProvider>
         </ContactFormProvider>
       </AuthProvider>

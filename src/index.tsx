@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
-import App from 'App'
 import Providers from 'providers'
-
 import 'config/i18next/i18n'
+
+import App from 'App'
 import 'assets/styles/global.tailwind.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)

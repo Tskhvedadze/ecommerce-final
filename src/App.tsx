@@ -1,22 +1,29 @@
 import { lazy, Suspense } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
-import { PrivateProvider } from 'providers'
 import { LoadingSpiner } from 'components'
 import { TUser_Roles } from 'types/user.types'
 
-import ProtectedRoutes from 'routes'
+import Protected from 'routes'
 import MainLayout from 'layout'
 import SecondaryLayout from 'secondaryLayout'
 
-const Profile = lazy(() => import('pages/User'))
 const Home = lazy(() => import('pages/Home'))
+const Contact = lazy(() => import('pages/Contact'))
 const Products = lazy(() => import('pages/Products'))
 const SingleProduct = lazy(() => import('pages/SingleProduct'))
-const Contact = lazy(() => import('pages/Contact'))
 const Search = lazy(() => import('pages/Search'))
+
 const SignUp = lazy(() => import('pages/SignUp'))
 const SignIn = lazy(() => import('pages/SignIn'))
+
+// User Pages
+const Settings = lazy(() => import('pages/User'))
 const Checkout = lazy(() => import('pages/Checkout'))
+
+// Admin Panel
+const AdminPanel = lazy(() => import('Admin/pages/AdminPanel'))
+const EditProducts = lazy(() => import('Admin/pages/EditProducts'))
+const CreateProducts = lazy(() => import('Admin/pages/CreateProducts'))
 
 const App = () => {
   return (
@@ -34,29 +41,29 @@ const App = () => {
         </Route>
 
         {/* Protected Routes */}
-        <Route
-          element={
-            <PrivateProvider>
-              <ProtectedRoutes roles={[TUser_Roles.GUEST]} />
-            </PrivateProvider>
-          }
-        >
+        <Route element={<Protected roles={[TUser_Roles.GUEST]} />}>
           <Route element={<SecondaryLayout />}>
             <Route path='SignUp' element={<SignUp />} />
             <Route path='SignIn' element={<SignIn />} />
           </Route>
         </Route>
 
+        {/* User Pages */}
         <Route
-          element={
-            <PrivateProvider>
-              <ProtectedRoutes roles={[TUser_Roles.USER]} />
-            </PrivateProvider>
-          }
+          element={<Protected roles={[TUser_Roles.USER, TUser_Roles.ADMIN]} />}
         >
           <Route element={<SecondaryLayout />}>
-            <Route path='profile' element={<Profile />} />
+            <Route path='settings' element={<Settings />} />
             <Route path='checkout' element={<Checkout />} />
+          </Route>
+        </Route>
+
+        {/* Admin Panel */}
+        <Route element={<Protected roles={[TUser_Roles.ADMIN]} />}>
+          <Route element={<SecondaryLayout />}>
+            <Route path='admin-panel' element={<AdminPanel />} />
+            <Route path='admin-panel/edit/:editID' element={<EditProducts />} />
+            <Route path='admin-panel/create' element={<CreateProducts />} />
           </Route>
         </Route>
 

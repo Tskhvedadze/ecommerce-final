@@ -16,7 +16,4 @@ export {
   useAuthContext,
 } from './AuthContext/AuthContext'
 
-export {
-  PrivateContext,
-  usePrivateContext,
-} from './PrivateContext/PrivateContext'
+export { RoleContext, useRoleContext } from './RoleContext/RoleContext'

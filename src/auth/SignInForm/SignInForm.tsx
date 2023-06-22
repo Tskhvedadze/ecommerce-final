@@ -3,10 +3,12 @@ import { useMutation } from 'react-query'
 import { useTranslation } from 'react-i18next'
 import { Formik, Form, ErrorMessage, Field } from 'formik'
 import { validationSchema } from './schema/SignInValidationSchema'
-import { TAuthorizationStage, useAuthContext } from 'context'
+import { TAuthorizationStage, useAuthContext, useRoleContext } from 'context'
+import jwt_decode from 'jwt-decode'
 
 import { public_axios } from 'utils'
 import { TLocalStorage } from 'types/localestorage'
+import { TUser_Roles } from 'types/user.types'
 
 import { message } from 'antd'
 import { Button, Label, Input } from 'components'
@@ -21,6 +23,7 @@ export const SignInForm = () => {
   const schema = validationSchema(t)
   const navigate = useNavigate()
   const { setStatus } = useAuthContext()
+  const { setCurrentRole } = useRoleContext()
 
   const { mutateAsync } = useMutation(
     ['SignIn'],
@@ -33,6 +36,15 @@ export const SignInForm = () => {
         if (res?.data.AccessToken) {
           localStorage.setItem(TLocalStorage.ACCESSTOKEN, res?.data.AccessToken)
           setStatus(TAuthorizationStage.AUTHORIZED)
+
+          const { isAdmin }: { isAdmin: boolean } = jwt_decode(
+            res?.data.AccessToken,
+          )
+          if (isAdmin) {
+            setCurrentRole(TUser_Roles.ADMIN)
+          } else {
+            setCurrentRole(TUser_Roles.USER)
+          }
         }
 
         message.success('Welcome back!')

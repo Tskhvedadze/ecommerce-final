@@ -1,71 +1,68 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { useCartContext } from 'context'
 import { TAuthorizationStage, useAuthContext } from 'context'
-import { useHandleLogout, getGreeting } from './helper/NavBarHelpers'
 
-import { Cart, CartDropdown, UserDropdown, SearchBar } from './components'
-import { LanguageSwitcher } from 'components'
+import { Cart, CartDrawer, Dropdown, SearchBar } from './components'
+import { LanguageSelect } from 'components'
 
 import {
-    FlexLayout,
-    DivLayout,
-    ContentLayout,
-    StyledLink,
-    Greeting,
-    AuthContainer,
+  FlexLayout,
+  DivLayout,
+  ContentLayout,
+  StyledLink,
+  Greeting,
+  AuthContainer,
+  User,
+  Guest,
 } from './NavBar.styled'
 
 import amazon from 'assets/images/amazon.png'
 
 function NavBar() {
-    const { t } = useTranslation(['navbar'])
-    const { isCartOpen } = useCartContext()
-    const { status, setStatus, data } = useAuthContext()
-    const handleLogout = useHandleLogout(setStatus)
-    const greeting = getGreeting(data)
+  const { t } = useTranslation(['navbar'])
+  const { status, data } = useAuthContext()
 
-    return (
-        <FlexLayout>
-            <ContentLayout>
-                <Link to={'/'}>
-                    <img width={90} height={35} src={amazon} alt='eshop' />
-                </Link>
-            </ContentLayout>
+  return (
+    <FlexLayout>
+      <ContentLayout>
+        <Link to={'/'}>
+          <img width={90} height={35} src={amazon} alt='amazon_logo' />
+        </Link>
+      </ContentLayout>
 
-            <ContentLayout>
-                <DivLayout>
-                    <Greeting>
-                        {t('hello')}
-                        {greeting}
-                    </Greeting>
-                </DivLayout>
-                <DivLayout>
-                    <StyledLink to='contact-us'>{t('Contact_us')}</StyledLink>
-                </DivLayout>
-            </ContentLayout>
-            <SearchBar />
-            <ContentLayout>
-                <DivLayout>
-                    <LanguageSwitcher />
-                </DivLayout>
-                <DivLayout>
-                    <AuthContainer>
-                        {status === TAuthorizationStage.AUTHORIZED ? (
-                            <UserDropdown handleLogout={handleLogout} />
-                        ) : (
-                            <>
-                                <StyledLink to='SignIn'>{t('in')}</StyledLink>
-                                <StyledLink to='SignUp'>{t('up')}</StyledLink>
-                            </>
-                        )}
-                    </AuthContainer>
-                </DivLayout>
-                <Cart />
-                {isCartOpen && <CartDropdown />}
-            </ContentLayout>
-        </FlexLayout>
-    )
+      <ContentLayout>
+        <DivLayout>
+          <Greeting>
+            {t('hello')}
+            {data ? <User>{data?.firstName}</User> : <Guest>Guest</Guest>}
+          </Greeting>
+        </DivLayout>
+        <DivLayout>
+          <StyledLink to='contact-us'>{t('Contact_us')}</StyledLink>
+        </DivLayout>
+      </ContentLayout>
+      <SearchBar />
+      <ContentLayout>
+        <DivLayout>
+          <LanguageSelect status='warning' />
+        </DivLayout>
+        <DivLayout>
+          <AuthContainer>
+            {status === TAuthorizationStage.AUTHORIZED ? (
+              <Dropdown />
+            ) : (
+              <>
+                <StyledLink to='SignIn'>{t('in')}</StyledLink>
+                <StyledLink to='SignUp'>{t('up')}</StyledLink>
+              </>
+            )}
+          </AuthContainer>
+        </DivLayout>
+        <Cart />
+        <CartDrawer />
+      </ContentLayout>
+    </FlexLayout>
+  )
 }
 
 export default NavBar

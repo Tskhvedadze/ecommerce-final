@@ -7,18 +7,18 @@ import Footer from './Footer/Footer'
 import { ContentLayout, Overlay } from './MainLayout.styled'
 
 function MainLayout() {
-    const { setIsFocused, isFocused } = useSearchBarContext()
+  const { setIsFocused, isFocused } = useSearchBarContext()
 
-    return (
-        <>
-            {isFocused && <Overlay onMouseDown={() => setIsFocused(false)} />}
-            <NavBar />
-            <ContentLayout>
-                <Outlet />
-            </ContentLayout>
-            <Footer />
-        </>
-    )
+  return (
+    <>
+      {isFocused && <Overlay onMouseDown={() => setIsFocused(false)} />}
+      <NavBar />
+      <ContentLayout>
+        <Outlet />
+      </ContentLayout>
+      <Footer />
+    </>
+  )
 }
 
 export default MainLayout

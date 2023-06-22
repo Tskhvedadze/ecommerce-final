@@ -11,12 +11,14 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   )
 
   const { data } = useQuery({
-    queryKey: ['userProfile', status, setStatus],
+    queryKey: ['userProfile', status],
     queryFn: async () => {
       const res = await private_axios.get('/me')
       return res?.data
     },
     enabled: status === TAuthorizationStage.AUTHORIZED,
+    cacheTime: 0,
+    staleTime: 0,
     onError: (error: any) => {
       message.error(error?.message)
     },

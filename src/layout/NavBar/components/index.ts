@@ -1,5 +1,5 @@
 export { Cart } from './Cart/Cart'
-export { CartDropdown } from './CartDropdown/CartDropdown'
+export { CartDrawer } from './CartDrawer/CartDrawer'
 export { CartItem } from './CartItem/CartItem'
-export { UserDropdown } from './UserDropdown/UserDropdown'
+export { Dropdown } from './Dropdown/Dropdown'
 export { SearchBar } from './SearchBar/SearchBar'

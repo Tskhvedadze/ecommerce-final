@@ -1,7 +1,13 @@
-import { SwiperSlide } from 'swiper/react'
-import { Navigation, Autoplay } from 'swiper'
+import {
+  IconButton,
+  Carousel as TailwindCarousel,
+} from '@material-tailwind/react'
 
-import { CarouselSwiper, CarouselImage } from './Carousel.styled'
+import {
+  ChevronDoubleLeftIcon,
+  ChevronDoubleRightIcon,
+} from '@heroicons/react/24/outline'
+import { CarouselImage } from './Carousel.styled'
 
 import banner_1 from 'assets/images/bannerImgOne.jpg'
 import banner_2 from 'assets/images/bannerImgTwo.jpg'
@@ -15,34 +21,68 @@ import banner_9 from 'assets/images/Banner_5.jpg'
 import banner_10 from 'assets/images/Banner_6.jpg'
 
 const banners = [
-    banner_1,
-    banner_2,
-    banner_3,
-    banner_4,
-    banner_5,
-    banner_6,
-    banner_7,
-    banner_8,
-    banner_9,
-    banner_10,
+  banner_1,
+  banner_2,
+  banner_3,
+  banner_4,
+  banner_5,
+  banner_6,
+  banner_7,
+  banner_8,
+  banner_9,
+  banner_10,
 ]
 
 export const Carousel = () => {
-    return (
-        <CarouselSwiper
-            loop={true}
-            spaceBetween={0}
-            modules={[Navigation, Autoplay]}
-            autoplay={{
-                delay: 4000,
-            }}
-            navigation={true}
+  return (
+    <TailwindCarousel
+      autoplay
+      loop={true}
+      draggable={true}
+      transition={{ duration: 2 }}
+      navigation={({ setActiveIndex, activeIndex, length }) => (
+        <div className='absolute bottom-3 left-2/4 z-40 flex -translate-x-2/4 gap-3'>
+          {new Array(length).fill('').map((_, i) => (
+            <span
+              key={i}
+              className={`block h-1.5 cursor-pointer rounded-2xl transition-all content-[''] ${
+                activeIndex === i
+                  ? ' bg-amazonclone-yellow w-8'
+                  : ' bg-amazonclone-yellow/50 w-4'
+              }`}
+              onClick={() => setActiveIndex(i)}
+            />
+          ))}
+        </div>
+      )}
+      prevArrow={({ handlePrev }) => (
+        <IconButton
+          variant='text'
+          color='orange'
+          size='lg'
+          onClick={handlePrev}
+          className='!absolute top-2/4 -translate-y-2/4 left-4'
         >
-            {banners.map((banner, index) => (
-                <SwiperSlide key={index}>
-                    <CarouselImage src={banner} alt='banner' />
-                </SwiperSlide>
-            ))}
-        </CarouselSwiper>
-    )
+          <ChevronDoubleLeftIcon strokeWidth={1} className='w-14 h-14' />
+        </IconButton>
+      )}
+      nextArrow={({ handleNext }) => (
+        <IconButton
+          variant='text'
+          color='orange'
+          size='lg'
+          onClick={handleNext}
+          className='!absolute top-2/4 -translate-y-2/4 !right-4'
+        >
+          <ChevronDoubleRightIcon strokeWidth={1} className='w-14 h-14' />
+        </IconButton>
+      )}
+    >
+      {banners.map((banner, index) => (
+        <div key={index}>
+          <CarouselImage src={banner} alt='banner' />
+        </div>
+      ))}
+    </TailwindCarousel>
+  )
 }
