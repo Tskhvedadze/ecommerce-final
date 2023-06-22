@@ -21,6 +21,7 @@ const Checkout = lazy(() => import('pages/Checkout'))
 
 const AdminPanel = lazy(() => import('pages/Admin/AdminPanel'))
 const EditProducts = lazy(() => import('pages/Admin/EditProducts'))
+const CreateProducts = lazy(() => import('pages/Admin/CreateProducts'))
 
 const App = () => {
   return (
@@ -60,6 +61,7 @@ const App = () => {
           <Route element={<SecondaryLayout />}>
             <Route path='admin-panel' element={<AdminPanel />} />
             <Route path='admin-panel/edit/:editID' element={<EditProducts />} />
+            <Route path='admin-panel/create' element={<CreateProducts />} />
           </Route>
         </Route>
 

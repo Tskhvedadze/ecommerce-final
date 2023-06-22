@@ -1,29 +1,26 @@
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { useQuery } from 'react-query'
+import { useQuery, useQueryClient } from 'react-query'
 import { useTranslation } from 'react-i18next'
 import { v4 as uuidv4 } from 'uuid'
-import { Upload } from 'antd'
-import { UploadOutlined } from '@ant-design/icons'
+import { message } from 'antd'
 
 import { ErrorMsg } from 'components'
-import { EditForm } from './components'
+import { CRUDForm, ImageUploader } from '../components'
+import { private_axios } from 'utils/axios/private_axios'
+import { TFormInitial } from '../types/form.types'
 import { public_axios } from 'utils'
 import { TImages } from '../types/images.type'
 
 import {
-  AntdImg,
-  DeleteIcon,
   EditFormContainer,
-  ImageContainer,
-  ImagesGridContainer,
   MainContainer,
   UploadContainer,
-  AntdBtn,
 } from './EditProducts.styled'
 
 function EditProducts() {
   const { t } = useTranslation(['Admin'])
+  const queryClient = useQueryClient()
   const { editID } = useParams()
 
   const { status, data, error, isError } = useQuery({
@@ -39,23 +36,15 @@ function EditProducts() {
     data?.images.map((image: string) => ({ id: uuidv4(), images: [image] })),
   )
 
-  const handleFileChange = (file: Blob) => {
-    const reader = new FileReader()
-    reader.onload = (e: ProgressEvent<FileReader>) => {
-      const fileUrl = e.target?.result
-      if (typeof fileUrl === 'string') {
-        setImageList((prevImagesList) => [
-          ...prevImagesList,
-          { id: uuidv4(), images: [fileUrl] },
-        ])
-      }
-    }
-    reader.readAsDataURL(file)
-  }
+  async function updateProduct(values: TFormInitial) {
+    try {
+      await private_axios.put(`/product/${data?.id}`, values)
+      message.success(`${t('successfully')}`)
 
-  const handleFileDelete = (id: string) => {
-    const updatedList = imageList.filter((item: TImages) => item.id !== id)
-    setImageList(updatedList)
+      queryClient.invalidateQueries()
+    } catch (error: any) {
+      message.error(`${t('error_occurred')}`)
+    }
   }
 
   if (status === 'error' && isError) {
@@ -65,22 +54,14 @@ function EditProducts() {
   return (
     <MainContainer>
       <EditFormContainer>
-        <EditForm imageList={imageList} {...data} />
+        <CRUDForm
+          imageList={imageList}
+          formInitial={data}
+          CRUDProduct={updateProduct}
+        />
       </EditFormContainer>
-
       <UploadContainer>
-        <ImagesGridContainer>
-          {imageList.map((item: TImages) => (
-            <ImageContainer key={item.id}>
-              <AntdImg src={item.images[0]} width={100} height={100} />
-              <DeleteIcon onClick={() => handleFileDelete(item.id)} />
-            </ImageContainer>
-          ))}
-        </ImagesGridContainer>
-
-        <Upload beforeUpload={handleFileChange} showUploadList={false}>
-          <AntdBtn icon={<UploadOutlined />}>{t('select')}</AntdBtn>
-        </Upload>
+        <ImageUploader imageList={imageList} setImageList={setImageList} />
       </UploadContainer>
     </MainContainer>
   )

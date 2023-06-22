@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom'
 import { Spin, Pagination } from 'antd'
 
 import styled from 'styled-components'
@@ -19,7 +20,7 @@ export const Input = styled.input`
   ${tw`w-full p-1.5 rounded-lg border-[1px] text-gray-600 outline-none hover:border-green-300 focus:ring-[1px] focus:ring-green-300 transition-all duration-300 ease-in-out`}
 `
 
-export const CreateBtn = styled.button`
+export const CreateBtn = styled(NavLink)`
   ${tw`border py-1.5 px-3 border-green-400 rounded-lg hover:bg-green-100 focus:ring-2 ring-green-200 text-gray-800 transition-all duration-300 ease-in-out`}
 `
 

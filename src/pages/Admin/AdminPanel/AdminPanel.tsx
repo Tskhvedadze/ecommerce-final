@@ -59,7 +59,7 @@ function AdminPanel() {
             onChange={handleOnChange}
           />
         </div>
-        <CreateBtn>{t('create')}</CreateBtn>
+        <CreateBtn to={'/admin-panel/create'}>{t('create')}</CreateBtn>
       </Header>
       <UL>
         {isLoading ? (

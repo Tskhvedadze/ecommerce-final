@@ -1,10 +1,10 @@
 export type TFormInitial = {
-  id: string
+  id?: string
   title: string
   brand: string
   category: string
   description: string
-  price: number
-  amount: number
-  rating: number
+  price: number | string
+  amount: number | string
+  rating: number | string
 }

@@ -1,13 +1,12 @@
-import { useState } from 'react'
-import { useMutation, useQueryClient } from 'react-query'
+import { Dispatch, SetStateAction, useState } from 'react'
+import { useMutation } from 'react-query'
 import { useTranslation } from 'react-i18next'
-import { Formik, Field, Form } from 'formik'
-import { Spin, message } from 'antd'
-import { private_axios } from 'utils/axios/private_axios'
+import { Formik, Field, Form, FormikHelpers } from 'formik'
+import { Spin } from 'antd'
 
-import { validationSchema } from '../../../Schema/CRUDValidationSchema'
-import { TImages } from '../../../types/images.type'
-import { TFormInitial } from '../../../types/form.types'
+import { validationSchema } from '../../Schema/CRUDValidationSchema'
+import { TImages } from '../../types/images.type'
+import { TFormInitial } from '../../types/form.types'
 
 import {
   BrandError,
@@ -19,31 +18,32 @@ import {
   Input,
   Label,
   TextArea,
-} from './EditForm.styled'
+} from './CRUDForm.styled'
 
-type EditFormProps = {
+type CRUDFormProps = {
   imageList: TImages[]
-} & TFormInitial
+  formInitial: TFormInitial
+  CRUDProduct: (values: TFormInitial) => Promise<void>
+  resetValues?: boolean
+  setImageList?: (value: SetStateAction<TImages[]>) => void
+}
 
-export const EditForm = ({ imageList, ...formInitial }: EditFormProps) => {
+export const CRUDForm = ({
+  imageList,
+  formInitial,
+  CRUDProduct,
+  resetValues,
+  setImageList,
+}: CRUDFormProps) => {
   const { t } = useTranslation(['Admin'])
-  const queryClient = useQueryClient()
   const [loading, setLoading] = useState(false)
 
-  const { mutateAsync } = useMutation(updateProduct)
+  const { mutateAsync } = useMutation(CRUDProduct)
 
-  async function updateProduct(values: TFormInitial) {
-    try {
-      await private_axios.put(`/product/${formInitial.id}`, values)
-      message.success(`${t('successfully')}`)
-
-      queryClient.invalidateQueries()
-    } catch (error: any) {
-      message.error(`${t('error_occurred')}`)
-    }
-  }
-
-  async function handleSubmit(values: TFormInitial) {
+  async function handleSubmit(
+    values: TFormInitial,
+    { resetForm }: FormikHelpers<TFormInitial>,
+  ) {
     const updatedValues = {
       ...values,
       images: imageList?.flatMap((item: TImages) => item.images),
@@ -52,6 +52,12 @@ export const EditForm = ({ imageList, ...formInitial }: EditFormProps) => {
     await new Promise((resolve) => setTimeout(resolve, 2000))
     await mutateAsync(updatedValues)
     setLoading(false)
+    if (resetValues) {
+      resetForm()
+    }
+    if (setImageList) {
+      setImageList([])
+    }
   }
 
   return (

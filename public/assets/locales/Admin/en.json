@@ -17,6 +17,8 @@
 
   "successfully": "The product has been updated successfully",
   "error_occurred": "Product update failed, please try again",
+  "successfully_create": "The product has been created successfully",
+  "error_occurred_create": "Product create failed, please try again",
 
   "brand_required": "Brand is required",
   "model_required": "Model is required",
