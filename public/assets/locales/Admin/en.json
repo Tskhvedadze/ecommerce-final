@@ -13,7 +13,9 @@
   "currency": "USD",
 
   "select": "Select Image",
+  "back": "Back",
   "save": "Save and update",
+  "create_product": "Create a new product",
 
   "successfully": "The product has been updated successfully",
   "error_occurred": "Product update failed, please try again",

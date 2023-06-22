@@ -16,9 +16,11 @@ const Search = lazy(() => import('pages/Search'))
 const SignUp = lazy(() => import('pages/SignUp'))
 const SignIn = lazy(() => import('pages/SignIn'))
 
+// User Pages
 const Settings = lazy(() => import('pages/User'))
 const Checkout = lazy(() => import('pages/Checkout'))
 
+// Admin Panel
 const AdminPanel = lazy(() => import('Admin/pages/AdminPanel'))
 const EditProducts = lazy(() => import('Admin/pages/EditProducts'))
 const CreateProducts = lazy(() => import('Admin/pages/CreateProducts'))

@@ -47,6 +47,7 @@ function CreateProducts() {
           CRUDProduct={createProduct}
           resetValues={true}
           setImageList={setImageList}
+          text={`${t('create_product')}`}
         />
       </CreateFormContainer>
       <UploadContainer>

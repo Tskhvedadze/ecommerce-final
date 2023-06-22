@@ -1,4 +1,5 @@
 import { SetStateAction, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useMutation } from 'react-query'
 import { useTranslation } from 'react-i18next'
 import { Formik, Field, Form, FormikHelpers } from 'formik'
@@ -12,6 +13,8 @@ import {
   BrandError,
   BrandLable,
   Btn,
+  BackBtn,
+  BtnContainer,
   ErrorMsg,
   FlexCol,
   FlexJustify,
@@ -26,6 +29,7 @@ type CRUDFormProps = {
   CRUDProduct: (values: TFormInitial) => Promise<void>
   resetValues?: boolean
   setImageList?: (value: SetStateAction<TImages[]>) => void
+  text: string
 }
 
 export const CRUDForm = ({
@@ -34,10 +38,11 @@ export const CRUDForm = ({
   CRUDProduct,
   resetValues,
   setImageList,
+  text,
 }: CRUDFormProps) => {
   const { t } = useTranslation(['Admin'])
+  const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
-
   const { mutateAsync } = useMutation(CRUDProduct)
 
   async function handleSubmit(
@@ -174,9 +179,12 @@ export const CRUDForm = ({
               touched={touched.description}
             />
           </FlexCol>
-          <Btn type='submit'>
-            {loading ? <Spin size='default' /> : `${t('save')}`}
-          </Btn>
+          <BtnContainer>
+            <BackBtn onClick={() => navigate('/admin-panel')} type='button'>
+              {t('back')}
+            </BackBtn>
+            <Btn type='submit'>{loading ? <Spin size='default' /> : text}</Btn>
+          </BtnContainer>
         </Form>
       )}
     </Formik>

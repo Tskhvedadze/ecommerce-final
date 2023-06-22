@@ -58,6 +58,7 @@ function EditProducts() {
           imageList={imageList}
           formInitial={data}
           CRUDProduct={updateProduct}
+          text={`${t('save')}`}
         />
       </EditFormContainer>
       <UploadContainer>

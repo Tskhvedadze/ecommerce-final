@@ -34,7 +34,7 @@ export const BrandError = styled(ErrorMessage)`
 `
 
 export const TextArea = styled.textarea<InputProps>`
-  ${tw` p-2.5 w-full  h-56 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 hover:border-blue-200 focus:border-blue-200  dark:bg-gray-700 dark:border-gray-600 outline-none `}
+  ${tw` p-2.5 w-full  h-64 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 hover:border-blue-200 focus:border-blue-200  dark:bg-gray-700 dark:border-gray-600 outline-none `}
 
   ${({ errors, touched }) =>
     errors &&
@@ -45,7 +45,15 @@ export const TextArea = styled.textarea<InputProps>`
 `
 
 export const Btn = styled.button`
-  ${tw`w-full items-center text-blue-500 bg-transparent hover:bg-blue-100 focus:ring-2 focus:ring-blue-100 font-medium rounded-lg text-lg px-5 py-3 mt-10 border border-blue-500 dark:bg-transparent dark:hover:bg-blue-100 dark:border-blue-500 focus:outline-none dark:focus:ring-blue-100`}
+  ${tw`w-[60%] items-center text-blue-500 bg-transparent hover:bg-blue-100 focus:ring-2 focus:ring-blue-100 font-medium rounded-lg text-sm md:text-lg px-5 py-3  border border-blue-500 dark:bg-transparent dark:hover:bg-blue-100 dark:border-blue-500 focus:outline-none dark:focus:ring-blue-100`}
+`
+
+export const BackBtn = styled.button`
+  ${tw`w-[35%] items-center text-blue-500 bg-transparent hover:bg-blue-100 focus:ring-2 focus:ring-blue-100 font-medium rounded-lg text-sm md:text-lg px-5 py-3  border border-blue-500 dark:bg-transparent dark:hover:bg-blue-100 dark:border-blue-500 focus:outline-none dark:focus:ring-blue-100`}
+`
+
+export const BtnContainer = styled.div`
+  ${tw`w-full flex justify-between mt-8`}
 `
 
 export const FlexCol = styled.div`
