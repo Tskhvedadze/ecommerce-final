@@ -1,5 +1,6 @@
 import { Navigation } from 'swiper'
 import { StyledSwiper, StyledSlider } from './ProductCardSlider.styled'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 export const ProductCardSlider = ({
   img,
@@ -12,7 +13,13 @@ export const ProductCardSlider = ({
     <StyledSwiper slidesPerView={1} navigation modules={[Navigation]}>
       {img.map((src, i) => (
         <StyledSlider key={i}>
-          <img className='h-[200px]' src={src} alt={brand} />
+          <LazyLoadImage
+            className='h-[200px]'
+            src={src}
+            alt={brand}
+            effect='blur'
+            placeholderSrc={src}
+          />
         </StyledSlider>
       ))}
     </StyledSwiper>

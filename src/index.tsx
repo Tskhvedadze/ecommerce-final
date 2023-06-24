@@ -6,6 +6,7 @@ import 'config/i18next/i18n'
 
 import App from 'App'
 import 'assets/styles/global.tailwind.css'
+import 'react-lazy-load-image-component/src/effects/blur.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
