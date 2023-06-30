@@ -85,12 +85,14 @@ const Content = React.memo(
         <Description>
           <DescriptionLabel>{t('Description')}:</DescriptionLabel>
           {truncatedDescription}
-          <button
-            className='text-blue-400 hover:text-blue-300 text-[16px] ml-2'
-            onClick={() => setShowMore(!showMore)}
-          >
-            {showMore ? `${t('less')}` : `${t('more')}`}
-          </button>
+          {description.length >= 700 && (
+            <button
+              className='text-blue-400 hover:text-blue-300 text-[16px] ml-2'
+              onClick={() => setShowMore(!showMore)}
+            >
+              {showMore ? `${t('less')}` : `${t('more')}`}
+            </button>
+          )}
         </Description>
 
         <AddToCartContainer>

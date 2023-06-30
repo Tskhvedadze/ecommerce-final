@@ -10,11 +10,9 @@ import 'react-lazy-load-image-component/src/effects/blur.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Providers>
-        <App />
-      </Providers>
-    </BrowserRouter>
-  </React.StrictMode>,
+  <BrowserRouter>
+    <Providers>
+      <App />
+    </Providers>
+  </BrowserRouter>,
 )
