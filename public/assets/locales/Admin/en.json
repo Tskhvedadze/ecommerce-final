@@ -13,6 +13,7 @@
   "currency": "USD",
 
   "select": "Select Image",
+  "only_image": "Only photos are allowed to be uploaded!",
   "back": "Back",
   "save": "Save and update",
   "create_product": "Create a new product",

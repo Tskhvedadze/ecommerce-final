@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react'
 import { useTranslation } from 'react-i18next'
 import { v4 as uuidv4 } from 'uuid'
-import { Upload } from 'antd'
+import { Upload, message } from 'antd'
 import { UploadOutlined } from '@ant-design/icons'
 import { TImages } from 'Admin/types/images.type'
 
@@ -24,7 +24,7 @@ export const ImageUploader = ({
 }: ImageUploaderProps) => {
   const { t } = useTranslation(['Admin'])
 
-  const handleFileChange = (file: Blob) => {
+  const handleFileChange = (file: File) => {
     const reader = new FileReader()
     reader.onload = (e: ProgressEvent<FileReader>) => {
       const fileUrl = e.target?.result
@@ -36,6 +36,15 @@ export const ImageUploader = ({
       }
     }
     reader.readAsDataURL(file)
+  }
+
+  const beforeUpload = (file: File) => {
+    if (file.type.startsWith('image/')) {
+      handleFileChange(file)
+    } else {
+      message.warning(t('only_image'))
+    }
+    return false
   }
 
   const handleFileDelete = (id: string) => {
@@ -54,7 +63,7 @@ export const ImageUploader = ({
         ))}
       </ImagesGridContainer>
 
-      <Upload beforeUpload={handleFileChange} showUploadList={false}>
+      <Upload beforeUpload={beforeUpload} showUploadList={false}>
         <AntdBtn icon={<UploadOutlined />}>{t('select')}</AntdBtn>
       </Upload>
     </>
