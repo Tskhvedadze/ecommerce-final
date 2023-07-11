@@ -67,7 +67,7 @@ export const ProductsList = ({
   return (
     <List>
       <div>
-        <Img src={images[0]} alt={brand} />
+        <Img src={images && images[0]} alt={brand} />
         <Content>
           <p>{title}</p>
           <p>

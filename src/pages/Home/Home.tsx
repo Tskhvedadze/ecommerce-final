@@ -68,7 +68,7 @@ function Home() {
       </ProductPageHeaderContainer>
 
       <ProductCardGridContainer>
-        {!isError &&
+        {data &&
           data?.products.map((product: TProducts) => productCard(product))}
       </ProductCardGridContainer>
 

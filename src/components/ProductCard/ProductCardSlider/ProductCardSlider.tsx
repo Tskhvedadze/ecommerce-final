@@ -11,7 +11,7 @@ export const ProductCardSlider = ({
 }) => {
   return (
     <StyledSwiper slidesPerView={1} navigation modules={[Navigation]}>
-      {img.map((src, i) => (
+      {img?.map((src, i) => (
         <StyledSlider key={i}>
           <LazyLoadImage
             className='h-[200px]'
