@@ -1,38 +1,38 @@
-import { PropsWithChildren, useEffect, useState } from 'react'
-import { useQuery } from 'react-query'
-import { message } from 'antd'
-import { private_axios } from 'utils/axios/private_axios'
-import { AuthContext, TAuthorizationStage } from 'context'
-import { TLocalStorage } from 'types/localestorage'
+import { PropsWithChildren, useEffect, useState } from "react";
+import { useQuery } from "react-query";
+import { message } from "antd";
+import { private_axios } from "utils/axios/private_axios";
+import { AuthContext, TAuthorizationStage } from "context";
+import { TLocalStorage } from "types/localestorage";
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [status, setStatus] = useState<TAuthorizationStage>(
-    TAuthorizationStage.UNAUTHORIZED,
-  )
+    TAuthorizationStage.UNAUTHORIZED
+  );
 
   const { data } = useQuery({
-    queryKey: ['userProfile', status],
+    queryKey: ["userProfile", status],
     queryFn: async () => {
-      const res = await private_axios.get('/me')
-      return res?.data
+      const res = await private_axios.get("/me");
+      return res?.data;
     },
     enabled: status === TAuthorizationStage.AUTHORIZED,
     cacheTime: 0,
     staleTime: 0,
     onError: (error: any) => {
-      message.error(error?.message)
+      message.error(error?.message);
     },
-  })
+  });
 
   useEffect(() => {
     if (localStorage.getItem(TLocalStorage.ACCESSTOKEN)) {
-      setStatus(TAuthorizationStage.AUTHORIZED)
+      setStatus(TAuthorizationStage.AUTHORIZED);
     }
-  }, [])
+  }, []);
 
   return (
     <AuthContext.Provider value={{ status, setStatus, data }}>
       {children}
     </AuthContext.Provider>
-  )
-}
+  );
+};
